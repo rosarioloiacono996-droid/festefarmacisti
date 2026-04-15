@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
     <meta charset="UTF-8">
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700;900&family=Space+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700;900&family=Space+Mono&display=swap"
+        rel="stylesheet">
     <style>
-        html,body {
+        html,
+        body {
             height: 100%;
             margin: 0;
             overflow: hidden;
@@ -13,15 +16,17 @@
             align-items: center;
             justify-content: center;
         }
+
         #app {
             width: 1280px;
             height: 720px;
             position: relative;
             transform-origin: center center;
-            box-shadow: 0 50px 100px rgba(0,0,0,0.5);
+            box-shadow: 0 50px 100px rgba(0, 0, 0, 0.5);
             background: #fff;
             flex-shrink: 0;
         }
+
         .slide {
             position: absolute;
             top: 0;
@@ -35,10 +40,12 @@
             color: #1A1A1A;
             overflow: hidden;
         }
+
         .slide.active {
             opacity: 1;
             visibility: visible;
         }
+
         .slide-container {
             width: 100%;
             height: 100%;
@@ -49,11 +56,12 @@
         }
 
         /* Slide 1 Specific (Cover) - SCALING ADJUSTED */
-        #slide-1 { 
-            background: #fff; 
+        #slide-1 {
+            background: #fff;
             border: none;
             font-family: 'Space Grotesk', sans-serif;
         }
+
         #slide-1 .space-bg {
             position: absolute;
             top: 0;
@@ -67,8 +75,8 @@
             filter: brightness(0.9) saturate(0.8) contrast(1.0) blur(1px);
             z-index: 1;
         }
-        
-        #slide-1 .title { 
+
+        #slide-1 .title {
             font-family: 'Space Grotesk', sans-serif;
             font-size: 80px;
             font-weight: 900;
@@ -77,8 +85,8 @@
             text-transform: uppercase;
             margin-bottom: 24px;
             color: #FFFFFF;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.5); 
-            z-index: 10; 
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            z-index: 10;
         }
 
         #slide-1 .hud-layer {
@@ -90,19 +98,31 @@
             z-index: 5;
             pointer-events: none;
         }
-        
+
         #slide-1 .hud-element {
             position: absolute;
             font-family: 'Space Mono', monospace;
             font-size: 10px;
             color: #FFFFFF;
             text-transform: uppercase;
-            opacity: 0.9;
-            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+            opacity: 1;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
         }
-        #slide-1 .hud-coord { top: 40px; right: 40px; text-align: right; }
-        #slide-1 .hud-mission { bottom: 100px; left: 60px; font-weight: 700; border-left: 3px solid #FFFFFF; padding-left: 10px; }
-        
+
+        #slide-1 .hud-coord {
+            top: 40px;
+            right: 40px;
+            text-align: right;
+        }
+
+        #slide-1 .hud-mission {
+            bottom: 100px;
+            left: 60px;
+            font-weight: 700;
+            border-left: 3px solid #FFFFFF;
+            padding-left: 10px;
+        }
+
         /* Slide Footer (Corner Branding) */
         .slide-footer {
             position: absolute;
@@ -114,9 +134,16 @@
             letter-spacing: 2px;
             color: #1A1A1A;
             font-weight: 700;
-            opacity: 0.7;
+            opacity: 1;
             z-index: 100;
             pointer-events: none;
+        }
+        #slide-1 .slide-footer {
+            color: #FFFFFF;
+        }
+
+        #slide-2 .slide-footer, #slide-3 .slide-footer, #slide-4 .slide-footer, #slide-5 .slide-footer, #slide-6 .slide-footer, #slide-7 .slide-footer, #slide-8 .slide-footer, #slide-9 .slide-footer, #slide-10 .slide-footer {
+            color: #1A1A1A;
         }
 
         #slide-1 .satellite-badge {
@@ -129,9 +156,9 @@
             padding: 5px 10px;
             font-family: 'Space Mono', monospace;
             font-size: 12px;
-            background: rgba(0,0,0,0.2);
+            background: rgba(0, 0, 0, 0.2);
             backdrop-filter: blur(5px);
-            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
         }
 
         #slide-1 .content-left {
@@ -143,12 +170,12 @@
         }
 
         /* Slide 2 Specific (Context) - TWO TIER FINAL */
-        #slide-2 { 
-            background: #F2F2F0; 
-            color: #1A1A1A; 
-            overflow: hidden; 
+        #slide-2 {
+            background: #F2F2F0;
+            color: #1A1A1A;
+            overflow: hidden;
         }
-        
+
         #slide-2 .slide-container {
             display: flex;
             flex-direction: column;
@@ -157,58 +184,151 @@
             height: 100%;
         }
 
-        #slide-2 .header-section { margin-bottom: 15px; }
+        #slide-2 .header-section {
+            margin-bottom: 15px;
+        }
 
-        /* Upper Tier (Compact Politics) */
+        #slide-2 .title-slide {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 52px;
+            font-weight: 950;
+            text-transform: uppercase;
+            color: #223693;
+            margin-top: 0;
+            margin-bottom: 5px;
+            letter-spacing: -2px;
+            line-height: 1;
+        }
+
+        /* Upper Tier (Roadmap Loading Bar) */
         #slide-2 .upper-tier {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
             padding-bottom: 15px;
             border-bottom: 2px solid #1A1A1A;
             margin-bottom: 20px;
-        }
-
-        #slide-2 .label {
-            font-family: 'Space Mono', monospace;
-            font-size: 20px;
-            text-transform: uppercase;
-            color: #000080;
-            font-weight: 800;
-            margin-bottom: 10px;
-            display: block;
-            letter-spacing: 2px;
-        }
-
-        #slide-2 .val-group {
             display: flex;
-            flex-direction: row;
-            align-items: center;
-            gap: 30px;
+            flex-direction: column;
+            gap: 10px;
         }
 
-        #slide-2 .mini-val {
-            font-size: 72px;
-            font-weight: 900;
+        #slide-2 .roadmap-years {
+            display: flex;
+            justify-content: space-between;
+            font-family: 'Space Mono', monospace;
+            font-size: 14px;
+            font-weight: 700;
+            color: #1A1A1A;
+            padding: 0 5px;
+        }
+
+        #slide-2 .progress-track {
+            height: 45px;
+            background: #E0E0E0;
+            border: 2px solid #1A1A1A;
+            position: relative;
+            display: flex;
+            border-radius: 50px;
+            overflow: hidden;
+        }
+
+        #slide-2 .progress-seg {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #1A1A1A;
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        #slide-2 .seg-today {
+            background: #D0DCEB;
+            width: 30.2%;
+            border-right: 2px solid #1A1A1A;
+            color: #1A1A1A;
+        }
+
+        #slide-2 .seg-2030 {
+            background: #4A90E2;
+            width: 24.8%;
+            border-right: 2px solid #1A1A1A;
+        }
+
+        #slide-2 .seg-2050 {
+            background: #223693;
+            width: 45%;
+        }
+
+        #slide-2 .roadmap-percs {
+            display: flex;
+            width: 100%;
+            margin-top: 5px;
+            position: relative;
+            height: 30px;
+        }
+
+        #slide-2 .perc-label {
+            position: absolute;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 28px;
+            font-weight: 950;
             line-height: 1;
-            letter-spacing: -3px;
-            margin: 0;
+            transform: translateX(-50%);
         }
 
-        #slide-2 .mini-text {
-            font-size: 20px;
-            line-height: 1.35;
-            font-weight: 400;
-            max-width: 380px;
+        #slide-2 .perc-label:first-child {
+            left: 15.1%;
         }
 
-        /* Lower Tier (Action/Strategy) */
-        #slide-2 .lower-tier {
+        /* 30.2 / 2 */
+        #slide-2 .perc-label:nth-child(2) {
+            left: 42.6%;
+        }
+
+        /* 30.2 + 24.8/2 */
+        #slide-2 .perc-label:last-child {
+            left: 77.5%;
+        }
+
+        /* 55 + 45/2 */
+
+        #slide-2 .perc-sub {
+            display: block;
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+            color: #1A1A1A;
+            text-transform: uppercase;
+            font-weight: 700;
+            margin-top: 2px;
+            text-align: center;
+        }
+
+        /* Reasons Grid (Action/Strategy) */
+        #slide-2 .reasons-invest {
             display: grid;
-            grid-template-columns: 520px 70px 1fr;
-            align-items: center;
-            gap: 15px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin: 20px 0 40px 0;
             flex-grow: 1;
+        }
+
+        #slide-2 .reason-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        #slide-2 .reason-icon {
+            width: 32px;
+            height: 32px;
+        }
+
+        #slide-2 .reason-title {
+            font-size: 24px;
+            font-weight: 900;
+            text-transform: uppercase;
         }
 
         #slide-2 table {
@@ -218,29 +338,99 @@
             font-family: 'Space Mono', monospace;
         }
 
-        #slide-2 th { 
-            padding: 10px; 
+        #slide-2 th {
+            padding: 10px;
             font-size: 18px;
-            border-bottom: 4px solid #1A1A1A; 
-            text-align: left; 
-            text-transform: uppercase; 
+            border-bottom: 4px solid #1A1A1A;
+            text-align: left;
+            text-transform: uppercase;
             color: #1A1A1A;
         }
 
-        #slide-2 td { padding: 10px; font-size: 18px; font-weight: 700; border-bottom: 1px solid #1A1A1A; }
-        #slide-2 tr.highlight-row td { background: #000080; color: #FFF; font-size: 24px; position: relative; }
+        #slide-2 td {
+            padding: 10px;
+            font-size: 18px;
+            font-weight: 700;
+            border-bottom: 1px solid #1A1A1A;
+        }
 
-        #slide-2 .arrow-con { display: flex; justify-content: center; align-items: center; }
-        #slide-2 .arrow-svg { width: 60px; height: 30px; fill: #000080; }
+        #slide-2 tr.highlight-row td {
+            background: #223693;
+            color: #1A1A1A;
+            font-size: 24px;
+            position: relative;
+        }
 
-        #slide-2 .reasons-invest { display: flex; flex-direction: column; gap: 15px; padding-left: 10px; }
-        .s4-step-num { font-family: 'Space Mono', monospace; font-size: 11px; color: #000080; font-weight: 700; text-transform: uppercase; margin-bottom: 5px; }
-        .s4-step-title { font-size: 20px; font-weight: 900; text-transform: uppercase; margin-bottom: 5px; color: #1A1A1A; }
-        .s4-step-desc { font-size: 16px; line-height: 1.4; color: #333; margin-bottom: 10px; }
-        .s4-step-detail { font-family: 'Space Mono', monospace; font-size: 11px; color: #1A1A1A; line-height: 1.5; background: #FFF; padding: 8px; border: 1px solid #1A1A1A; }
-        #slide-2 .reason-item { display: flex; flex-direction: column; }
-        #slide-2 .reason-title { font-size: 24px; font-weight: 900; text-transform: uppercase; margin-bottom: 4px; }
-        #slide-2 .reason-desc { font-size: 19px; line-height: 1.35; color: #1A1A1A; }
+        #slide-2 .arrow-con {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #slide-2 .arrow-svg {
+            width: 60px;
+            height: 30px;
+            fill: #223693;
+        }
+
+        #slide-2 .reasons-invest {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            padding-left: 10px;
+        }
+
+        .s4-step-num {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            color: #223693;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .s4-step-title {
+            font-size: 20px;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+            color: #1A1A1A;
+        }
+
+        .s4-step-desc {
+            font-size: 16px;
+            line-height: 1.4;
+            color: #1A1A1A;
+            margin-bottom: 10px;
+        }
+
+        .s4-step-detail {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            color: #1A1A1A;
+            line-height: 1.5;
+            background: #FFF;
+            padding: 8px;
+            border: 1px solid #1A1A1A;
+        }
+
+        #slide-2 .reason-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        #slide-2 .reason-title {
+            font-size: 24px;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        #slide-2 .reason-desc {
+            font-size: 19px;
+            line-height: 1.35;
+            color: #1A1A1A;
+        }
 
         #slide-2 .footer-sources {
             font-family: 'Space Mono', monospace;
@@ -253,8 +443,12 @@
         }
 
         /* Slide 3 Specific (Problem) - STATS & CHALLENGE */
-        #slide-3 { background: #F2F2F0; color: #1A1A1A; overflow: hidden; }
-        
+        #slide-3 {
+            background: #F2F2F0;
+            color: #1A1A1A;
+            overflow: hidden;
+        }
+
         #slide-3 .slide-container {
             display: flex;
             flex-direction: column;
@@ -279,7 +473,8 @@
         }
 
         #slide-3 .stat-num {
-            font-size: 54px; /* EXTREME SCALE */
+            font-size: 54px;
+            /* EXTREME SCALE */
             font-weight: 900;
             line-height: 1;
             color: #1A1A1A;
@@ -314,7 +509,11 @@
             letter-spacing: -1.5px;
         }
 
-        #slide-3 .pivot-accent { color: #000080; display: block; margin-top: 15px; }
+        #slide-3 .pivot-accent {
+            color: #223693;
+            display: block;
+            margin-top: 15px;
+        }
 
         /* Level 3: THE BRIDGE (THE CHALLENGE) */
         #slide-3 .bridge-tier {
@@ -327,7 +526,8 @@
         }
 
         #slide-3 .bridge-q-main {
-            font-size: 64px; /* MASSIVE IMPACT */
+            font-size: 64px;
+            /* MASSIVE IMPACT */
             font-weight: 900;
             color: #1A1A1A;
             text-transform: uppercase;
@@ -342,7 +542,7 @@
         #slide-3 .bridge-subtext {
             font-size: 18px;
             font-weight: 700;
-            color: #1A1A1A; 
+            color: #1A1A1A;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
@@ -357,13 +557,19 @@
 
         #slide-3 .highlight-highlight {
             color: #1A1A1A;
-            border-bottom: 4px solid #000080;
+            border-bottom: 4px solid #223693;
         }
 
         /* Slide 4 Specific (Solution - Phoenix) */
-        #slide-4, #slide-4-bis { background: #F2F2F0; color: #1A1A1A; overflow: hidden; }
+        #slide-4,
+        #slide-4-bis {
+            background: #F2F2F0;
+            color: #1A1A1A;
+            overflow: hidden;
+        }
 
-        #slide-4 .slide-container, #slide-4-bis .slide-container {
+        #slide-4 .slide-container,
+        #slide-4-bis .slide-container {
             display: flex;
             flex-direction: column;
             padding: 30px 60px 20px 60px;
@@ -371,21 +577,29 @@
             height: 100%;
         }
 
-        #slide-4 .header-section, #slide-4-bis .header-section { margin-bottom: 15px; }
+        #slide-4 .header-section,
+        #slide-4-bis .header-section {
+            margin-bottom: 15px;
+        }
 
-        #slide-4 .label, #slide-4-bis .label {
+        #slide-4 .label,
+        #slide-4-bis .label {
             font-family: 'Space Mono', monospace;
             font-size: 20px;
             text-transform: uppercase;
-            color: #000080;
+            color: #223693;
             font-weight: 800;
             display: block;
             letter-spacing: 2px;
         }
 
-        #slide-4 .slide-container, #slide-4-bis .slide-container { padding: 40px; }
+        #slide-4 .slide-container,
+        #slide-4-bis .slide-container {
+            padding: 40px;
+        }
 
-        #slide-4 .s4-body, #slide-4-bis .s4-body {
+        #slide-4 .s4-body,
+        #slide-4-bis .s4-body {
             display: flex;
             flex-direction: column;
             gap: 30px;
@@ -393,7 +607,8 @@
             justify-content: flex-start;
         }
 
-        #slide-4 .s4-pipeline, #slide-4-bis .s4-pipeline {
+        #slide-4 .s4-pipeline,
+        #slide-4-bis .s4-pipeline {
             display: flex;
             flex-direction: row;
             align-items: center;
@@ -406,14 +621,15 @@
         }
 
         /* Linea di connessione orizzontale */
-        #slide-4 .s4-pipeline::before, #slide-4-bis .s4-pipeline::before {
+        #slide-4 .s4-pipeline::before,
+        #slide-4-bis .s4-pipeline::before {
             content: "";
             position: absolute;
             top: 50%;
             left: 10%;
             right: 10%;
             height: 2px;
-            background: #000080;
+            background: #223693;
             opacity: 0.2;
             z-index: 1;
         }
@@ -423,7 +639,8 @@
             flex: 0 1 280px;
             border: 2px solid #1A1A1A;
             padding: 12px 20px;
-            border-radius: 50px; /* PILL SHAPE */
+            border-radius: 50px;
+            /* PILL SHAPE */
             display: flex;
             align-items: center;
             justify-content: flex-start;
@@ -438,7 +655,7 @@
             font-family: 'Space Mono', monospace;
             font-size: 24px;
             font-weight: 900;
-            color: #000080;
+            color: #223693;
             line-height: 1;
             flex-shrink: 0;
         }
@@ -453,14 +670,15 @@
         }
 
         .s4-arrow-icon {
-            color: #000080;
+            color: #223693;
             z-index: 2;
             background: #F2F2F0;
             padding: 0 5px;
             font-weight: 900;
         }
 
-        #slide-4 .s4-img-frame, #slide-4-bis .s4-img-frame {
+        #slide-4 .s4-img-frame,
+        #slide-4-bis .s4-img-frame {
             flex-grow: 1;
             display: flex;
             align-items: center;
@@ -469,7 +687,8 @@
             max-height: 480px;
         }
 
-        #slide-4 .s4-img-frame img, #slide-4-bis .s4-img-frame img {
+        #slide-4 .s4-img-frame img,
+        #slide-4-bis .s4-img-frame img {
             max-width: 100%;
             max-height: 100%;
             object-fit: contain;
@@ -479,7 +698,8 @@
             background: #FFF;
         }
 
-        #slide-4 .s4-img-caption, #slide-4-bis .s4-img-caption {
+        #slide-4 .s4-img-caption,
+        #slide-4-bis .s4-img-caption {
             position: absolute;
             bottom: 12px;
             right: 20px;
@@ -493,7 +713,8 @@
             border: 1px solid #1A1A1A;
         }
 
-        #slide-4 .s4-step-detail, #slide-4-bis .s4-step-detail {
+        #slide-4 .s4-step-detail,
+        #slide-4-bis .s4-step-detail {
             font-family: 'Space Mono', monospace;
             font-size: 11px;
             color: #1A1A1A;
@@ -503,7 +724,8 @@
             border: 1px solid #1A1A1A;
         }
 
-        #slide-4 .s4-footer-sources, #slide-4-bis .s4-footer-sources {
+        #slide-4 .s4-footer-sources,
+        #slide-4-bis .s4-footer-sources {
             font-family: 'Space Mono', monospace;
             font-size: 12px;
             color: #1A1A1A;
@@ -514,7 +736,12 @@
         }
 
         /* Slide 5 Specific (Balanced Benchmark Analysis) */
-        #slide-5 { background: #F2F2F0; color: #1A1A1A; overflow: hidden; }
+        #slide-5 {
+            background: #F2F2F0;
+            color: #1A1A1A;
+            overflow: hidden;
+        }
+
         #slide-5 .slide-container {
             display: flex;
             flex-direction: column;
@@ -525,7 +752,8 @@
 
         #slide-5 .s5-body {
             display: grid;
-            grid-template-columns: 1.1fr 0.9fr; /* Layout Affiancato */
+            grid-template-columns: 1.1fr 0.9fr;
+            /* Layout Affiancato */
             gap: 35px;
             flex-grow: 1;
             margin-top: 25px;
@@ -546,7 +774,8 @@
             width: 100%;
             border-collapse: separate;
             border-spacing: 4px;
-            font-size: 13px; /* Ingrandito */
+            font-size: 13px;
+            /* Ingrandito */
         }
 
         #slide-5 .s5-table th {
@@ -565,7 +794,8 @@
             text-align: center;
         }
 
-        #slide-5 .s5-table td:first-child, #slide-5 .s5-table th:first-child {
+        #slide-5 .s5-table td:first-child,
+        #slide-5 .s5-table th:first-child {
             text-align: left;
             width: 30%;
             padding-left: 10px;
@@ -582,8 +812,16 @@
             text-transform: uppercase;
             font-size: 11px;
         }
-        .status-pos { background: #EAF3DE; color: #3B6D11; }
-        .status-neg { background: #FCEBEB; color: #A32D2D; }
+
+        .status-pos {
+            background: #EAF3DE;
+            color: #3B6D11;
+        }
+
+        .status-neg {
+            background: #FCEBEB;
+            color: #A32D2D;
+        }
 
         /* Q2: Bar Chart Comparison (Immersive/Minimal) */
         .s5-chart-wrap {
@@ -626,7 +864,7 @@
             font-family: 'Space Mono', monospace;
             font-size: 8px;
             text-transform: uppercase;
-            color: #666;
+            color: #1A1A1A;
             position: absolute;
         }
 
@@ -639,7 +877,7 @@
 
         .chart-line-phoenix {
             fill: none;
-            stroke: #000080;
+            stroke: #223693;
             stroke-width: 4;
             stroke-linecap: round;
         }
@@ -650,7 +888,7 @@
             font-weight: 700;
             line-height: 1.4;
             color: #1A1A1A;
-            border-left: 4px solid #000080;
+            border-left: 4px solid #223693;
             padding-left: 15px;
             margin-top: 15px;
             max-width: 85%;
@@ -679,7 +917,11 @@
         }
 
         /* Slide 6: Business Model (Dashboard & Pricing) */
-        #slide-6 { background: #F2F2F0; color: #1A1A1A; }
+        #slide-6 {
+            background: #F2F2F0;
+            color: #1A1A1A;
+        }
+
         #slide-6 .business-container {
             display: flex;
             flex-direction: column;
@@ -713,10 +955,10 @@
             font-size: 20px;
             font-weight: 900;
             text-transform: uppercase;
-            border-bottom: 2px solid #000080;
+            border-bottom: 2px solid #223693;
             padding-bottom: 8px;
             margin-bottom: 5px;
-            color: #000080;
+            color: #223693;
         }
 
         #slide-6 .pricing-formula {
@@ -752,7 +994,7 @@
             font-family: 'Space Mono', monospace;
             font-size: 13px;
             font-weight: 850;
-            color: #000080;
+            color: #223693;
             white-space: nowrap;
         }
 
@@ -768,6 +1010,7 @@
             display: flex;
             flex-direction: column;
         }
+
         .db-header {
             background: #FFF;
             border-bottom: 2px solid #1A1A1A;
@@ -776,6 +1019,7 @@
             align-items: center;
             justify-content: space-between;
         }
+
         .db-search {
             background: #F2F2F0;
             border: 1.5px solid #1A1A1A;
@@ -785,7 +1029,13 @@
             font-weight: 700;
             width: 200px;
         }
-        .db-main { display: flex; flex-grow: 1; overflow: hidden; }
+
+        .db-main {
+            display: flex;
+            flex-grow: 1;
+            overflow: hidden;
+        }
+
         .db-map {
             flex-grow: 1;
             background: url('italy_satellite.png') center/cover;
@@ -793,6 +1043,7 @@
             opacity: 0.8;
             filter: grayscale(0.5) contrast(1.2);
         }
+
         .db-sidebar {
             width: 180px;
             border-left: 2px solid #1A1A1A;
@@ -802,16 +1053,23 @@
             flex-direction: column;
             gap: 10px;
         }
+
         .map-marker {
             position: absolute;
             width: 14px;
             height: 14px;
             border-radius: 50%;
             border: 2px solid #FFF;
-            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         }
-        .marker-red { background: #000080; }
-        .marker-green { background: #3B6D11; }
+
+        .marker-red {
+            background: #223693;
+        }
+
+        .marker-green {
+            background: #3B6D11;
+        }
 
         .db-btn {
             padding: 8px;
@@ -824,8 +1082,15 @@
             cursor: pointer;
             transition: all 0.2s;
         }
-        .db-btn-primary { background: #1A1A1A; color: #FFF; }
-        .db-btn-alt { background: #F2F2F0; }
+
+        .db-btn-primary {
+            background: #FFF;
+            color: #1A1A1A;
+        }
+
+        .db-btn-alt {
+            background: #F2F2F0;
+        }
 
         /* Pricing Cards (Horizontal) */
         .s6-pricing-grid {
@@ -834,6 +1099,7 @@
             gap: 20px;
             margin-top: 10px;
         }
+
         .price-card {
             background: #FFF;
             border: 2px solid #1A1A1A;
@@ -843,17 +1109,52 @@
             flex-direction: column;
             gap: 5px;
         }
-        .price-card.featured { border-top-color: #000080; transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0, 0, 128, 0.1); }
-        .card-label { font-family: 'Space Mono', monospace; font-size: 9px; color: #000080; font-weight: 850; text-transform: uppercase; }
-        .card-title { font-weight: 900; font-size: 16px; text-transform: uppercase; }
-        .card-val { font-size: 14px; font-family: 'Space Mono', monospace; font-weight: 700; color: #666; }
-        .card-price { font-size: 20px; font-weight: 900; margin-top: 10px; }
+
+        .price-card.featured {
+            border-top-color: #223693;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 128, 0.1);
+        }
+
+        .card-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 9px;
+            color: #223693;
+            font-weight: 850;
+            text-transform: uppercase;
+        }
+
+        .card-title {
+            font-weight: 900;
+            font-size: 16px;
+            text-transform: uppercase;
+        }
+
+        .card-val {
+            font-size: 14px;
+            font-family: 'Space Mono', monospace;
+            font-weight: 700;
+            color: #1A1A1A;
+        }
+
+        .card-price {
+            font-size: 20px;
+            font-weight: 900;
+            margin-top: 10px;
+        }
 
         /* Slide 7: Market Opportunity */
-        #slide-7 { background: #F2F2F0; color: #1A1A1A; }
-        
+        #slide-7 {
+            background: #F2F2F0;
+            color: #1A1A1A;
+        }
+
         /* Slide 8: Roadmap Strategica */
-        #slide-8 { background: #1A1A1A; color: #FFF; }
+        #slide-8 {
+            background: #FFF;
+            color: #1A1A1A;
+        }
+
         #slide-8 .roadmap-container {
             display: flex;
             flex-direction: column;
@@ -861,6 +1162,7 @@
             padding: 50px 80px;
             box-sizing: border-box;
         }
+
         #slide-8 .timeline-wrapper {
             position: relative;
             flex-grow: 1;
@@ -868,15 +1170,17 @@
             align-items: center;
             margin-top: 40px;
         }
+
         #slide-8 .timeline-line {
             position: absolute;
             left: 0;
             right: 0;
             height: 4px;
-            background: #000080;
+            background: #223693;
             top: 50%;
             transform: translateY(-50%);
         }
+
         #slide-8 .roadmap-steps {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -885,23 +1189,26 @@
             z-index: 2;
             gap: 40px;
         }
+
         #slide-8 .roadmap-step {
             background: #FFF;
             color: #1A1A1A;
             padding: 25px;
             border-radius: 12px;
             border: 2px solid #FFF;
-            box-shadow: 8px 8px 0px #000080;
+            box-shadow: 8px 8px 0px #223693;
             position: relative;
         }
+
         #slide-8 .step-year {
             font-family: 'Space Mono', monospace;
             font-size: 12px;
             font-weight: 850;
-            color: #000080;
+            color: #223693;
             margin-bottom: 10px;
             display: block;
         }
+
         #slide-8 .step-title {
             font-weight: 900;
             font-size: 20px;
@@ -909,16 +1216,18 @@
             margin-bottom: 15px;
             line-height: 1.1;
         }
+
         #slide-8 .step-desc {
             font-size: 12px;
             line-height: 1.5;
-            color: #444;
+            color: #1A1A1A;
         }
+
         #slide-8 .step-dot {
             position: absolute;
             width: 20px;
             height: 20px;
-            background: #000080;
+            background: #223693;
             border: 4px solid #FFF;
             border-radius: 50%;
             top: -45px;
@@ -927,7 +1236,11 @@
         }
 
         /* Slide 9: Team & Leadership */
-        #slide-9 { background: #F2F2F0; color: #1A1A1A; }
+        #slide-9 {
+            background: #F2F2F0;
+            color: #1A1A1A;
+        }
+
         #slide-9 .team-container {
             display: flex;
             flex-direction: column;
@@ -935,6 +1248,7 @@
             padding: 50px 80px;
             box-sizing: border-box;
         }
+
         #slide-9 .team-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -943,6 +1257,7 @@
             align-items: center;
             margin-top: 20px;
         }
+
         #slide-9 .team-card {
             background: #FFF;
             border: 2px solid #1A1A1A;
@@ -954,6 +1269,7 @@
             align-items: center;
             text-align: center;
         }
+
         #slide-9 .team-icon {
             width: 80px;
             height: 80px;
@@ -965,6 +1281,7 @@
             margin-bottom: 20px;
             border: 2px solid #1A1A1A;
         }
+
         #slide-9 .team-name {
             font-weight: 950;
             font-size: 22px;
@@ -972,24 +1289,28 @@
             margin-bottom: 5px;
             letter-spacing: -1px;
         }
+
         #slide-9 .team-role {
             font-family: 'Space Mono', monospace;
             font-size: 11px;
             font-weight: 700;
-            color: #000080;
+            color: #223693;
             margin-bottom: 20px;
             text-transform: uppercase;
         }
+
         #slide-9 .team-bio {
             font-size: 12px;
             line-height: 1.5;
-            color: #444;
+            color: #1A1A1A;
         }
+
         #slide-9 .team-social {
             margin-top: 20px;
             display: flex;
             gap: 10px;
         }
+
         #slide-9 .social-icon {
             width: 25px;
             height: 25px;
@@ -998,7 +1319,11 @@
         }
 
         /* Slide 10: Vision & CTA */
-        #slide-10 { background: #1A1A1A; color: #FFF; }
+        #slide-10 {
+            background: #FFF;
+            color: #1A1A1A;
+        }
+
         #slide-10 .vision-container {
             display: flex;
             flex-direction: column;
@@ -1008,16 +1333,28 @@
             text-align: center;
             padding: 50px;
         }
+
         #slide-10 .big-logo {
             width: 150px;
             height: 150px;
             margin-bottom: 40px;
             animation: pulse 4s infinite ease-in-out;
         }
+
         @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.8; }
-            50% { transform: scale(1.05); opacity: 1; }
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+
+            50% {
+                transform: scale(1.05);
+                opacity: 1;
+            }
         }
+
         #slide-10 .vision-statement {
             font-size: 42px;
             font-weight: 900;
@@ -1027,7 +1364,11 @@
             margin-bottom: 50px;
             letter-spacing: -2px;
         }
-        #slide-10 .vision-statement span { color: #000080; }
+
+        #slide-10 .vision-statement span {
+            color: #223693;
+        }
+
         #slide-10 .contact-box {
             display: flex;
             flex-direction: column;
@@ -1036,17 +1377,23 @@
             font-size: 16px;
             font-weight: 700;
         }
-        #slide-10 .contact-box a { color: #000080; text-decoration: none; border-bottom: 2px solid #000080; }
+
+        #slide-10 .contact-box a {
+            color: #223693;
+            text-decoration: none;
+            border-bottom: 2px solid #223693;
+        }
+
         #slide-10 .cta-btn {
             margin-top: 40px;
-            background: #000080;
-            color: #FFF;
+            background: #223693;
+            color: #1A1A1A;
             padding: 18px 40px;
             border-radius: 40px;
             font-weight: 900;
             text-transform: uppercase;
             font-size: 18px;
-            border: 2px solid #000080;
+            border: 2px solid #223693;
             box-shadow: 0 0 30px rgba(0, 0, 128, 0.4);
             cursor: pointer;
         }
@@ -1057,10 +1404,11 @@
             top: 0;
             left: 0;
             height: 4px;
-            background: #000080;
+            background: #223693;
             z-index: 1000;
             transition: width 0.5s ease;
         }
+
         .nav-controls {
             position: fixed;
             bottom: 30px;
@@ -1069,9 +1417,10 @@
             gap: 10px;
             z-index: 100;
         }
+
         .nav-btn {
-            background: #1A1A1A;
-            color: #fff;
+            background: #FFF;
+            color: #1A1A1A;
             border: none;
             padding: 12px 18px;
             font-family: 'Space Mono', monospace;
@@ -1081,6 +1430,7 @@
         }
     </style>
 </head>
+
 <body>
     <div id="app">
         <div class="progress-bar" id="progress"></div>
@@ -1090,7 +1440,7 @@
             <div class="slide-container">
                 <!-- Background Layer -->
                 <div class="space-bg"></div>
-                
+
                 <!-- HUD Layer -->
                 <div class="hud-layer">
                     <div class="hud-element hud-coord">ORBITAL DATA<br>SATELLITE: PHX-01<br>ALT: 550 KM</div>
@@ -1111,78 +1461,74 @@
         <section class="slide" id="slide-2">
             <div class="slide-container">
                 <div class="header-section">
-                    <span class="label">LA SITUAZIONE ATTUALE</span>
+                    <h1 class="title-slide">PERCHÉ ABBIAMO SCELTO GLI EDIFICI?</h1>
+                    <p style="font-family: 'Space Mono', monospace; font-size: 16px; color: #1A1A1A; margin-top: 10px; text-transform: uppercase; line-height: 1.4; letter-spacing: 0.5px; font-weight: 700; width: 100%;">
+                        Secondo un report dell'agenzia europea dell'ambiente, <span style="color: #223693; text-decoration: underline;">oltre il 30%</span> dell’impronta ambientale dell’UE proviene dagli edifici, il settore con il più alto impatto ambientale.
+                    </p>
                 </div>
 
-                <!-- UPPER TIER: POLITICA COMPATTATA -->
-                <div class="upper-tier">
-                    <div class="column">
-                        <span class="label">MANDATO UE — EPBD</span>
-                        <div class="val-group">
-                            <div class="mini-val">-55%</div>
-                            <div class="mini-text">
-                                Riduzione emissioni entro il 2030 (vs 1990). Passo fondamentale per la <strong>Neutralità Climatica entro il 2050</strong>.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="column">
-                        <span class="label">L'ITALIA OGGI (vs 1990)</span>
-                        <div class="val-group">
-                            <div class="mini-val">-30,2%</div>
-                            <div class="mini-text">Emissioni calate da 521 a 363 Mt/anno. Target 2030 (vs 2005) ambizioso: -43,7%.</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- LOWER TIER: AZIONE E STRATEGIA -->
-                <div class="lower-tier">
-                    <!-- Tabella -->
-                    <div class="table-con">
-                        <span class="label">DOVE SONO LE EMISSIONI EUROPEE</span>
-                        <table>
-                            <thead>
-                                <tr><th>Settore</th><th>% EMISSIONI</th></tr>
-                            </thead>
-                            <tbody>
-                                <tr class="highlight-row"><td>Edifici</td><td>36% *</td></tr>
-                                <tr><td>Energia</td><td>27%</td></tr>
-                                <tr><td>Trasporti</td><td>24%</td></tr>
-                                <tr><td>Industria</td><td>20%</td></tr>
-                                <tr><td>Agricoltura</td><td>10%</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <!-- Freccia Connettiva -->
-                    <div class="arrow-con">
-                        <svg class="arrow-svg" viewBox="0 0 100 20">
-                            <path d="M0,10 L90,10 M80,2 L95,10 L80,18" stroke="#000080" stroke-width="4" fill="none" stroke-linecap="round"/>
-                        </svg>
-                    </div>
-
-                    <!-- Motivi Investimento -->
-                    <div class="reasons-invest">
-                        <span class="label">PERCHÉ INVESTIRE NEGLI EDIFICI</span>
-                        
-                        <div class="reason-item">
+                <!-- MIDDLE TIER: MOTIVI INVESTIMENTO -->
+                <div class="reasons-invest">
+                    <div class="reason-item">
+                        <div class="reason-header">
+                            <img src="https://api.iconify.design/mdi:cog-refresh.svg?color=%23223693"
+                                class="reason-icon" alt="Tech">
                             <span class="reason-title">Tecnologia Maturata</span>
-                            <span class="reason-desc">La tecnologia per efficientare gli edifici esiste già oggi ed è totalmente scalabile.</span>
                         </div>
+                        <span class="reason-desc">La tecnologia per efficientare gli edifici esiste già oggi ed è
+                            totalmente scalabile.</span>
+                    </div>
 
-                        <div class="reason-item">
+                    <div class="reason-item">
+                        <div class="reason-header">
+                            <img src="https://api.iconify.design/mdi:home-city.svg?color=%23223693" class="reason-icon"
+                                alt="City">
                             <span class="reason-title">Eredità Urbana</span>
-                            <span class="reason-desc">Il 97% degli edifici che abiteremo nel 2050 esiste già oggi.</span>
                         </div>
+                        <span class="reason-desc">Il 97% degli edifici che abiteremo nel 2050 esiste già oggi.</span>
+                    </div>
 
-                        <div class="reason-item">
+                    <div class="reason-item">
+                        <div class="reason-header">
+                            <img src="https://api.iconify.design/mdi:clock-alert.svg?color=%23223693"
+                                class="reason-icon" alt="Time">
                             <span class="reason-title">Obsolescenza</span>
-                            <span class="reason-desc">In Italia il 70% degli immobili è stato costruito prima del 1980.</span>
+                        </div>
+                        <span class="reason-desc">In Italia il 70% degli immobili è stato costruito prima del
+                            1980.</span>
+                    </div>
+                </div>
+
+                <!-- BOTTOM TIER: ROADMAP CARICAMENTO (RIALZATA) -->
+                <div style="margin-top: 10px;">
+                    <div class="reason-title" style="margin-bottom: 15px; display: block; color: #1A1A1A;">RIDUZIONE EMISSIONI CO<sub>2</sub></div>
+                    <div class="upper-tier" style="margin-bottom: 30px; border: none; padding-top: 0;">
+                    <div class="roadmap-years">
+                        <span>OGGI (BASE 1990)</span>
+                        <span>TARGET 2030 (UE - FIT FOR 55)</span>
+                        <span>TARGET 2050 (NET ZERO)</span>
+                    </div>
+                    <div class="progress-track">
+                        <div class="progress-seg seg-today"></div>
+                        <div class="progress-seg seg-2030"></div>
+                        <div class="progress-seg seg-2050"></div>
+                    </div>
+                    <div class="roadmap-percs">
+                        <div class="perc-label" style="left: 15.1%;">
+                            30.2%
+                        </div>
+                        <div class="perc-label" style="left: 42.6%;">
+                            55%
+                        </div>
+                        <div class="perc-label" style="left: 77.5%;">
+                            100%
                         </div>
                     </div>
                 </div>
 
-                <div class="footer-sources">
-                    Fonti: Commissione Europea · ISPRA · Greenreport · ENEA · Eurostat 
+                <div class="footer-sources"
+                    style="margin-top: auto; border-top: 1px solid rgba(0,0,0,0.1); padding-top: 10px;">
+                    Fonti: Commissione Europea · ISPRA · Greenreport · ENEA · Eurostat
                 </div>
 
                 <div class="slide-footer">Team Phoenix | Slide 2</div>
@@ -1241,8 +1587,10 @@
             <div class="slide-container">
                 <div class="header-section">
                     <span class="label">04. LA SOLUZIONE — IL SAAS PHOENIX</span>
-                    <p style="font-family: 'Space Mono', monospace; font-size: 14px; color: #1A1A1A; margin-top: 8px; text-transform: uppercase; line-height: 1.4; letter-spacing: 0.5px; font-weight: 700;">
-                        Dati remoti, consumi e database proprietari diventano uno scoring operativo per prioritizzare audit, retrofit e campagne commerciali.
+                    <p
+                        style="font-family: 'Space Mono', monospace; font-size: 14px; color: #1A1A1A; margin-top: 8px; text-transform: uppercase; line-height: 1.4; letter-spacing: 0.5px; font-weight: 700;">
+                        Dati remoti, consumi e database proprietari diventano uno scoring operativo per prioritizzare
+                        audit, retrofit e campagne commerciali.
                     </p>
                 </div>
 
@@ -1263,8 +1611,10 @@
             <div class="slide-container">
                 <div class="header-section">
                     <span class="label">04. LA SOLUZIONE — COME FUNZIONA</span>
-                    <p style="font-family: 'Space Mono', monospace; font-size: 14px; color: #1A1A1A; margin-top: 8px; text-transform: uppercase; line-height: 1.4; letter-spacing: 0.5px; font-weight: 700;">
-                        Da Stanford allo scoring operativo: dal <strong>64,6%</strong> con dati remoti a <strong>>81,4%</strong> integrando consumi e dati proprietari.
+                    <p
+                        style="font-family: 'Space Mono', monospace; font-size: 14px; color: #1A1A1A; margin-top: 8px; text-transform: uppercase; line-height: 1.4; letter-spacing: 0.5px; font-weight: 700;">
+                        Da Stanford allo scoring operativo: dal <strong>64,6%</strong> con dati remoti a
+                        <strong>>81,4%</strong> integrando consumi e dati proprietari.
                     </p>
                 </div>
 
@@ -1306,7 +1656,9 @@
         <section class="slide" id="slide-5">
             <div class="slide-container">
                 <div class="header-section">
-                    <span class="label" style="font-family: 'Space Mono', monospace; font-size: 20px; text-transform: uppercase; color: #000080; font-weight: 800; letter-spacing: 2px; display: block;">05. ANALISI DI BENCHMARK — COMPETITIVE ADVANTAGE</span>
+                    <span class="label"
+                        style="font-family: 'Space Mono', monospace; font-size: 20px; text-transform: uppercase; color: #223693; font-weight: 800; letter-spacing: 2px; display: block;">05.
+                        ANALISI DI BENCHMARK — COMPETITIVE ADVANTAGE</span>
                 </div>
 
                 <div class="s5-body">
@@ -1356,55 +1708,69 @@
                                 </tbody>
                             </table>
                         </div>
-                        
+
                         <!-- TECHNICAL CLAIM POSITIONED WITH SPACE -->
                         <div class="s5-claim" style="margin-top: 80px;">
-                            Phoenix adotta un foundation model di nuova generazione per l'analisi delle immagini, con prestazioni di base superiori al benchmark accademico, ulteriormente affinate tramite dati di consumo reale forniti dai distributori energetici.
+                            Phoenix adotta un foundation model di nuova generazione per l'analisi delle immagini, con
+                            prestazioni di base superiori al benchmark accademico, ulteriormente affinate tramite dati
+                            di consumo reale forniti dai distributori energetici.
                         </div>
                     </div>
 
                     <!-- BLOCK 2: ACCURACY BAR CHART -->
                     <div class="s5-chart-wrap">
                         <div class="s5-bar-container">
-                            <svg width="100%" height="260" viewBox="0 0 400 295" preserveAspectRatio="xMidYMid meet" style="overflow: visible;">
+                            <svg width="100%" height="260" viewBox="0 0 400 295" preserveAspectRatio="xMidYMid meet"
+                                style="overflow: visible;">
                                 <!-- Y labels -->
-                                <text x="22" y="263" font-size="9" font-family="Space Mono" fill="#888" text-anchor="end">0</text>
-                                <text x="22" y="198" font-size="9" font-family="Space Mono" fill="#888" text-anchor="end">25</text>
-                                <text x="22" y="133" font-size="9" font-family="Space Mono" fill="#888" text-anchor="end">50</text>
-                                <text x="22" y="68" font-size="9" font-family="Space Mono" fill="#888" text-anchor="end">75</text>
-                                <text x="22" y="5" font-size="9" font-family="Space Mono" fill="#888" text-anchor="end">100</text>
+                                <text x="22" y="263" font-size="9" font-family="Space Mono" fill="#888"
+                                    text-anchor="end">0</text>
+                                <text x="22" y="198" font-size="9" font-family="Space Mono" fill="#888"
+                                    text-anchor="end">25</text>
+                                <text x="22" y="133" font-size="9" font-family="Space Mono" fill="#888"
+                                    text-anchor="end">50</text>
+                                <text x="22" y="68" font-size="9" font-family="Space Mono" fill="#888"
+                                    text-anchor="end">75</text>
+                                <text x="22" y="5" font-size="9" font-family="Space Mono" fill="#888"
+                                    text-anchor="end">100</text>
                                 <!-- Base line -->
-                                <line x1="28" y1="260" x2="380" y2="260" stroke="#CCC" stroke-width="1"/>
+                                <line x1="28" y1="260" x2="380" y2="260" stroke="#CCC" stroke-width="1" />
 
                                 <!-- === STANFORD (grigio) === -->
                                 <!-- Corpo solido 0→60 -->
-                                <rect x="70" y="104" width="90" height="156" fill="#CACACA" stroke="#999" stroke-width="1.5"/>
+                                <rect x="70" y="104" width="90" height="156" fill="#CACACA" stroke="#999"
+                                    stroke-width="1.5" />
                                 <!-- Zona range 60→83 (semitrasparente) -->
-                                <rect x="70" y="44" width="90" height="60" fill="rgba(160,160,160,0.2)"/>
+                                <rect x="70" y="44" width="90" height="60" fill="rgba(160,160,160,0.2)" />
                                 <!-- Linea tratteggiata a 60 -->
-                                <line x1="70" y1="104" x2="160" y2="104" stroke="#888" stroke-width="2" stroke-dasharray="6,4"/>
+                                <line x1="70" y1="104" x2="160" y2="104" stroke="#888" stroke-width="2"
+                                    stroke-dasharray="6,4" />
                                 <!-- Linea piena a 83 -->
-                                <line x1="70" y1="44" x2="160" y2="44" stroke="#444" stroke-width="2.5"/>
+                                <line x1="70" y1="44" x2="160" y2="44" stroke="#444" stroke-width="2.5" />
                                 <!-- Valori a destra -->
                                 <text x="164" y="108" font-size="8" fill="#888" font-family="Space Mono">~60</text>
                                 <text x="164" y="48" font-size="8" fill="#444" font-family="Space Mono">~83</text>
                                 <!-- Label barra -->
-                                <text x="115" y="285" font-size="8" text-anchor="middle" fill="#1A1A1A" font-family="Space Mono" font-weight="700">BENCHMARK STANFORD</text>
+                                <text x="115" y="285" font-size="8" text-anchor="middle" fill="#1A1A1A"
+                                    font-family="Space Mono" font-weight="700">BENCHMARK STANFORD</text>
 
                                 <!-- === PHOENIX ENGINE (verde) === -->
                                 <!-- Corpo solido 0→65 -->
-                                <rect x="240" y="91" width="90" height="169" fill="#3B7D2E" stroke="#2a5e20" stroke-width="1.5"/>
+                                <rect x="240" y="91" width="90" height="169" fill="#3B7D2E" stroke="#2a5e20"
+                                    stroke-width="1.5" />
                                 <!-- Zona range 65→90 (semitrasparente) -->
-                                <rect x="240" y="26" width="90" height="65" fill="rgba(59,125,46,0.2)"/>
+                                <rect x="240" y="26" width="90" height="65" fill="rgba(59,125,46,0.2)" />
                                 <!-- Linea tratteggiata a 65 -->
-                                <line x1="240" y1="91" x2="330" y2="91" stroke="#3B7D2E" stroke-width="2" stroke-dasharray="6,4"/>
+                                <line x1="240" y1="91" x2="330" y2="91" stroke="#3B7D2E" stroke-width="2"
+                                    stroke-dasharray="6,4" />
                                 <!-- Linea piena a 90 -->
-                                <line x1="240" y1="26" x2="330" y2="26" stroke="#1a4a12" stroke-width="2.5"/>
+                                <line x1="240" y1="26" x2="330" y2="26" stroke="#1a4a12" stroke-width="2.5" />
                                 <!-- Valori a destra -->
                                 <text x="334" y="95" font-size="8" fill="#3B7D2E" font-family="Space Mono">~65</text>
                                 <text x="334" y="30" font-size="8" fill="#1a4a12" font-family="Space Mono">~90</text>
                                 <!-- Label barra -->
-                                <text x="285" y="285" font-size="8" text-anchor="middle" fill="#1A1A1A" font-family="Space Mono" font-weight="700">PHOENIX ENGINE</text>
+                                <text x="285" y="285" font-size="8" text-anchor="middle" fill="#1A1A1A"
+                                    font-family="Space Mono" font-weight="700">PHOENIX ENGINE</text>
                             </svg>
                         </div>
                     </div>
@@ -1418,8 +1784,11 @@
         <section class="slide" id="slide-6">
             <div class="business-container">
                 <div class="header-section">
-                    <span class="label" style="font-family: 'Space Mono', monospace; font-size: 20px; text-transform: uppercase; color: #000080; font-weight: 800; letter-spacing: 2px; display: block;">06. BUSINESS MODEL — SCALABILITÀ E SOFTWARE</span>
-                    <p style="font-family: 'Space Mono', monospace; font-size: 12px; color: #1A1A1A; margin-top: 5px; text-transform: uppercase; font-weight: 700;">
+                    <span class="label"
+                        style="font-family: 'Space Mono', monospace; font-size: 20px; text-transform: uppercase; color: #223693; font-weight: 800; letter-spacing: 2px; display: block;">06.
+                        BUSINESS MODEL — SCALABILITÀ E SOFTWARE</span>
+                    <p
+                        style="font-family: 'Space Mono', monospace; font-size: 12px; color: #1A1A1A; margin-top: 5px; text-transform: uppercase; font-weight: 700;">
                         Definisci l'area e crea la lista di priorità per la tua zona
                     </p>
                 </div>
@@ -1436,11 +1805,9 @@
                             display: flex;
                             align-items: stretch;
                         ">
-                            <img 
-                                src="phoenix_dashboard.png" 
+                            <img src="phoenix_dashboard.png"
                                 alt="Phoenix Dashboard — Gestionale energetico edifici Milano"
-                                style="width: 100%; height: 100%; object-fit: cover; object-position: top left; display: block;"
-                            >
+                                style="width: 100%; height: 100%; object-fit: cover; object-position: top left; display: block;">
                         </div>
                     </div>
 
@@ -1453,11 +1820,16 @@
                                 <div class="pricing-formula">
                                     <strong>Formula:</strong> setup + numero edifici analizzati + abbonamento annuale
                                 </div>
-                                <div style="font-family: 'Space Mono', monospace; font-size: 10px; color: #666; margin-bottom: 5px; text-transform: uppercase; font-weight: 700;">Esempio Costi:</div>
+                                <div
+                                    style="font-family: 'Space Mono', monospace; font-size: 10px; color: #1A1A1A; margin-bottom: 5px; text-transform: uppercase; font-weight: 700;">
+                                    Esempio Costi:</div>
                                 <ul class="pricing-list">
                                     <li class="pricing-item"><span>Setup</span><span class="val">€20k–50k</span></li>
-                                    <li class="pricing-item"><span>Analisi per edificio<br><span style="font-size: 9px; font-family: 'Space Mono', monospace; color:#666;">(in base al volume)</span></span><span class="val">€0,30–6</span></li>
-                                    <li class="pricing-item"><span>Dashboard/refresh annuale</span><span class="val">€30k–100k/anno</span></li>
+                                    <li class="pricing-item"><span>Analisi per edificio<br><span
+                                                style="font-size: 9px; font-family: 'Space Mono', monospace; color: #1A1A1A;">(in
+                                                base al volume)</span></span><span class="val">€0,30–6</span></li>
+                                    <li class="pricing-item"><span>Dashboard/refresh annuale</span><span
+                                            class="val">€30k–100k/anno</span></li>
                                 </ul>
                             </div>
 
@@ -1465,16 +1837,20 @@
                             <div style="margin-top: 10px;">
                                 <div class="pricing-block-title">4. Pacchetti</div>
                                 <ul class="pricing-list">
-                                    <li class="pricing-item"><span>Quartiere/municipio</span><span class="val">€25k–75k</span></li>
-                                    <li class="pricing-item"><span>Area urbana media</span><span class="val">€75k–150k</span></li>
-                                    <li class="pricing-item"><span>Intera città</span><span class="val">€150k–300k+</span></li>
-                                    <li class="pricing-item"><span>Multi-città/enterprise</span><span class="val">€300k–1M+/anno</span></li>
+                                    <li class="pricing-item"><span>Quartiere/municipio</span><span
+                                            class="val">€25k–75k</span></li>
+                                    <li class="pricing-item"><span>Area urbana media</span><span
+                                            class="val">€75k–150k</span></li>
+                                    <li class="pricing-item"><span>Intera città</span><span
+                                            class="val">€150k–300k+</span></li>
+                                    <li class="pricing-item"><span>Multi-città/enterprise</span><span
+                                            class="val">€300k–1M+/anno</span></li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="slide-footer">Team Phoenix | Slide 6</div>
             </div>
         </section>
@@ -1490,16 +1866,21 @@
                         box-sizing: border-box;
                         height: 100%;
                     }
-                    #slide-7 .header-section { margin-bottom: 15px; }
+
+                    #slide-7 .header-section {
+                        margin-bottom: 15px;
+                    }
+
                     #slide-7 .label {
                         font-family: 'Space Mono', monospace;
                         font-size: 20px;
                         text-transform: uppercase;
-                        color: #000080;
+                        color: #223693;
                         font-weight: 800;
                         display: block;
                         letter-spacing: 2px;
                     }
+
                     #slide-7 .circles-wrapper {
                         display: flex;
                         justify-content: space-between;
@@ -1509,6 +1890,7 @@
                         flex-grow: 1;
                         align-items: center;
                     }
+
                     #slide-7 .market-circle {
                         width: 310px;
                         height: 310px;
@@ -1524,15 +1906,33 @@
                         padding: 20px;
                         box-sizing: border-box;
                     }
+
                     #slide-7 .featured-circle {
                         transform: scale(1.05);
                     }
-                    #slide-7 .mc-title { font-size: 26px; font-weight: 900; margin-bottom: 12px; color: #1A1A1A; }
-                    
-                    #slide-7 .mc-val { font-size: 16px; font-family: 'Space Mono', monospace; font-weight: 700; margin: 4px 0; color: #1A1A1A;}
-                    
-                    #slide-7 .mc-money { font-size: 32px; font-weight: 900; margin-top: 15px; color: #000080; }
-                    
+
+                    #slide-7 .mc-title {
+                        font-size: 26px;
+                        font-weight: 900;
+                        margin-bottom: 12px;
+                        color: #1A1A1A;
+                    }
+
+                    #slide-7 .mc-val {
+                        font-size: 16px;
+                        font-family: 'Space Mono', monospace;
+                        font-weight: 700;
+                        margin: 4px 0;
+                        color: #1A1A1A;
+                    }
+
+                    #slide-7 .mc-money {
+                        font-size: 32px;
+                        font-weight: 900;
+                        margin-top: 15px;
+                        color: #223693;
+                    }
+
                     /* Tabella Clienti Paganti */
                     #slide-7 .som-breakdown {
                         background: #FFF;
@@ -1543,6 +1943,7 @@
                         margin: 10px auto 0 auto;
                         width: max-content;
                     }
+
                     #slide-7 .som-table {
                         width: 100%;
                         border-collapse: collapse;
@@ -1551,21 +1952,26 @@
                         font-weight: 700;
                         margin-top: 10px;
                     }
+
                     #slide-7 .som-table td {
                         padding: 10px 15px;
-                        border-bottom: 2px solid rgba(26,26,26,0.1);
+                        border-bottom: 2px solid rgba(26, 26, 26, 0.1);
                     }
+
                     #slide-7 .som-table tr:last-child td {
                         border-bottom: none;
                     }
+
                     #slide-7 .som-table .val {
-                        color: #000080;
+                        color: #223693;
                         font-weight: 900;
                     }
                 </style>
 
                 <div class="header-section">
-                    <span class="label" style="font-family: 'Space Mono', monospace; font-size: 20px; text-transform: uppercase; color: #000080; font-weight: 800; letter-spacing: 2px; display: block;">07. MARKET OPPORTUNITY — IL POTENZIALE</span>
+                    <span class="label"
+                        style="font-family: 'Space Mono', monospace; font-size: 20px; text-transform: uppercase; color: #223693; font-weight: 800; letter-spacing: 2px; display: block;">07.
+                        MARKET OPPORTUNITY — IL POTENZIALE</span>
                 </div>
 
                 <div class="circles-wrapper">
@@ -1595,17 +2001,24 @@
                 </div>
 
                 <div class="som-breakdown">
-                    <div style="font-weight: 900; font-size: 16px; text-transform: uppercase; text-align: center;">Clienti Paganti Potenziali (IT)</div>
+                    <div style="font-weight: 900; font-size: 16px; text-transform: uppercase; text-align: center;">
+                        Clienti Paganti Potenziali (IT)</div>
                     <table class="som-table">
                         <tr>
-                            <td>Utility/Gas</td><td class="val">20–40</td>
-                            <td>ESCo Medio-Grandi</td><td class="val">50–100</td>
-                            <td>Multiutility</td><td class="val">30–60</td>
+                            <td>Utility/Gas</td>
+                            <td class="val">20–40</td>
+                            <td>ESCo Medio-Grandi</td>
+                            <td class="val">50–100</td>
+                            <td>Multiutility</td>
+                            <td class="val">30–60</td>
                         </tr>
                         <tr>
-                            <td>Real Estate & Asset Manager</td><td class="val">30–80</td>
-                            <td>PA, Comuni e Regioni</td><td class="val">20–50</td>
-                            <td>Banche e Assicurazioni</td><td class="val">10–30</td>
+                            <td>Real Estate & Asset Manager</td>
+                            <td class="val">30–80</td>
+                            <td>PA, Comuni e Regioni</td>
+                            <td class="val">20–50</td>
+                            <td>Banche e Assicurazioni</td>
+                            <td class="val">10–30</td>
                         </tr>
                     </table>
                 </div>
@@ -1618,25 +2031,35 @@
         <section class="slide" id="slide-8">
             <div class="slide-container">
                 <style>
-                    #slide-8 { background: #F2F2F0; color: #1A1A1A; overflow: hidden; }
+                    #slide-8 {
+                        background: #F2F2F0;
+                        color: #1A1A1A;
+                        overflow: hidden;
+                    }
+
                     #slide-8 .slide-container {
                         display: flex;
                         flex-direction: column;
-                        padding: 30px 60px 60px 60px; /* respiro maggiore in basso */
+                        padding: 30px 60px 60px 60px;
+                        /* respiro maggiore in basso */
                         box-sizing: border-box;
                         height: 100%;
                     }
-                    #slide-8 .header-section { margin-bottom: 25px; }
+
+                    #slide-8 .header-section {
+                        margin-bottom: 25px;
+                    }
+
                     #slide-8 .label {
                         font-family: 'Space Mono', monospace;
                         font-size: 20px;
                         text-transform: uppercase;
-                        color: #000080;
+                        color: #223693;
                         font-weight: 800;
                         display: block;
                         letter-spacing: 2px;
                     }
-                    
+
                     /* Roadmap Layout */
                     #slide-8 .rm-wrapper {
                         display: flex;
@@ -1647,11 +2070,11 @@
                         position: relative;
                         margin-bottom: 15px;
                     }
-                    
+
                     #slide-8 .rm-path-arrow {
                         font-family: 'Space Mono', monospace;
                         font-size: 60px;
-                        color: #000080;
+                        color: #223693;
                         font-weight: 900;
                     }
 
@@ -1666,10 +2089,11 @@
                         flex-direction: column;
                         position: relative;
                     }
-                    
+
                     #slide-8 .rm-block:nth-child(1) {
                         transform: translateY(-20px);
                     }
+
                     #slide-8 .rm-block:nth-child(3) {
                         transform: translateY(20px);
                     }
@@ -1678,14 +2102,14 @@
                         font-family: 'Space Grotesk', sans-serif;
                         font-size: 26px;
                         font-weight: 900;
-                        color: #000080;
+                        color: #223693;
                         margin-bottom: 15px;
                         text-transform: uppercase;
                         border-bottom: 2px solid #1A1A1A;
                         padding-bottom: 10px;
                         text-align: center;
                     }
-                    
+
                     #slide-8 .rm-metrics {
                         display: flex;
                         justify-content: space-between;
@@ -1698,7 +2122,7 @@
                         padding: 10px 15px;
                         border: 1px solid #1A1A1A;
                     }
-                    
+
                     #slide-8 .rm-list {
                         list-style-type: none;
                         padding: 0;
@@ -1708,15 +2132,16 @@
                         color: #1A1A1A;
                         line-height: 1.6;
                     }
+
                     #slide-8 .rm-list li::before {
                         content: '→';
-                        color: #000080;
+                        color: #223693;
                         display: inline-block;
                         width: 20px;
                         font-weight: 900;
                         vertical-align: middle;
                     }
-                    
+
                     #slide-8 .rm-footer {
                         background: #FFF;
                         color: #1A1A1A;
@@ -1731,8 +2156,9 @@
                         max-width: 750px;
                         margin: 0 auto 30px auto;
                     }
+
                     #slide-8 .rm-footer span {
-                        color: #000080;
+                        color: #223693;
                         font-family: 'Space Mono', monospace;
                     }
                 </style>
@@ -1757,7 +2183,7 @@
                             <li>Ranking priorità</li>
                         </ul>
                     </div>
-                    
+
                     <div class="rm-path-arrow">→</div>
 
                     <!-- Blocco 2 SAAS -->
@@ -1790,7 +2216,12 @@
         <section class="slide" id="slide-9">
             <div class="slide-container">
                 <style>
-                    #slide-9 { background: #F2F2F0; color: #1A1A1A; overflow: hidden; }
+                    #slide-9 {
+                        background: #F2F2F0;
+                        color: #1A1A1A;
+                        overflow: hidden;
+                    }
+
                     #slide-9 .slide-container {
                         display: flex;
                         flex-direction: column;
@@ -1798,22 +2229,28 @@
                         box-sizing: border-box;
                         height: 100%;
                     }
-                    #slide-9 .header-section { margin-bottom: 25px; }
+
+                    #slide-9 .header-section {
+                        margin-bottom: 25px;
+                    }
+
                     #slide-9 .label {
                         font-family: 'Space Mono', monospace;
                         font-size: 20px;
                         text-transform: uppercase;
-                        color: #000080;
+                        color: #223693;
                         font-weight: 800;
                         display: block;
                         letter-spacing: 2px;
                     }
+
                     #slide-9 .team-grid {
                         display: flex;
                         justify-content: center;
                         gap: 50px;
                         margin-top: 40px;
                     }
+
                     #slide-9 .team-card {
                         background: #FFF;
                         border: 3px solid #1A1A1A;
@@ -1825,6 +2262,7 @@
                         align-items: center;
                         text-align: center;
                     }
+
                     #slide-9 .team-photo {
                         width: 150px;
                         height: 150px;
@@ -1836,17 +2274,19 @@
                         align-items: center;
                         font-family: 'Space Mono', monospace;
                         font-size: 11px;
-                        color: #666;
+                        color: #1A1A1A;
                         border-radius: 50%;
                     }
+
                     #slide-9 .team-name {
                         font-family: 'Space Grotesk', sans-serif;
                         font-size: 28px;
                         font-weight: 900;
-                        color: #000080;
+                        color: #223693;
                         text-transform: uppercase;
                         margin-bottom: 10px;
                     }
+
                     #slide-9 .team-role {
                         font-family: 'Space Mono', monospace;
                         font-size: 14px;
@@ -1861,7 +2301,8 @@
 
                 <div class="header-section">
                     <span class="label">09. TEAM & LEADERSHIP — I FONDATORI</span>
-                    <h1 style="margin-top: 10px; font-size: 32px; text-transform: uppercase; color: #1A1A1A;">Competenze che si fondono</h1>
+                    <h1 style="margin-top: 10px; font-size: 32px; text-transform: uppercase; color: #1A1A1A;">Competenze
+                        che si fondono</h1>
                 </div>
 
                 <div class="team-grid">
@@ -1892,7 +2333,12 @@
         <section class="slide" id="slide-10">
             <div class="slide-container" style="align-items: center; justify-content: center; text-align: center;">
                 <style>
-                    #slide-10 { background: #F2F2F0; color: #1A1A1A; overflow: hidden; }
+                    #slide-10 {
+                        background: #F2F2F0;
+                        color: #1A1A1A;
+                        overflow: hidden;
+                    }
+
                     #slide-10 .slide-container {
                         display: flex;
                         flex-direction: column;
@@ -1900,11 +2346,13 @@
                         box-sizing: border-box;
                         height: 100%;
                     }
+
                     #slide-10 .phoenix-logo {
                         width: 120px;
                         height: 120px;
                         margin: 0 auto 30px auto;
                     }
+
                     #slide-10 .vision-statement {
                         font-family: 'Space Grotesk', sans-serif;
                         font-size: 48px;
@@ -1915,9 +2363,11 @@
                         margin-bottom: 40px;
                         max-width: 800px;
                     }
+
                     #slide-10 .vision-statement span {
-                        color: #000080;
+                        color: #223693;
                     }
+
                     #slide-10 .qr-box {
                         background: #FFF;
                         border: 3px solid #1A1A1A;
@@ -1930,12 +2380,14 @@
                         width: 400px;
                         margin: 0 auto;
                     }
+
                     #slide-10 .qr-title {
                         font-family: 'Space Mono', monospace;
                         font-size: 16px;
                         font-weight: 800;
                         color: #1A1A1A;
                     }
+
                     #slide-10 .qr-placeholder {
                         width: 150px;
                         height: 150px;
@@ -1946,12 +2398,13 @@
                         align-items: center;
                         font-family: 'Space Mono', monospace;
                         font-size: 12px;
-                        color: #666;
+                        color: #1A1A1A;
                     }
                 </style>
 
                 <div class="phoenix-logo">
-                    <img src="https://api.iconify.design/game-icons:phoenix.svg?color=%23000080" alt="Phoenix Logo" style="width: 100%; height: 100%; object-fit: contain;">
+                    <img src="https://api.iconify.design/game-icons:phoenix.svg?color=%23000080" alt="Phoenix Logo"
+                        style="width: 100%; height: 100%; object-fit: contain;">
                 </div>
 
                 <div class="vision-statement">
@@ -1963,7 +2416,8 @@
                     <div class="qr-placeholder">[ IMM. QR CODE ]</div>
                 </div>
 
-                <div class="slide-footer" style="position: absolute; bottom: 20px; right: 20px; color: #1A1A1A;">Team Phoenix | Final Slide</div>
+                <div class="slide-footer" style="position: absolute; bottom: 20px; right: 20px; color: #1A1A1A;">Team
+                    Phoenix | Final Slide</div>
             </div>
         </section>
 
@@ -1986,10 +2440,10 @@
             const screenHeight = window.innerHeight;
             const targetWidth = 1280;
             const targetHeight = 720;
-            
+
             // Calculate scale to fit viewport while maintaining 16:9
             const scale = Math.min(screenWidth / targetWidth, screenHeight / targetHeight);
-            
+
             // Apply scale and center
             app.style.transform = `scale(${scale})`;
         }
@@ -2026,4 +2480,5 @@
         resizeApp(); // Execute immediately
     </script>
 </body>
+
 </html>

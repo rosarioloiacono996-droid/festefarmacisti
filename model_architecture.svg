@@ -68,7 +68,7 @@
 
   <!-- ===== ROW 3: LST ===== -->
   <text x="2" y="203" class="lbl">LST</text>
-  <rect x="79" y="187" width="38" height="26" fill="#000080" stroke="#aaa" stroke-width="0.6"/>
+  <rect x="79" y="187" width="38" height="26" fill="#223693" stroke="#aaa" stroke-width="0.6"/>
   <line x1="117" y1="200" x2="225" y2="200" stroke="#2B4E9E" stroke-width="1.2" marker-end="url(#ah)"/>
   <text x="119" y="195" class="vsm">Mean, Variance, and Count per Footprint</text>
   <!-- (3,) vector -->
