@@ -469,7 +469,7 @@
         /* Level 1: THE STATS QUADRANT */
         #slide-3 .stats-quadrant {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             gap: 20px;
             padding-bottom: 30px;
             border-bottom: 2px solid #1A1A1A;
@@ -760,13 +760,9 @@
         }
 
         #slide-5 .s5-body {
-            display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
-            /* Layout Affiancato */
-            gap: 35px;
+            display: block;
             flex-grow: 1;
             margin-top: 25px;
-            align-items: start;
         }
 
         /* Tabella 1: Comparativa Ingrandita */
@@ -1459,7 +1455,7 @@
                 <div class="satellite-badge">SENSORS_ENABLED</div>
 
                 <div class="content-left">
-                    <h1 class="title">DAI DATI SPAZIALI,<br>SCOPRIAMO QUALI<br>EDIFICI CONSUMANO<br>TROPPO.</h1>
+                    <h1 class="title">DAI DATI SPAZIALI,<br>SCOPRIAMO QUALI<br>EDIFICI SONO<br>INEFFICIENTI</h1>
                 </div>
 
                 <div class="slide-footer">Team Phoenix | Slide 1</div>
@@ -1468,127 +1464,55 @@
 
         <!-- Slide 2: Contesto -->
         <section class="slide" id="slide-2">
-            <div class="slide-container">
-                <div class="header-section">
-                    <h1 class="title-slide">PERCHÉ ABBIAMO SCELTO GLI EDIFICI?</h1>
+            <div class="slide-container"
+                style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 60px;">
+                <div class="header-section" style="max-width: 1000px; margin-bottom: 0;">
+                    <h1 class="title-slide" style="margin-bottom: 15px;">CONTESTO: COSA MANCA?</h1>
+                    <h2
+                        style="font-family: 'Space Grotesk', sans-serif; font-size: 36px; font-weight: 800; color: #223693; text-transform: uppercase; margin-bottom: 30px; letter-spacing: -1px;">
+                        Oggi le aziende di riqualificazione non sanno da chi andare</h2>
                     <p
-                        style="font-family: 'Space Mono', monospace; font-size: 16px; color: #1A1A1A; margin-top: 10px; text-transform: uppercase; line-height: 1.4; letter-spacing: 0.5px; font-weight: 700; width: 100%;">
-                        Secondo un report dell'agenzia europea dell'ambiente, <span
-                            style="color: #223693; text-decoration: underline;">oltre il 30%</span> dell’impronta
-                        ambientale dell’UE proviene dagli edifici, il settore con il più alto impatto ambientale.
+                        style="font-family: 'Space Mono', monospace; font-size: 19px; color: #1A1A1A; text-transform: uppercase; line-height: 1.6; letter-spacing: 0.5px; font-weight: 700; width: 100%;">
+                        Il procedimento attuale consiste nel rintracciare gli edifici energivori e proporre loro
+                        eventuali soluzioni. <br><br>
+                        <span style="color: #223693; border-bottom: 3px solid #223693;">Un approccio
+                            inefficiente:</span><br>
+                        Esempio: un centro benessere consuma molta energia, ma non è detto che sia un edificio
+                        che ha bisogno di una riqualificazione.
                     </p>
                 </div>
 
-                <!-- MIDDLE TIER: MOTIVI INVESTIMENTO -->
-                <div class="reasons-invest">
-                    <div class="reason-item">
-                        <div class="reason-header">
-                            <img src="https://api.iconify.design/mdi:cog-refresh.svg?color=%23223693"
-                                class="reason-icon" alt="Tech">
-                            <span class="reason-title">Tecnologia Maturata</span>
-                        </div>
-                        <span class="reason-desc">La tecnologia per efficientare gli edifici esiste già oggi ed è
-                            totalmente scalabile.</span>
-                    </div>
-
-                    <div class="reason-item">
-                        <div class="reason-header">
-                            <img src="https://api.iconify.design/mdi:home-city.svg?color=%23223693" class="reason-icon"
-                                alt="City">
-                            <span class="reason-title">RIQUALIFICAZIONE</span>
-                        </div>
-                        <span class="reason-desc">Il 97% degli edifici che abiteremo nel 2050 esiste già oggi.</span>
-                    </div>
-
-                    <div class="reason-item">
-                        <div class="reason-header">
-                            <img src="https://api.iconify.design/mdi:clock-alert.svg?color=%23223693"
-                                class="reason-icon" alt="Time">
-                            <span class="reason-title">RISPARMIO DELLE RISORSE</span>
-                        </div>
-                        <span class="reason-desc">Edifici riqualificati consumano meno risorse per produrre la
-                            stessa quantità di energia.</span>
-                    </div>
-                </div>
-
-                <!-- BOTTOM TIER: ROADMAP CARICAMENTO (RIALZATA) -->
-                <div style="margin-top: 10px;">
-                    <div class="reason-title" style="margin-bottom: 15px; display: block; color: #1A1A1A;">RIDUZIONE
-                        EMISSIONI CO<sub>2</sub></div>
-                    <div class="upper-tier" style="margin-bottom: 30px; border: none; padding-top: 0;">
-                        <div class="roadmap-years">
-                            <span>OGGI (BASE 1990)</span>
-                            <span>TARGET 2030 (UE - FIT FOR 55)</span>
-                            <span>TARGET 2050 (NET ZERO)</span>
-                        </div>
-                        <div class="progress-track">
-                            <div class="progress-seg seg-today"></div>
-                            <div class="progress-seg seg-2030"></div>
-                            <div class="progress-seg seg-2050"></div>
-                        </div>
-                        <div class="roadmap-percs">
-                            <div class="perc-label" style="left: 15.1%;">
-                                30.2%
-                            </div>
-                            <div class="perc-label" style="left: 42.6%;">
-                                55%
-                            </div>
-                            <div class="perc-label" style="left: 77.5%;">
-                                100%
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="footer-sources"
-                        style="margin-top: auto; border-top: 1px solid rgba(0,0,0,0.1); padding-top: 10px;">
-                        Fonti: Commissione Europea · ISPRA · Greenreport · ENEA · Eurostat
-                    </div>
-
-                    <div class="slide-footer">Team Phoenix | Slide 2</div>
-                </div>
+                <div class="slide-footer">Team Phoenix | Slide 2</div>
+            </div>
         </section>
 
-        <!-- Slide 3: Il Problema -->
+        <!-- Slide 3: Cosa Serve -->
         <section class="slide" id="slide-3">
-            <div class="slide-container">
-                <div class="header-section">
-                    <span class="label">I DATI DEL SUPERBONUS</span>
-                </div>
+            <div class="slide-container"
+                style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 60px;">
+                <div class="header-section" style="max-width: 1050px; margin-bottom: 0;">
+                    <h1 class="title-slide" style="margin-bottom: 15px;">COSA SERVE?</h1>
+                    <h2
+                        style="font-family: 'Space Grotesk', sans-serif; font-size: 32px; font-weight: 800; color: #223693; text-transform: uppercase; margin-bottom: 40px; letter-spacing: -1px; line-height: 1.2;">
+                        Una mappatura che specifica quali e dove sono gli edifici su cui la riqualificazione avrebbe
+                        maggiore impatto energetico.</h2>
 
-                <!-- LEVEL 1: I DATI DEL SUPERBONUS -->
-                <div class="stats-quadrant">
-                    <div class="stat-block">
-                        <span class="stat-num">480k</span>
-                        <span class="stat-desc">Edifici raggiunti</span>
+                    <div
+                        style="background: rgba(34, 54, 147, 0.05); border: 2px solid #223693; padding: 35px; border-radius: 4px; margin-bottom: 45px; position: relative; text-align: left;">
+                        <span
+                            style="position: absolute; top: -14px; left: 20px; background: #223693; color: white; padding: 2px 12px; font-family: 'Space Mono', monospace; font-size: 12px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px;">Last
+                            but not least</span>
+                        <p
+                            style="font-family: 'Space Mono', monospace; font-size: 19px; color: #1A1A1A; text-transform: uppercase; line-height: 1.5; font-weight: 700; margin: 0;">
+                            Una riqualificazione di cui beneficiare anche a livello ambientale perchè non c'è più suolo
+                            dove costruire.
+                        </p>
                     </div>
-                    <div class="stat-block">
-                        <span class="stat-num">1 su 25</span>
-                        <span class="stat-desc">Copertura parco edilizio</span>
-                    </div>
-                    <div class="stat-block">
-                        <span class="stat-num">128 Mld €</span>
-                        <span class="stat-desc">Spesa Pubblica</span>
-                    </div>
-                    <div class="stat-block">
-                        <span class="stat-num">0,26%</span>
-                        <span class="stat-desc">Riduzione emissioni nazionali</span>
-                    </div>
-                </div>
 
-                <!-- LEVEL 2: IL FULCRO (DOMANDA STRATEGICA) -->
-                <div class="pivot-tier">
-                    <h1 class="pivot-q">
-                        Se quegli stessi 128 miliardi fossero stati indirizzati sugli edifici peggiori,
-                        <span class="pivot-accent">quante tonnellate avremmo eliminato?</span>
-                    </h1>
-                </div>
-
-                <!-- LEVEL 3: IL PONTE (IL DRAMMA) -->
-                <div class="bridge-tier">
-                    <div class="bridge-q-main">NON LO SAPPIAMO.</div>
-                    <div class="bridge-subtext">
-                        Perché non abbiamo un modo per prioritizzare tra 12 milioni di edifici.
-                    </div>
+                    <p
+                        style="font-family: 'Space Mono', monospace; font-size: 17px; color: #1A1A1A; text-transform: uppercase; line-height: 1.4; letter-spacing: 0.5px; font-weight: 800; border-top: 1px solid rgba(0,0,0,0.1); padding-top: 25px;">
+                        Secondo ENEA oltre il 90% degli edifici che abiteremo nel 2050 è già stato costruito
+                    </p>
                 </div>
 
                 <div class="slide-footer">Team Phoenix | Slide 3</div>
@@ -1631,33 +1555,11 @@
                     </p>
                 </div>
 
-                <div class="s4-body">
-                    <!-- TOP: Pipeline Steps (Artist Style) -->
-                    <div class="s4-pipeline">
-                        <div class="s4-step">
-                            <div class="s4-step-num">01</div>
-                            <div class="s4-step-title">Analisi 12M edifici senza sopralluoghi</div>
-                        </div>
-
-                        <div class="s4-arrow-icon">→</div>
-
-                        <div class="s4-step">
-                            <div class="s4-step-num">02</div>
-                            <div class="s4-step-title">DNA energetico di ogni unità</div>
-                        </div>
-
-                        <div class="s4-arrow-icon">→</div>
-
-                        <div class="s4-step">
-                            <div class="s4-step-num">03</div>
-                            <div class="s4-step-title">Priorità e piani d'action immediati</div>
-                        </div>
-                    </div>
+                <div class="s4-body" style="padding-top: 40px;">
 
                     <!-- BOTTOM: Seamless Schematic -->
                     <div class="s4-img-frame">
                         <img src="pipeline_proporzioni_corrette.svg" alt="Energy Efficiency Pipeline">
-                        <div class="s4-img-caption">Phoenix Engine — Procedura Multimodale</div>
                     </div>
                 </div>
 
@@ -1715,7 +1617,7 @@
                                         <td>Qualità Dati</td>
                                         <td><span class="status-pill status-pos">ALTA</span></td>
                                         <td><span class="status-pill status-neg">BASSA</span></td>
-                                        <td><span class="status-pill status-neg">BASSA</span></td>
+                                        <td><span class="status-pill status-pos">ALTA</span></td>
                                         <td class="col-phoenix"><span class="status-pill status-pos">ALTA</span></td>
                                     </tr>
                                 </tbody>
@@ -1730,63 +1632,6 @@
                         </div>
                     </div>
 
-                    <!-- BLOCK 2: ACCURACY BAR CHART -->
-                    <div class="s5-chart-wrap">
-                        <div class="s5-bar-container">
-                            <svg width="100%" height="260" viewBox="0 0 400 295" preserveAspectRatio="xMidYMid meet"
-                                style="overflow: visible;">
-                                <!-- Y labels -->
-                                <text x="22" y="263" font-size="9" font-family="Space Mono" fill="#888"
-                                    text-anchor="end">0</text>
-                                <text x="22" y="198" font-size="9" font-family="Space Mono" fill="#888"
-                                    text-anchor="end">25</text>
-                                <text x="22" y="133" font-size="9" font-family="Space Mono" fill="#888"
-                                    text-anchor="end">50</text>
-                                <text x="22" y="68" font-size="9" font-family="Space Mono" fill="#888"
-                                    text-anchor="end">75</text>
-                                <text x="22" y="5" font-size="9" font-family="Space Mono" fill="#888"
-                                    text-anchor="end">100</text>
-                                <!-- Base line -->
-                                <line x1="28" y1="260" x2="380" y2="260" stroke="#CCC" stroke-width="1" />
-
-                                <!-- === STANFORD (grigio) === -->
-                                <!-- Corpo solido 0→60 -->
-                                <rect x="70" y="104" width="90" height="156" fill="#CACACA" stroke="#999"
-                                    stroke-width="1.5" />
-                                <!-- Zona range 60→83 (semitrasparente) -->
-                                <rect x="70" y="44" width="90" height="60" fill="rgba(160,160,160,0.2)" />
-                                <!-- Linea tratteggiata a 60 -->
-                                <line x1="70" y1="104" x2="160" y2="104" stroke="#888" stroke-width="2"
-                                    stroke-dasharray="6,4" />
-                                <!-- Linea piena a 83 -->
-                                <line x1="70" y1="44" x2="160" y2="44" stroke="#444" stroke-width="2.5" />
-                                <!-- Valori a destra -->
-                                <text x="164" y="108" font-size="8" fill="#888" font-family="Space Mono">~60</text>
-                                <text x="164" y="48" font-size="8" fill="#444" font-family="Space Mono">~83</text>
-                                <!-- Label barra -->
-                                <text x="115" y="285" font-size="8" text-anchor="middle" fill="#1A1A1A"
-                                    font-family="Space Mono" font-weight="700">BENCHMARK STANFORD</text>
-
-                                <!-- === PHOENIX ENGINE (verde) === -->
-                                <!-- Corpo solido 0→65 -->
-                                <rect x="240" y="91" width="90" height="169" fill="#3B7D2E" stroke="#2a5e20"
-                                    stroke-width="1.5" />
-                                <!-- Zona range 65→90 (semitrasparente) -->
-                                <rect x="240" y="26" width="90" height="65" fill="rgba(59,125,46,0.2)" />
-                                <!-- Linea tratteggiata a 65 -->
-                                <line x1="240" y1="91" x2="330" y2="91" stroke="#3B7D2E" stroke-width="2"
-                                    stroke-dasharray="6,4" />
-                                <!-- Linea piena a 90 -->
-                                <line x1="240" y1="26" x2="330" y2="26" stroke="#1a4a12" stroke-width="2.5" />
-                                <!-- Valori a destra -->
-                                <text x="334" y="95" font-size="8" fill="#3B7D2E" font-family="Space Mono">~65</text>
-                                <text x="334" y="30" font-size="8" fill="#1a4a12" font-family="Space Mono">~90</text>
-                                <!-- Label barra -->
-                                <text x="285" y="285" font-size="8" text-anchor="middle" fill="#1A1A1A"
-                                    font-family="Space Mono" font-weight="700">PHOENIX ENGINE</text>
-                            </svg>
-                        </div>
-                    </div>
                 </div>
 
                 <div class="slide-footer">Team Phoenix | Slide 5</div>
@@ -2225,124 +2070,7 @@
             </div>
         </section>
 
-        <!-- Slide 9: Team & Leadership -->
-        <section class="slide" id="slide-9">
-            <div class="slide-container">
-                <style>
-                    #slide-9 {
-                        background: #F2F2F0;
-                        color: #1A1A1A;
-                        overflow: hidden;
-                    }
-
-                    #slide-9 .slide-container {
-                        display: flex;
-                        flex-direction: column;
-                        padding: 30px 60px 20px 60px;
-                        box-sizing: border-box;
-                        height: 100%;
-                    }
-
-                    #slide-9 .header-section {
-                        margin-bottom: 25px;
-                    }
-
-                    #slide-9 .label {
-                        font-family: 'Space Mono', monospace;
-                        font-size: 20px;
-                        text-transform: uppercase;
-                        color: #223693;
-                        font-weight: 800;
-                        display: block;
-                        letter-spacing: 2px;
-                    }
-
-                    #slide-9 .team-grid {
-                        display: flex;
-                        justify-content: center;
-                        gap: 50px;
-                        margin-top: 40px;
-                    }
-
-                    #slide-9 .team-card {
-                        background: #FFF;
-                        border: 3px solid #1A1A1A;
-                        box-shadow: 12px 12px 0px #1A1A1A;
-                        width: 380px;
-                        padding: 35px 25px;
-                        display: flex;
-                        flex-direction: column;
-                        align-items: center;
-                        text-align: center;
-                    }
-
-                    #slide-9 .team-photo {
-                        width: 150px;
-                        height: 150px;
-                        border: 3px solid #1A1A1A;
-                        background: #F2F2F0;
-                        margin-bottom: 25px;
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        font-family: 'Space Mono', monospace;
-                        font-size: 11px;
-                        color: #1A1A1A;
-                        border-radius: 50%;
-                    }
-
-                    #slide-9 .team-name {
-                        font-family: 'Space Grotesk', sans-serif;
-                        font-size: 28px;
-                        font-weight: 900;
-                        color: #223693;
-                        text-transform: uppercase;
-                        margin-bottom: 10px;
-                    }
-
-                    #slide-9 .team-role {
-                        font-family: 'Space Mono', monospace;
-                        font-size: 14px;
-                        font-weight: 700;
-                        color: #1A1A1A;
-                        border-top: 2px solid #1A1A1A;
-                        padding-top: 15px;
-                        margin-top: 5px;
-                        line-height: 1.4;
-                    }
-                </style>
-
-                <div class="header-section">
-                    <span class="label">09. TEAM & LEADERSHIP — I FONDATORI</span>
-                    <h1 style="margin-top: 10px; font-size: 32px; text-transform: uppercase; color: #1A1A1A;">Competenze
-                        che si fondono</h1>
-                </div>
-
-                <div class="team-grid">
-                    <!-- Member 1 -->
-                    <div class="team-card">
-                        <div class="team-photo">[ FOTO MARCO ]</div>
-                        <div class="team-name">Marco Loiacono</div>
-                        <div class="team-role">
-                            Laureando magistrale in data analysis<br>Università Cattolica
-                        </div>
-                    </div>
-
-                    <!-- Member 2 -->
-                    <div class="team-card">
-                        <div class="team-photo">[ FOTO ROSARIO ]</div>
-                        <div class="team-name">Rosario Loiacono</div>
-                        <div class="team-role">
-                            Ex-founder Zenvet<br>Background Farmacia
-                        </div>
-                    </div>
-                </div>
-
-                <div class="slide-footer">Team Phoenix | Slide 9</div>
-            </div>
-        </section>
-
-        <!-- Slide 10: Vision & Call to Action -->
+        <!-- Slide 09: Vision & Call to Action -->
         <section class="slide" id="slide-10">
             <div class="slide-container" style="align-items: center; justify-content: center; text-align: center;">
                 <style>
@@ -2416,21 +2144,33 @@
                 </style>
 
                 <div class="phoenix-logo">
-                    <img src="https://api.iconify.design/game-icons:phoenix.svg?color=%23000080" alt="Phoenix Logo"
-                        style="width: 100%; height: 100%; object-fit: contain;">
+                    <img src="LOGO.png" alt="Phoenix Logo" style="width: 150%; height: 150%; object-fit: contain;">
                 </div>
 
                 <div class="vision-statement">
                     La transizione energetica è una questione di <span>Dati</span>.
                 </div>
 
-                <div class="qr-box">
-                    <div class="qr-title">INQUADRA IL QR CODE<br>PER LA NOSTRA DEMO</div>
-                    <div class="qr-placeholder">[ IMM. QR CODE ]</div>
+                <div style="position: relative; margin: 0 auto;">
+                    <div class="qr-box">
+                        <div class="qr-title">INQUADRA IL QR CODE<br>PER LA NOSTRA DEMO</div>
+                        <div class="qr-placeholder">[ IMM. QR CODE ]</div>
+                    </div>
+
+                    <div style="position: absolute; bottom: 0; left: -360px; text-align: left; width: 400px;">
+                        <div
+                            style="font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 950; color: #223693; text-transform: uppercase; letter-spacing: -1px; margin-bottom: 5px;">
+                            MARCO LOIACONO | ROSARIO LOIACONO
+                        </div>
+                        <div
+                            style="font-family: 'Space Mono', monospace; font-size: 11px; color: #1A1A1A; font-weight: 700; line-height: 1.4; text-transform: uppercase;">
+                            DATA ANALYTICS (UCSC) | LAUREATO IN FARMACIA
+                        </div>
+                    </div>
                 </div>
 
                 <div class="slide-footer" style="position: absolute; bottom: 20px; right: 20px; color: #1A1A1A;">Team
-                    Phoenix | Final Slide</div>
+                    Phoenix | Slide 9</div>
             </div>
         </section>
 
