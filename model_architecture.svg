@@ -1,0 +1,181 @@
+<svg viewBox="0 0 700 315" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    text { font-family: Arial, Helvetica, sans-serif; fill: #1a1a1a; }
+    .lbl  { font-size: 11px; font-weight: bold; }
+    .sm   { font-size: 9px;  fill: #444; }
+    .vsm  { font-size: 8.5px; fill: #555; }
+    .caplbl { font-size: 10px; fill: #2B4E9E; font-weight: bold; text-anchor: middle; }
+    .clslbl { font-size: 10px; font-weight: bold; }
+    .outlbl { font-size: 9px; fill: #555; }
+    .caption { font-size: 10px; fill: #444; font-style: italic; text-anchor: middle; }
+  </style>
+
+  <defs>
+    <marker id="ah" markerWidth="7" markerHeight="5" refX="6.5" refY="2.5" orient="auto">
+      <polygon points="0 0, 7 2.5, 0 5" fill="#2B4E9E"/>
+    </marker>
+  </defs>
+
+  <rect width="700" height="315" fill="white"/>
+
+  <!-- ===== ROW 1: AERIAL VIEW ===== -->
+  <text x="2" y="52" class="lbl">Aerial View</text>
+  <rect x="79" y="26" width="38" height="26" fill="#8BA870" stroke="#aaa" stroke-width="0.6"/>
+  <rect x="82" y="29" width="38" height="26" fill="#8BA870" stroke="#aaa" stroke-width="0.6"/>
+  <rect x="85" y="32" width="38" height="26" fill="#9DBB7E" stroke="#aaa" stroke-width="0.6"/>
+  <line x1="123" y1="45" x2="143" y2="45" stroke="#2B4E9E" stroke-width="1.5" marker-end="url(#ah)"/>
+
+  <!-- ===== ROW 2: STREET VIEW ===== -->
+  <text x="2" y="125" class="lbl">Street View</text>
+  <rect x="79" y="99" width="38" height="26" fill="#6B8BA1" stroke="#aaa" stroke-width="0.6"/>
+  <rect x="82" y="102" width="38" height="26" fill="#6B8BA1" stroke="#aaa" stroke-width="0.6"/>
+  <rect x="85" y="105" width="38" height="26" fill="#7EA0B5" stroke="#aaa" stroke-width="0.6"/>
+  <line x1="123" y1="118" x2="143" y2="118" stroke="#2B4E9E" stroke-width="1.5" marker-end="url(#ah)"/>
+
+  <!-- ===== INCEPTION-V3 ENCODERS ===== -->
+  <!-- Aerial encoder stack -->
+  <rect x="144" y="20" width="56" height="50" rx="2" fill="#D4E3F5" stroke="#2B4E9E" stroke-width="1.4"/>
+  <rect x="147" y="24" width="56" height="50" rx="2" fill="#D4E3F5" stroke="#2B4E9E" stroke-width="1.4"/>
+  <rect x="150" y="28" width="56" height="50" rx="2" fill="#BDD0EC" stroke="#2B4E9E" stroke-width="1.4"/>
+  <!-- Street View encoder stack -->
+  <rect x="144" y="93" width="56" height="50" rx="2" fill="#D4E3F5" stroke="#2B4E9E" stroke-width="1.4"/>
+  <rect x="147" y="97" width="56" height="50" rx="2" fill="#D4E3F5" stroke="#2B4E9E" stroke-width="1.4"/>
+  <rect x="150" y="101" width="56" height="50" rx="2" fill="#BDD0EC" stroke="#2B4E9E" stroke-width="1.4"/>
+  <!-- Encoder label -->
+  <text x="178" y="78" font-size="9.5" fill="#333" text-anchor="middle">Inception-v3</text>
+  <text x="178" y="89" font-size="9.5" fill="#333" text-anchor="middle">Encoder</text>
+
+  <!-- ===== ARROWS: ENCODERS → FEATURE VECS ===== -->
+  <line x1="206" y1="53" x2="224" y2="53" stroke="#2B4E9E" stroke-width="1.4" marker-end="url(#ah)"/>
+  <line x1="206" y1="126" x2="224" y2="126" stroke="#2B4E9E" stroke-width="1.4" marker-end="url(#ah)"/>
+
+  <!-- ===== FEATURE VECTORS (2048,) ===== -->
+  <rect x="225" y="20" width="12" height="66" rx="1" fill="#D4E3F5" stroke="#2B4E9E" stroke-width="1.4"/>
+  <rect x="225" y="93" width="12" height="66" rx="1" fill="#D4E3F5" stroke="#2B4E9E" stroke-width="1.4"/>
+  <text x="240" y="57"  class="sm">(2048,)</text>
+  <text x="240" y="130" class="sm">(2048,)</text>
+
+  <!-- ===== CONCAT LABEL ===== -->
+  <text x="258" y="93" font-size="11" fill="#2B4E9E" font-weight="bold" text-anchor="middle">Concat</text>
+
+  <!-- ===== LINES: features → merge column x=261 ===== -->
+  <!-- (2048,) top → right → down to merge y=170 -->
+  <polyline points="237,53  261,53  261,170" fill="none" stroke="#2B4E9E" stroke-width="1.4"/>
+  <!-- (2048,) bottom → right -->
+  <line x1="237" y1="126" x2="261" y2="126" stroke="#2B4E9E" stroke-width="1.4"/>
+  <!-- (3,) line drawn after LST section -->
+  <!-- (1,) line drawn after OSM section -->
+
+  <!-- ===== ROW 3: LST ===== -->
+  <text x="2" y="203" class="lbl">LST</text>
+  <rect x="79" y="187" width="38" height="26" fill="#C4A060" stroke="#aaa" stroke-width="0.6"/>
+  <line x1="117" y1="200" x2="225" y2="200" stroke="#2B4E9E" stroke-width="1.2" marker-end="url(#ah)"/>
+  <text x="119" y="195" class="vsm">Mean, Variance, and Count per Footprint</text>
+  <!-- (3,) vector -->
+  <rect x="226" y="186" width="9" height="28" rx="1" fill="#D4E3F5" stroke="#2B4E9E" stroke-width="1.4"/>
+  <text x="238" y="202" class="sm">(3,)</text>
+  <!-- Line (3,) → merge -->
+  <polyline points="235,200  261,200  261,170" fill="none" stroke="#2B4E9E" stroke-width="1.4"/>
+
+  <!-- ===== ROW 4: OPENSTREETMAP ===== -->
+  <text x="2" y="267" class="lbl">OpenStreetMap</text>
+  <rect x="79" y="251" width="38" height="26" fill="#D88090" stroke="#aaa" stroke-width="0.6"/>
+  <line x1="117" y1="264" x2="225" y2="264" stroke="#2B4E9E" stroke-width="1.2" marker-end="url(#ah)"/>
+  <text x="119" y="259" class="vsm">Footprint Area</text>
+  <!-- (1,) vector -->
+  <rect x="226" y="255" width="8" height="18" rx="1" fill="#D4E3F5" stroke="#2B4E9E" stroke-width="1.4"/>
+  <text x="237" y="267" class="sm">(1,)</text>
+  <!-- Line (1,) → merge -->
+  <polyline points="234,264  261,264  261,170" fill="none" stroke="#2B4E9E" stroke-width="1.4"/>
+
+  <!-- ===== BUILDING-LEVEL FEATURE VECTOR ===== -->
+  <!-- Arrow from merge point to BFV -->
+  <line x1="261" y1="170" x2="270" y2="170" stroke="#2B4E9E" stroke-width="1.4" marker-end="url(#ah)"/>
+  <!-- BFV rectangle -->
+  <rect x="271" y="30" width="15" height="238" rx="1" fill="#D4E3F5" stroke="#2B4E9E" stroke-width="1.4"/>
+  <!-- Dots inside BFV (suggest data) -->
+  <circle cx="278.5" cy="82"  r="2.2" fill="#2B4E9E"/>
+  <circle cx="278.5" cy="94"  r="2.2" fill="#2B4E9E"/>
+  <circle cx="278.5" cy="106" r="2.2" fill="#2B4E9E"/>
+  <circle cx="278.5" cy="152" r="2.2" fill="#2B4E9E"/>
+  <circle cx="278.5" cy="164" r="2.2" fill="#2B4E9E"/>
+  <circle cx="278.5" cy="176" r="2.2" fill="#2B4E9E"/>
+  <!-- BFV label below -->
+  <text x="278.5" y="280" class="caplbl">Building-Level</text>
+  <text x="278.5" y="291" class="caplbl">Feature Vector</text>
+
+  <!-- ===== ARROWS: BFV → CLASSIFIERS ===== -->
+  <line x1="286" y1="100" x2="308" y2="100" stroke="#2B4E9E" stroke-width="1.4" marker-end="url(#ah)"/>
+  <line x1="286" y1="210" x2="308" y2="210" stroke="#2B4E9E" stroke-width="1.4" marker-end="url(#ah)"/>
+
+  <!-- ===== BINARY LINEAR CLASSIFIER ===== -->
+  <!-- 5 input nodes -->
+  <circle cx="313" cy="57"  r="5" fill="#2B4E9E"/>
+  <circle cx="313" cy="73"  r="5" fill="#2B4E9E"/>
+  <circle cx="313" cy="89"  r="5" fill="#2B4E9E"/>
+  <circle cx="313" cy="105" r="5" fill="#2B4E9E"/>
+  <circle cx="313" cy="121" r="5" fill="#2B4E9E"/>
+  <!-- Dots (more inputs implied) -->
+  <circle cx="313" cy="133" r="2" fill="#2B4E9E" opacity="0.5"/>
+  <circle cx="313" cy="141" r="2" fill="#2B4E9E" opacity="0.5"/>
+  <!-- Output node -->
+  <circle cx="502" cy="95" r="7" fill="#2B4E9E"/>
+  <!-- Fan lines -->
+  <line x1="318" y1="57"  x2="495" y2="95" stroke="#2B4E9E" stroke-width="0.7" opacity="0.35"/>
+  <line x1="318" y1="73"  x2="495" y2="95" stroke="#2B4E9E" stroke-width="0.7" opacity="0.35"/>
+  <line x1="318" y1="89"  x2="495" y2="95" stroke="#2B4E9E" stroke-width="0.7" opacity="0.35"/>
+  <line x1="318" y1="105" x2="495" y2="95" stroke="#2B4E9E" stroke-width="0.7" opacity="0.35"/>
+  <line x1="318" y1="121" x2="495" y2="95" stroke="#2B4E9E" stroke-width="0.7" opacity="0.35"/>
+  <!-- Output box + labels -->
+  <rect x="512" y="87" width="18" height="16" rx="2" fill="#fff" stroke="#2B4E9E" stroke-width="1"/>
+  <text x="535" y="99" class="clslbl">Binary Linear Classifier</text>
+  <text x="535" y="112" class="outlbl">Output: Efficiency Class</text>
+
+  <!-- ===== BINARY MLP CLASSIFIER ===== -->
+  <!-- 5 input nodes -->
+  <circle cx="313" cy="168" r="5" fill="#2B4E9E"/>
+  <circle cx="313" cy="184" r="5" fill="#2B4E9E"/>
+  <circle cx="313" cy="200" r="5" fill="#2B4E9E"/>
+  <circle cx="313" cy="216" r="5" fill="#2B4E9E"/>
+  <circle cx="313" cy="232" r="5" fill="#2B4E9E"/>
+  <circle cx="313" cy="244" r="2" fill="#2B4E9E" opacity="0.5"/>
+  <circle cx="313" cy="252" r="2" fill="#2B4E9E" opacity="0.5"/>
+  <!-- 6 hidden nodes -->
+  <circle cx="415" cy="158" r="5" fill="#2B4E9E"/>
+  <circle cx="415" cy="174" r="5" fill="#2B4E9E"/>
+  <circle cx="415" cy="190" r="5" fill="#2B4E9E"/>
+  <circle cx="415" cy="206" r="5" fill="#2B4E9E"/>
+  <circle cx="415" cy="222" r="5" fill="#2B4E9E"/>
+  <circle cx="415" cy="238" r="5" fill="#2B4E9E"/>
+  <circle cx="415" cy="254" r="5" fill="#2B4E9E"/>
+  <!-- Output node -->
+  <circle cx="502" cy="210" r="7" fill="#2B4E9E"/>
+  <!-- Fan: input → hidden -->
+  <line x1="318" y1="168" x2="410" y2="158" stroke="#2B4E9E" stroke-width="0.6" opacity="0.3"/>
+  <line x1="318" y1="168" x2="410" y2="174" stroke="#2B4E9E" stroke-width="0.6" opacity="0.3"/>
+  <line x1="318" y1="184" x2="410" y2="174" stroke="#2B4E9E" stroke-width="0.6" opacity="0.3"/>
+  <line x1="318" y1="184" x2="410" y2="190" stroke="#2B4E9E" stroke-width="0.6" opacity="0.3"/>
+  <line x1="318" y1="200" x2="410" y2="190" stroke="#2B4E9E" stroke-width="0.6" opacity="0.3"/>
+  <line x1="318" y1="200" x2="410" y2="206" stroke="#2B4E9E" stroke-width="0.6" opacity="0.3"/>
+  <line x1="318" y1="216" x2="410" y2="206" stroke="#2B4E9E" stroke-width="0.6" opacity="0.3"/>
+  <line x1="318" y1="216" x2="410" y2="222" stroke="#2B4E9E" stroke-width="0.6" opacity="0.3"/>
+  <line x1="318" y1="232" x2="410" y2="222" stroke="#2B4E9E" stroke-width="0.6" opacity="0.3"/>
+  <line x1="318" y1="232" x2="410" y2="238" stroke="#2B4E9E" stroke-width="0.6" opacity="0.3"/>
+  <line x1="318" y1="168" x2="410" y2="254" stroke="#2B4E9E" stroke-width="0.6" opacity="0.3"/>
+  <line x1="318" y1="232" x2="410" y2="254" stroke="#2B4E9E" stroke-width="0.6" opacity="0.3"/>
+  <!-- Fan: hidden → output -->
+  <line x1="420" y1="158" x2="495" y2="210" stroke="#2B4E9E" stroke-width="0.6" opacity="0.3"/>
+  <line x1="420" y1="174" x2="495" y2="210" stroke="#2B4E9E" stroke-width="0.6" opacity="0.3"/>
+  <line x1="420" y1="190" x2="495" y2="210" stroke="#2B4E9E" stroke-width="0.6" opacity="0.3"/>
+  <line x1="420" y1="206" x2="495" y2="210" stroke="#2B4E9E" stroke-width="0.6" opacity="0.3"/>
+  <line x1="420" y1="222" x2="495" y2="210" stroke="#2B4E9E" stroke-width="0.6" opacity="0.3"/>
+  <line x1="420" y1="238" x2="495" y2="210" stroke="#2B4E9E" stroke-width="0.6" opacity="0.3"/>
+  <line x1="420" y1="254" x2="495" y2="210" stroke="#2B4E9E" stroke-width="0.6" opacity="0.3"/>
+  <!-- Output box + labels -->
+  <rect x="512" y="202" width="18" height="16" rx="2" fill="#fff" stroke="#2B4E9E" stroke-width="1"/>
+  <text x="535" y="214" class="clslbl">Binary MLP Classifier</text>
+  <text x="535" y="227" class="outlbl">Output: Efficiency Class</text>
+
+  <!-- ===== CAPTION ===== -->
+  <text x="350" y="308" class="caption">Fig. 5. End-to-end deep learning approach.</text>
+</svg>
