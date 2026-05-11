@@ -589,6 +589,18 @@
 
         // --- COMPONENTS ---
 
+        const ConfirmModal = ({ message, onConfirm, onCancel }) => (
+            <div className="modal-overlay" onClick={onCancel}>
+                <div className="modal" onClick={(e) => e.stopPropagation()}>
+                    <p style={{ marginBottom: '16px', color: 'var(--text-main)', fontSize: '13px', lineHeight: '1.5' }}>{message}</p>
+                    <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end' }}>
+                        <button className="btn btn-outline" onClick={onCancel}>Annulla</button>
+                        <button className="btn" style={{ background: '#FF5252', color: 'white' }} onClick={onConfirm}>Elimina</button>
+                    </div>
+                </div>
+            </div>
+        );
+
         const InlineEdit = ({ value, onSave, type = "text", options = null }) => {
             const [isEditing, setIsEditing] = useState(false);
             const [currentValue, setCurrentValue] = useState(value);
@@ -750,6 +762,7 @@
             const [statusFilter, setStatusFilter] = useState('Tutti');
             const [sortConfig, setSortConfig] = useState({ key: 'nome', direction: 'asc' });
             const [isModalOpen, setIsModalOpen] = useState(false);
+            const [confirm, setConfirm] = useState(null);
 
             const updateFarmacia = (id, field, newValue) => {
                 const updated = farmacie.map(f => f.id === id ? { ...f, [field]: newValue } : f);
@@ -757,11 +770,13 @@
             };
 
             const deleteFarmacia = (id) => {
-                console.log("Eliminazione farmacia ID:", id);
-                if (window.confirm("Sei sicuro di voler eliminare questa farmacia?")) {
-                    const updated = farmacie.filter(f => f.id !== id);
-                    onUpdate(updated);
-                }
+                setConfirm({
+                    message: "Sei sicuro di voler eliminare questa farmacia?",
+                    onConfirm: () => {
+                        onUpdate(farmacie.filter(f => f.id !== id));
+                        setConfirm(null);
+                    }
+                });
             };
 
             const addFarmacia = (newFarmacia) => {
@@ -801,6 +816,7 @@
 
             return (
                 <div className="fade-in">
+                    {confirm && <ConfirmModal message={confirm.message} onConfirm={confirm.onConfirm} onCancel={() => setConfirm(null)} />}
                     <div style={{ display: 'flex', gap: '8px', marginBottom: '16px', background: '#111915', padding: '12px', borderRadius: '8px' }}>
                         <div style={{ flexGrow: 1 }}>
                             <label style={{ fontSize: '10px', display: 'block', marginBottom: '4px', color: 'var(--text-dim)' }}>Cerca farmacia o città</label>
@@ -949,6 +965,7 @@
         const Sede = ({ sedi, onUpdate, activeSedeId, setActiveSedeId }) => {
             const [isModalOpen, setIsModalOpen] = useState(false);
             const [simParticipants, setSimParticipants] = useState(100);
+            const [confirm, setConfirm] = useState(null);
 
             const activeSede = sedi.find(s => s.id === activeSedeId) || sedi[0];
 
@@ -971,22 +988,21 @@
             };
 
             const deleteSede = (id) => {
-                console.log("Eliminazione sede ID:", id);
-                if (sedi.length <= 1) {
-                    window.alert("Deve esserci almeno una sede presente.");
-                    return;
-                }
-                if (window.confirm("Sei sicuro di voler eliminare questa sede?")) {
-                    const updated = sedi.filter(s => s.id !== id);
-                    onUpdate(updated);
-                    if (activeSedeId === id) {
-                        setActiveSedeId(updated[0].id);
+                if (sedi.length <= 1) return;
+                setConfirm({
+                    message: "Sei sicuro di voler eliminare questa sede?",
+                    onConfirm: () => {
+                        const updated = sedi.filter(s => s.id !== id);
+                        onUpdate(updated);
+                        if (activeSedeId === id) setActiveSedeId(updated[0].id);
+                        setConfirm(null);
                     }
-                }
+                });
             };
 
             return (
                 <div className="fade-in">
+                    {confirm && <ConfirmModal message={confirm.message} onConfirm={confirm.onConfirm} onCancel={() => setConfirm(null)} />}
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
                         <div style={{ display: 'flex', gap: '8px' }}>
                             {sedi.map(s => (
@@ -1127,7 +1143,8 @@
         const Sponsors = ({ sponsors, onUpdate }) => {
             const total = sponsors.reduce((a, b) => a + (parseInt(b.importo) || 0), 0);
             const [isModalOpen, setIsModalOpen] = useState(false);
-            
+            const [confirm, setConfirm] = useState(null);
+
             const updateSponsor = (id, field, val) => {
                 const updated = sponsors.map(s => s.id === id ? { ...s, [field]: val } : s);
                 onUpdate(updated);
@@ -1139,15 +1156,18 @@
             };
 
             const deleteSponsor = (id) => {
-                console.log("Eliminazione sponsor ID:", id);
-                if (window.confirm("Sei sicuro di voler eliminare questo sponsor?")) {
-                    const updated = sponsors.filter(s => s.id !== id);
-                    onUpdate(updated);
-                }
+                setConfirm({
+                    message: "Sei sicuro di voler eliminare questo sponsor?",
+                    onConfirm: () => {
+                        onUpdate(sponsors.filter(s => s.id !== id));
+                        setConfirm(null);
+                    }
+                });
             };
 
             return (
                 <div className="fade-in">
+                    {confirm && <ConfirmModal message={confirm.message} onConfirm={confirm.onConfirm} onCancel={() => setConfirm(null)} />}
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
                         <div className="big-number" style={{ fontSize: '24px' }}>€{total} <span style={{ fontSize: '12px', color: 'var(--text-dim)' }}>totale sponsor</span></div>
                         <button className="btn btn-primary" onClick={() => setIsModalOpen(true)}>+ Nuovo Sponsor</button>
@@ -1522,9 +1542,11 @@
         const Settings = ({ url, setUrl, loadData, exportFarmacie, exportToSupabase, supabaseClient }) => {
             const [tempUrl, setTempUrl] = useState(url);
             const isConnected = !!supabaseClient;
+            const [confirm, setConfirm] = useState(null);
 
             return (
                 <div className="fade-in" style={{ maxWidth: '600px' }}>
+                    {confirm && <ConfirmModal message={confirm.message} onConfirm={confirm.onConfirm} onCancel={() => setConfirm(null)} />}
                     <div className="card">
                         <div className="card-title">Configurazione Supabase</div>
                         
@@ -1581,28 +1603,30 @@
                                 Usa questi comandi per allineare i dati tra questo computer e il cloud.
                             </p>
                             
-                            <button 
-                                className="btn btn-outline" 
+                            <button
+                                className="btn btn-outline"
                                 style={{ width: '100%', borderColor: 'var(--bright-mint)', color: 'var(--bright-mint)', marginBottom: '10px' }}
-                                onClick={async () => {
-                                    if (!isConnected) return window.alert("Collega prima Supabase.");
-                                    if (window.confirm("Vuoi inviare i dati attuali al Cloud?")) {
-                                        await exportToSupabase(false);
-                                    }
+                                onClick={() => {
+                                    if (!isConnected) return;
+                                    setConfirm({
+                                        message: "Vuoi inviare i dati attuali al Cloud?",
+                                        onConfirm: async () => { setConfirm(null); await exportToSupabase(false); }
+                                    });
                                 }}
                             >
                                 <i data-lucide="upload-cloud" style={{ width: '14px', marginRight: '6px' }}></i>
                                 Invia dati al Cloud (Sync)
                             </button>
-                            
-                            <button 
-                                className="btn btn-outline" 
+
+                            <button
+                                className="btn btn-outline"
                                 style={{ width: '100%', borderColor: '#FF5252', color: '#FF5252' }}
-                                onClick={async () => {
-                                    if (!isConnected) return window.alert("Collega prima Supabase.");
-                                    if (window.confirm("⚠️ ATTENZIONE: Questo sovrascriverà tutto il database con le 50 farmacie originali. Sei sicuro?")) {
-                                        await exportToSupabase(true);
-                                    }
+                                onClick={() => {
+                                    if (!isConnected) return;
+                                    setConfirm({
+                                        message: "⚠️ ATTENZIONE: Questo sovrascriverà tutto il database con le 50 farmacie originali. Sei sicuro?",
+                                        onConfirm: async () => { setConfirm(null); await exportToSupabase(true); }
+                                    });
                                 }}
                             >
                                 <i data-lucide="refresh-cw" style={{ width: '14px', marginRight: '6px' }}></i>
