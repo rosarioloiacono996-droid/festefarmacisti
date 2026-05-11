@@ -173,6 +173,26 @@
             background: rgba(0, 230, 118, 0.05);
         }
 
+        .btn-delete {
+            background: transparent !important;
+            border: none !important;
+            color: #FF5252 !important;
+            cursor: pointer !important;
+            padding: 8px !important;
+            border-radius: 4px;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            line-height: 1;
+        }
+
+        .btn-delete:hover {
+            background: rgba(255, 82, 82, 0.1) !important;
+            transform: scale(1.2);
+        }
+
         .compact-table td {
             padding: 4px 8px;
             border-bottom: 1px solid var(--border);
@@ -891,13 +911,13 @@
                                             </div>
                                         </td>
                                         <td><InlineEdit value={f.follow_up} type="date" onSave={(val) => updateFarmacia(f.id, 'follow_up', val)} /></td>
-                                        <td onClick={(e) => { e.stopPropagation(); e.preventDefault(); }}>
+                                        <td onClick={(e) => e.stopPropagation()}>
                                             <button 
+                                                className="btn-delete"
                                                 onClick={(e) => { e.stopPropagation(); deleteFarmacia(f.id); }} 
-                                                style={{ background: 'transparent', border: 'none', color: '#FF5252', cursor: 'pointer', padding: '4px' }}
                                                 title="Elimina"
                                             >
-                                                <i data-lucide="trash-2" style={{ width: '14px', height: '14px', pointerEvents: 'none' }}></i>
+                                                🗑️
                                             </button>
                                         </td>
                                     </tr>
@@ -1025,12 +1045,11 @@
                                     </p>
                                 </div>
                                 <button 
-                                    className="btn btn-outline" 
-                                    style={{ color: '#FF5252', borderColor: 'rgba(255, 82, 82, 0.3)' }}
+                                    className="btn btn-outline btn-delete" 
+                                    style={{ borderColor: 'rgba(255, 82, 82, 0.3)' }}
                                     onClick={(e) => { e.stopPropagation(); deleteSede(activeSede.id); }}
                                 >
-                                    <i data-lucide="trash-2" style={{ width: '14px', marginRight: '6px', pointerEvents: 'none' }}></i>
-                                    Elimina Locale
+                                    🗑️ Elimina Locale
                                 </button>
                             </div>
                             
@@ -1185,11 +1204,11 @@
                                     </td>
                                     <td>
                                         <button 
+                                            className="btn-delete"
                                             onClick={(e) => { e.stopPropagation(); deleteSponsor(s.id); }} 
-                                            style={{ background: 'transparent', border: 'none', color: '#FF5252', cursor: 'pointer', padding: '4px' }}
                                             title="Elimina"
                                         >
-                                            <i data-lucide="trash-2" style={{ width: '14px', height: '14px', pointerEvents: 'none' }}></i>
+                                            🗑️
                                         </button>
                                     </td>
                                 </tr>
