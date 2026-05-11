@@ -1222,11 +1222,16 @@
                                     {p.checklist.map((item, i) => (
                                         <li 
                                             key={i} 
-                                            className={item.completed ? 'completed' : ''}
+                                            className={item && item.completed ? 'completed' : ''}
                                             onClick={() => {
-                                                const newChecklist = [...p.checklist];
-                                                newChecklist[i].completed = !newChecklist[i].completed;
-                                                updatePhase(p.id, 'checklist', newChecklist);
+                                                try {
+                                                    const newChecklist = p.checklist.map((c, idx) => 
+                                                        idx === i ? { ...c, completed: !c.completed } : c
+                                                    );
+                                                    updatePhase(p.id, 'checklist', newChecklist);
+                                                } catch (err) {
+                                                    console.error("Errore aggiornamento checklist:", err);
+                                                }
                                             }}
                                             style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
                                         >
@@ -1235,14 +1240,15 @@
                                                 height: '12px', 
                                                 border: '1px solid var(--border)', 
                                                 borderRadius: '2px',
-                                                background: item.completed ? 'var(--bright-mint)' : 'transparent',
+                                                background: item && item.completed ? 'var(--bright-mint)' : 'transparent',
                                                 display: 'flex',
                                                 alignItems: 'center',
-                                                justifyContent: 'center'
+                                                justifyContent: 'center',
+                                                flexShrink: 0
                                             }}>
-                                                {item.completed && <i data-lucide="check" style={{ width: '10px', height: '10px', color: '#000' }}></i>}
+                                                {item && item.completed && <i data-lucide="check" style={{ width: '10px', height: '10px', color: '#000', pointerEvents: 'none' }}></i>}
                                             </div>
-                                            {item.text}
+                                            <span>{item ? item.text : ''}</span>
                                         </li>
                                     ))}
                                 </ul>
