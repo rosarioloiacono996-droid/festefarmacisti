@@ -731,7 +731,13 @@
             const [sortConfig, setSortConfig] = useState({ key: 'nome', direction: 'asc' });
             const [isModalOpen, setIsModalOpen] = useState(false);
 
+            const updateFarmacia = (id, field, newValue) => {
+                const updated = farmacie.map(f => f.id === id ? { ...f, [field]: newValue } : f);
+                onUpdate(updated);
+            };
+
             const deleteFarmacia = (id) => {
+                console.log("Eliminazione farmacia ID:", id);
                 if (window.confirm("Sei sicuro di voler eliminare questa farmacia?")) {
                     const updated = farmacie.filter(f => f.id !== id);
                     onUpdate(updated);
@@ -885,13 +891,13 @@
                                             </div>
                                         </td>
                                         <td><InlineEdit value={f.follow_up} type="date" onSave={(val) => updateFarmacia(f.id, 'follow_up', val)} /></td>
-                                        <td onClick={(e) => e.stopPropagation()}>
+                                        <td onClick={(e) => { e.stopPropagation(); e.preventDefault(); }}>
                                             <button 
-                                                onClick={() => deleteFarmacia(f.id)} 
+                                                onClick={(e) => { e.stopPropagation(); deleteFarmacia(f.id); }} 
                                                 style={{ background: 'transparent', border: 'none', color: '#FF5252', cursor: 'pointer', padding: '4px' }}
                                                 title="Elimina"
                                             >
-                                                <i data-lucide="trash-2" style={{ width: '14px', height: '14px' }}></i>
+                                                <i data-lucide="trash-2" style={{ width: '14px', height: '14px', pointerEvents: 'none' }}></i>
                                             </button>
                                         </td>
                                     </tr>
@@ -945,6 +951,7 @@
             };
 
             const deleteSede = (id) => {
+                console.log("Eliminazione sede ID:", id);
                 if (sedi.length <= 1) {
                     window.alert("Deve esserci almeno una sede presente.");
                     return;
@@ -1020,9 +1027,9 @@
                                 <button 
                                     className="btn btn-outline" 
                                     style={{ color: '#FF5252', borderColor: 'rgba(255, 82, 82, 0.3)' }}
-                                    onClick={() => deleteSede(activeSede.id)}
+                                    onClick={(e) => { e.stopPropagation(); deleteSede(activeSede.id); }}
                                 >
-                                    <i data-lucide="trash-2" style={{ width: '14px', marginRight: '6px' }}></i>
+                                    <i data-lucide="trash-2" style={{ width: '14px', marginRight: '6px', pointerEvents: 'none' }}></i>
                                     Elimina Locale
                                 </button>
                             </div>
@@ -1113,6 +1120,7 @@
             };
 
             const deleteSponsor = (id) => {
+                console.log("Eliminazione sponsor ID:", id);
                 if (window.confirm("Sei sicuro di voler eliminare questo sponsor?")) {
                     const updated = sponsors.filter(s => s.id !== id);
                     onUpdate(updated);
@@ -1177,11 +1185,11 @@
                                     </td>
                                     <td>
                                         <button 
-                                            onClick={() => deleteSponsor(s.id)} 
+                                            onClick={(e) => { e.stopPropagation(); deleteSponsor(s.id); }} 
                                             style={{ background: 'transparent', border: 'none', color: '#FF5252', cursor: 'pointer', padding: '4px' }}
                                             title="Elimina"
                                         >
-                                            <i data-lucide="trash-2" style={{ width: '14px', height: '14px' }}></i>
+                                            <i data-lucide="trash-2" style={{ width: '14px', height: '14px', pointerEvents: 'none' }}></i>
                                         </button>
                                     </td>
                                 </tr>
