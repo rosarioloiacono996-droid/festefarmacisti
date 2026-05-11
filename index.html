@@ -163,6 +163,16 @@
             font-weight: 500;
         }
 
+        .sortable-header {
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .sortable-header:hover {
+            color: var(--bright-mint) !important;
+            background: rgba(0, 230, 118, 0.05);
+        }
+
         .compact-table td {
             padding: 4px 8px;
             border-bottom: 1px solid var(--border);
@@ -424,56 +434,56 @@
 
         // --- MOCK DATA (Fallback) ---
         const INITIAL_FARMACIE = [
-            { "id": 1, "nome": "Farmacia Al Castello S.R.L.", "citta": "Pagazzano", "provincia": "BG", "referente": "Da definire", "telefono": "", "stato": "Confermato", "collaboratori_totali": 5, "farmacisti_vengono": 2, "extra_nonfarmacisti": 1, "note": "Indirizzo: VIA ROMA", "follow_up": "" },
-            { "id": 2, "nome": "Fcs Srl", "citta": "Carlazzo", "provincia": "CO", "referente": "Da definire", "telefono": "", "stato": "Interessato", "collaboratori_totali": 5, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA REGINA", "follow_up": "" },
-            { "id": 3, "nome": "Soncini", "citta": "Genivolta", "provincia": "CR", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 5, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA DELMA, 21", "follow_up": "" },
-            { "id": 4, "nome": "Volpicelli", "citta": "Bonemerse", "provincia": "CR", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 5, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA ROMA, 9", "follow_up": "" },
-            { "id": 5, "nome": "Germani", "citta": "Sordio", "provincia": "LO", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 5, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA ENRICO BERLINGUER, 6", "follow_up": "" },
-            { "id": 6, "nome": "Farris Rho Sas", "citta": "Rho", "provincia": "MI", "referente": "Da definire", "telefono": "", "stato": "Confermato", "collaboratori_totali": 5, "farmacisti_vengono": 3, "extra_nonfarmacisti": 0, "note": "Indirizzo: PIAZZALE VISCONTI, 11", "follow_up": "" },
-            { "id": 7, "nome": "Farmacia Di Remondo Di Chiesa Massimo", "citta": "Gambolo'", "provincia": "PV", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 5, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: PIAZZA EDOARDO CORSICO", "follow_up": "" },
-            { "id": 8, "nome": "Farmacia Caffi Dr. Arnaldo Di Caffi Andrea Luigi E C. Srl", "citta": "Romanengo", "provincia": "CR", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 5, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA GUAIARINI 33/1", "follow_up": "" },
-            { "id": 9, "nome": "Farm. Elseri Simonetta", "citta": "Brescia", "provincia": "BS", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 5, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA BUFFALORA", "follow_up": "" },
-            { "id": 10, "nome": "Giacherio", "citta": "Ranica", "provincia": "BG", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 5, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA GIAMBATTISTA CAMOZZI, 4", "follow_up": "" },
-            { "id": 11, "nome": "Farmacia Malinverno", "citta": "Arena Po", "provincia": "PV", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 5, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA GARIBALDI, 85", "follow_up": "" },
-            { "id": 12, "nome": "Romano'", "citta": "Seveso", "provincia": "MB", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 5, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA CACCIATORI DELLE ALPI, 23", "follow_up": "" },
-            { "id": 13, "nome": "Farmacia Crivelli Di Dott.Ssa Crivelli Brunella E C. Sas", "citta": "Cassano Magnago", "provincia": "VA", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 5, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA PIETRO NENNI", "follow_up": "" },
-            { "id": 14, "nome": "Agellum Srl", "citta": "Zelo Buon Persico", "provincia": "LO", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 5, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA XX SETTEMBRE, 31", "follow_up": "" },
-            { "id": 15, "nome": "Dr.Max Cusano Milanino Trento Trieste", "citta": "Cusano Milanino", "provincia": "MI", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 5, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: PIAZZA TRENTO E TRIESTE, 4", "follow_up": "" },
-            { "id": 16, "nome": "Asfcv.-Comunale N.1", "citta": "Vimercate", "provincia": "MB", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 5, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA DON LUALDI, 6", "follow_up": "" },
-            { "id": 17, "nome": "Farmacia Dr. Lattuada Alessandro Sas Di Morazzone", "citta": "Morazzone", "provincia": "VA", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 5, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA MAMELI, 23", "follow_up": "" },
-            { "id": 18, "nome": "Farmagora' Barlassina S.R.L.", "citta": "Barlassina", "provincia": "MB", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 5, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA LONGONI,86", "follow_up": "" },
-            { "id": 19, "nome": "Molinari Dr.Umberto Srl", "citta": "Vanzaghello", "provincia": "MI", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 5, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: PIAZZA SANT'AMBROGIO, 19", "follow_up": "" },
-            { "id": 20, "nome": "Fcs Srl - Farmacia N.1 Viale Isonzo", "citta": "Rozzano", "provincia": "MI", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 5, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIALE ISONZO, 63", "follow_up": "" },
-            { "id": 21, "nome": "Farmacia Campagner Sas", "citta": "Sulbiate", "provincia": "MB", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 5, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA DON MARIO CICERI, 30", "follow_up": "" },
-            { "id": 22, "nome": "Farmacia Minelli Del Dott. Minelli Tullio Sas", "citta": "Breno", "provincia": "BS", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 5, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA GIUSEPPE MAZZINI, 28", "follow_up": "" },
-            { "id": 23, "nome": "Hippo 4 Farma Srl", "citta": "Vittuone", "provincia": "MI", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 5, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA GIACOMO MATTEOTTI, 26", "follow_up": "" },
-            { "id": 24, "nome": "Farmacia Dr. Lidio Basaglia  Srl", "citta": "Barzano'", "provincia": "LC", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 5, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA IV NOVEMBRE, 3", "follow_up": "" },
-            { "id": 25, "nome": "Far.Com. Srl Vignate", "citta": "Vignate", "provincia": "MI", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 5, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA MONZESE, 32", "follow_up": "" },
-            { "id": 26, "nome": "Caldarini", "citta": "Milano", "provincia": "MI", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 5, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA ANTONIO GROSSICH, 15", "follow_up": "" },
-            { "id": 27, "nome": "Astoli", "citta": "Costa Masnaga", "provincia": "LC", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 5, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA NAZARIO SAURO, 12", "follow_up": "" },
-            { "id": 28, "nome": "Farmacia Cantu' Adua Di Neofarma 20 Srl", "citta": "Cantu'", "provincia": "CO", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 5, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: LARGO ADUA, 8", "follow_up": "" },
-            { "id": 29, "nome": "Farmacia Cooperativa Mantovana Societa' Cooperativa A R.L.Per Azioni", "citta": "Mantova", "provincia": "MN", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 5, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA GIUSEPPE VERDI, 58", "follow_up": "" },
-            { "id": 30, "nome": "Farm. Santi Pietro E Paolo Di Lanzani Paolo E C. Snc", "citta": "Travagliato", "provincia": "BS", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 5, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA ANDREA MAI, 45", "follow_up": "" },
-            { "id": 31, "nome": "Nobile Carugate Srl", "citta": "Carugate", "provincia": "MI", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 5, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA PRIVATA ADAMELLO, 1", "follow_up": "" },
-            { "id": 32, "nome": "Farm. Comunale Ghedi 3", "citta": "Ghedi", "provincia": "BS", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 5, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA RISORGIMENTO, 1", "follow_up": "" },
-            { "id": 33, "nome": "Centrale Dr.Ssa Zagnoli Srl", "citta": "Vimercate", "provincia": "MB", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 5, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: PIAZZA SANTO STEFANO, 9", "follow_up": "" },
-            { "id": 34, "nome": "Farmacia Antonioli S.R.L.", "citta": "Antegnate", "provincia": "BG", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 5, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA DEL COMMERCIO, 3", "follow_up": "" },
-            { "id": 35, "nome": "Farmacia Della Magana Snc Dr. Daniele Paolo E Pasquale Serafino", "citta": "Cassano Magnago", "provincia": "VA", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 5, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA GIOVANNI MAZZEL 10B", "follow_up": "" },
-            { "id": 36, "nome": "Pharmanovate Snc Di Marco Spedicati E Luciana Pennini", "citta": "Novate Milanese", "provincia": "MI", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 5, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA POLVERIERA, 29", "follow_up": "" },
-            { "id": 37, "nome": "A.F.M. N. 24", "citta": "Milano", "provincia": "MI", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 5, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA MARIO MORGANTINI, 25", "follow_up": "" },
-            { "id": 38, "nome": "Comunale N.1 Inzago", "citta": "Inzago", "provincia": "MI", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 5, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: PIAZZA QUINTINO DI VONA, 1", "follow_up": "" },
-            { "id": 39, "nome": "Farmacia San Giovanni", "citta": "Mezzana Bigli", "provincia": "PV", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 5, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA ROMA, 43", "follow_up": "" },
-            { "id": 40, "nome": "Farmacia Zucca", "citta": "Ferrera Erbognone", "provincia": "PV", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 5, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: CORSO DELLA REPUBBLICA, 17", "follow_up": "" },
-            { "id": 41, "nome": "Farm. S. Andrea Delle Dott.Sse Ardielli R. E De Veszelka C. Snc", "citta": "Rovato", "provincia": "BS", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 5, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA SANT'ANDREA, 75", "follow_up": "" },
-            { "id": 42, "nome": "Farmacia Vidari", "citta": "Vigevano", "provincia": "PV", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 5, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA XX SETTEMBRE, 20", "follow_up": "" },
-            { "id": 43, "nome": "Gestione Servizi Comunali Colere Srl", "citta": "Colere", "provincia": "BG", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 5, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA TORTOLA 31/A", "follow_up": "" },
-            { "id": 44, "nome": "Farmacia Val Masino Di Valsal Snc", "citta": "Val Masino", "provincia": "SO", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 5, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA ROMA, 2", "follow_up": "" },
-            { "id": 45, "nome": "Farmacia Del Seprio S.R.L.", "citta": "Castelseprio", "provincia": "VA", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 5, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA CAVOUR", "follow_up": "" },
-            { "id": 46, "nome": "Vercesi  Sas & C.", "citta": "Milano", "provincia": "MI", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 5, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA 5 MAGGIO, 1", "follow_up": "" },
-            { "id": 47, "nome": "Legnano Snc", "citta": "Legnano", "provincia": "MI", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 5, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA CANAZZA, 8", "follow_up": "" },
-            { "id": 48, "nome": "Imbriani Srl", "citta": "Milano", "provincia": "MI", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 5, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA DEGLI IMBRIANI, 35", "follow_up": "" },
-            { "id": 49, "nome": "Testi Sas Del Dr. Testi Stefano & C.", "citta": "Cormano", "provincia": "MI", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 5, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA XXIV MAGGIO", "follow_up": "" },
-            { "id": 50, "nome": "Farmacia Orlandi Dott.Ssa Monica", "citta": "Asola", "provincia": "MN", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 5, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA PER CASALOLDO, 29", "follow_up": "" }
+            { "id": 1, "nome": "Farmacia Al Castello S.R.L.", "citta": "Pagazzano", "provincia": "BG", "referente": "Da definire", "telefono": "", "stato": "Confermato", "collaboratori_totali": 0, "farmacisti_vengono": 2, "extra_nonfarmacisti": 1, "note": "Indirizzo: VIA ROMA", "follow_up": "" },
+            { "id": 2, "nome": "Fcs Srl", "citta": "Carlazzo", "provincia": "CO", "referente": "Da definire", "telefono": "", "stato": "Interessato", "collaboratori_totali": 0, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA REGINA", "follow_up": "" },
+            { "id": 3, "nome": "Soncini", "citta": "Genivolta", "provincia": "CR", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 0, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA DELMA, 21", "follow_up": "" },
+            { "id": 4, "nome": "Volpicelli", "citta": "Bonemerse", "provincia": "CR", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 0, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA ROMA, 9", "follow_up": "" },
+            { "id": 5, "nome": "Germani", "citta": "Sordio", "provincia": "LO", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 0, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA ENRICO BERLINGUER, 6", "follow_up": "" },
+            { "id": 6, "nome": "Farris Rho Sas", "citta": "Rho", "provincia": "MI", "referente": "Da definire", "telefono": "", "stato": "Confermato", "collaboratori_totali": 0, "farmacisti_vengono": 3, "extra_nonfarmacisti": 0, "note": "Indirizzo: PIAZZALE VISCONTI, 11", "follow_up": "" },
+            { "id": 7, "nome": "Farmacia Di Remondo Di Chiesa Massimo", "citta": "Gambolo'", "provincia": "PV", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 0, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: PIAZZA EDOARDO CORSICO", "follow_up": "" },
+            { "id": 8, "nome": "Farmacia Caffi Dr. Arnaldo Di Caffi Andrea Luigi E C. Srl", "citta": "Romanengo", "provincia": "CR", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 0, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA GUAIARINI 33/1", "follow_up": "" },
+            { "id": 9, "nome": "Farm. Elseri Simonetta", "citta": "Brescia", "provincia": "BS", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 0, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA BUFFALORA", "follow_up": "" },
+            { "id": 10, "nome": "Giacherio", "citta": "Ranica", "provincia": "BG", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 0, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA GIAMBATTISTA CAMOZZI, 4", "follow_up": "" },
+            { "id": 11, "nome": "Farmacia Malinverno", "citta": "Arena Po", "provincia": "PV", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 0, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA GARIBALDI, 85", "follow_up": "" },
+            { "id": 12, "nome": "Romano'", "citta": "Seveso", "provincia": "MB", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 0, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA CACCIATORI DELLE ALPI, 23", "follow_up": "" },
+            { "id": 13, "nome": "Farmacia Crivelli Di Dott.Ssa Crivelli Brunella E C. Sas", "citta": "Cassano Magnago", "provincia": "VA", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 0, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA PIETRO NENNI", "follow_up": "" },
+            { "id": 14, "nome": "Agellum Srl", "citta": "Zelo Buon Persico", "provincia": "LO", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 0, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA XX SETTEMBRE, 31", "follow_up": "" },
+            { "id": 15, "nome": "Dr.Max Cusano Milanino Trento Trieste", "citta": "Cusano Milanino", "provincia": "MI", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 0, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: PIAZZA TRENTO E TRIESTE, 4", "follow_up": "" },
+            { "id": 16, "nome": "Asfcv.-Comunale N.1", "citta": "Vimercate", "provincia": "MB", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 0, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA DON LUALDI, 6", "follow_up": "" },
+            { "id": 17, "nome": "Farmacia Dr. Lattuada Alessandro Sas Di Morazzone", "citta": "Morazzone", "provincia": "VA", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 0, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA MAMELI, 23", "follow_up": "" },
+            { "id": 18, "nome": "Farmagora' Barlassina S.R.L.", "citta": "Barlassina", "provincia": "MB", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 0, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA LONGONI,86", "follow_up": "" },
+            { "id": 19, "nome": "Molinari Dr.Umberto Srl", "citta": "Vanzaghello", "provincia": "MI", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 0, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: PIAZZA SANT'AMBROGIO, 19", "follow_up": "" },
+            { "id": 20, "nome": "Fcs Srl - Farmacia N.1 Viale Isonzo", "citta": "Rozzano", "provincia": "MI", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 0, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIALE ISONZO, 63", "follow_up": "" },
+            { "id": 21, "nome": "Farmacia Campagner Sas", "citta": "Sulbiate", "provincia": "MB", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 0, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA DON MARIO CICERI, 30", "follow_up": "" },
+            { "id": 22, "nome": "Farmacia Minelli Del Dott. Minelli Tullio Sas", "citta": "Breno", "provincia": "BS", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 0, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA GIUSEPPE MAZZINI, 28", "follow_up": "" },
+            { "id": 23, "nome": "Hippo 4 Farma Srl", "citta": "Vittuone", "provincia": "MI", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 0, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA GIACOMO MATTEOTTI, 26", "follow_up": "" },
+            { "id": 24, "nome": "Farmacia Dr. Lidio Basaglia  Srl", "citta": "Barzano'", "provincia": "LC", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 0, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA IV NOVEMBRE, 3", "follow_up": "" },
+            { "id": 25, "nome": "Far.Com. Srl Vignate", "citta": "Vignate", "provincia": "MI", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 0, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA MONZESE, 32", "follow_up": "" },
+            { "id": 26, "nome": "Caldarini", "citta": "Milano", "provincia": "MI", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 0, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA ANTONIO GROSSICH, 15", "follow_up": "" },
+            { "id": 27, "nome": "Astoli", "citta": "Costa Masnaga", "provincia": "LC", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 0, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA NAZARIO SAURO, 12", "follow_up": "" },
+            { "id": 28, "nome": "Farmacia Cantu' Adua Di Neofarma 20 Srl", "citta": "Cantu'", "provincia": "CO", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 0, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: LARGO ADUA, 8", "follow_up": "" },
+            { "id": 29, "nome": "Farmacia Cooperativa Mantovana Societa' Cooperativa A R.L.Per Azioni", "citta": "Mantova", "provincia": "MN", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 0, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA GIUSEPPE VERDI, 58", "follow_up": "" },
+            { "id": 30, "nome": "Farm. Santi Pietro E Paolo Di Lanzani Paolo E C. Snc", "citta": "Travagliato", "provincia": "BS", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 0, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA ANDREA MAI, 45", "follow_up": "" },
+            { "id": 31, "nome": "Nobile Carugate Srl", "citta": "Carugate", "provincia": "MI", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 0, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA PRIVATA ADAMELLO, 1", "follow_up": "" },
+            { "id": 32, "nome": "Farm. Comunale Ghedi 3", "citta": "Ghedi", "provincia": "BS", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 0, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA RISORGIMENTO, 1", "follow_up": "" },
+            { "id": 33, "nome": "Centrale Dr.Ssa Zagnoli Srl", "citta": "Vimercate", "provincia": "MB", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 0, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: PIAZZA SANTO STEFANO, 9", "follow_up": "" },
+            { "id": 34, "nome": "Farmacia Antonioli S.R.L.", "citta": "Antegnate", "provincia": "BG", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 0, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA DEL COMMERCIO, 3", "follow_up": "" },
+            { "id": 35, "nome": "Farmacia Della Magana Snc Dr. Daniele Paolo E Pasquale Serafino", "citta": "Cassano Magnago", "provincia": "VA", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 0, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA GIOVANNI MAZZEL 10B", "follow_up": "" },
+            { "id": 36, "nome": "Pharmanovate Snc Di Marco Spedicati E Luciana Pennini", "citta": "Novate Milanese", "provincia": "MI", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 0, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA POLVERIERA, 29", "follow_up": "" },
+            { "id": 37, "nome": "A.F.M. N. 24", "citta": "Milano", "provincia": "MI", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 0, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA MARIO MORGANTINI, 25", "follow_up": "" },
+            { "id": 38, "nome": "Comunale N.1 Inzago", "citta": "Inzago", "provincia": "MI", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 0, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: PIAZZA QUINTINO DI VONA, 1", "follow_up": "" },
+            { "id": 39, "nome": "Farmacia San Giovanni", "citta": "Mezzana Bigli", "provincia": "PV", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 0, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA ROMA, 43", "follow_up": "" },
+            { "id": 40, "nome": "Farmacia Zucca", "citta": "Ferrera Erbognone", "provincia": "PV", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 0, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: CORSO DELLA REPUBBLICA, 17", "follow_up": "" },
+            { "id": 41, "nome": "Farm. S. Andrea Delle Dott.Sse Ardielli R. E De Veszelka C. Snc", "citta": "Rovato", "provincia": "BS", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 0, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA SANT'ANDREA, 75", "follow_up": "" },
+            { "id": 42, "nome": "Farmacia Vidari", "citta": "Vigevano", "provincia": "PV", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 0, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA XX SETTEMBRE, 20", "follow_up": "" },
+            { "id": 43, "nome": "Gestione Servizi Comunali Colere Srl", "citta": "Colere", "provincia": "BG", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 0, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA TORTOLA 31/A", "follow_up": "" },
+            { "id": 44, "nome": "Farmacia Val Masino Di Valsal Snc", "citta": "Val Masino", "provincia": "SO", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 0, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA ROMA, 2", "follow_up": "" },
+            { "id": 45, "nome": "Farmacia Del Seprio S.R.L.", "citta": "Castelseprio", "provincia": "VA", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 0, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA CAVOUR", "follow_up": "" },
+            { "id": 46, "nome": "Vercesi  Sas & C.", "citta": "Milano", "provincia": "MI", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 0, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA 5 MAGGIO, 1", "follow_up": "" },
+            { "id": 47, "nome": "Legnano Snc", "citta": "Legnano", "provincia": "MI", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 0, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA CANAZZA, 8", "follow_up": "" },
+            { "id": 48, "nome": "Imbriani Srl", "citta": "Milano", "provincia": "MI", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 0, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA DEGLI IMBRIANI, 35", "follow_up": "" },
+            { "id": 49, "nome": "Testi Sas Del Dr. Testi Stefano & C.", "citta": "Cormano", "provincia": "MI", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 0, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA XXIV MAGGIO", "follow_up": "" },
+            { "id": 50, "nome": "Farmacia Orlandi Dott.Ssa Monica", "citta": "Asola", "provincia": "MN", "referente": "Da definire", "telefono": "", "stato": "Da contattare", "collaboratori_totali": 0, "farmacisti_vengono": 0, "extra_nonfarmacisti": 0, "note": "Indirizzo: VIA PER CASALOLDO, 29", "follow_up": "" }
         ];
 
         const INITIAL_SEDI = [
@@ -718,11 +728,14 @@
             const [expandedId, setExpandedId] = useState(null);
             const [filter, setFilter] = useState('');
             const [statusFilter, setStatusFilter] = useState('Tutti');
+            const [sortConfig, setSortConfig] = useState({ key: 'nome', direction: 'asc' });
             const [isModalOpen, setIsModalOpen] = useState(false);
 
-            const updateFarmacia = (id, field, newValue) => {
-                const updated = farmacie.map(f => f.id === id ? { ...f, [field]: newValue } : f);
-                onUpdate(updated);
+            const deleteFarmacia = (id) => {
+                if (window.confirm("Sei sicuro di voler eliminare questa farmacia?")) {
+                    const updated = farmacie.filter(f => f.id !== id);
+                    onUpdate(updated);
+                }
             };
 
             const addFarmacia = (newFarmacia) => {
@@ -730,35 +743,67 @@
                 setIsModalOpen(false);
             };
 
-            const filtered = farmacie.filter(f => {
-                const matchesText = f.nome.toLowerCase().includes(filter.toLowerCase()) || 
-                                  f.citta.toLowerCase().includes(filter.toLowerCase());
-                const matchesStatus = statusFilter === 'Tutti' || f.stato === statusFilter;
-                return matchesText && matchesStatus;
-            });
+            const requestSort = (key) => {
+                let direction = 'asc';
+                if (sortConfig.key === key && sortConfig.direction === 'asc') {
+                    direction = 'desc';
+                }
+                setSortConfig({ key, direction });
+            };
+
+            const filteredAndSorted = farmacie
+                .filter(f => {
+                    const matchesText = (f.nome + f.citta + (f.provincia || '')).toLowerCase().includes(filter.toLowerCase());
+                    const matchesStatus = statusFilter === 'Tutti' || f.stato === statusFilter;
+                    return matchesText && matchesStatus;
+                })
+                .sort((a, b) => {
+                    let valA, valB;
+                    
+                    if (sortConfig.key === 'adesioni') {
+                        valA = (parseInt(a.farmacisti_vengono) || 0) + (parseInt(a.extra_nonfarmacisti) || 0);
+                        valB = (parseInt(b.farmacisti_vengono) || 0) + (parseInt(b.extra_nonfarmacisti) || 0);
+                    } else {
+                        valA = a[sortConfig.key] || '';
+                        valB = b[sortConfig.key] || '';
+                    }
+
+                    if (valA < valB) return sortConfig.direction === 'asc' ? -1 : 1;
+                    if (valA > valB) return sortConfig.direction === 'asc' ? 1 : -1;
+                    return 0;
+                });
 
             return (
                 <div className="fade-in">
-                    <div style={{ display: 'flex', gap: '8px', marginBottom: '12px' }}>
-                        <input 
-                            placeholder="Cerca farmacia o città..." 
-                            value={filter} 
-                            onChange={e => setFilter(e.target.value)}
-                            style={{ flexGrow: 1 }}
-                        />
-                        <select 
-                            value={statusFilter} 
-                            onChange={e => setStatusFilter(e.target.value)}
-                            style={{ width: '150px' }}
-                        >
-                            <option>Tutti</option>
-                            <option>Da contattare</option>
-                            <option>Contattato</option>
-                            <option>Interessato</option>
-                            <option>Confermato</option>
-                            <option>Follow-up</option>
-                        </select>
-                        <button className="btn btn-primary" onClick={() => setIsModalOpen(true)}>+ Farmacia</button>
+                    <div style={{ display: 'flex', gap: '8px', marginBottom: '16px', background: '#111915', padding: '12px', borderRadius: '8px' }}>
+                        <div style={{ flexGrow: 1 }}>
+                            <label style={{ fontSize: '10px', display: 'block', marginBottom: '4px', color: 'var(--text-dim)' }}>Cerca farmacia o città</label>
+                            <input 
+                                placeholder="Cerca..." 
+                                value={filter} 
+                                onChange={e => setFilter(e.target.value)}
+                                style={{ width: '100%' }}
+                            />
+                        </div>
+                        <div style={{ width: '150px' }}>
+                            <label style={{ fontSize: '10px', display: 'block', marginBottom: '4px', color: 'var(--text-dim)' }}>Stato</label>
+                            <select 
+                                value={statusFilter} 
+                                onChange={e => setStatusFilter(e.target.value)}
+                                style={{ width: '100%' }}
+                            >
+                                <option>Tutti</option>
+                                <option>Da contattare</option>
+                                <option>Contattato</option>
+                                <option>Interessato</option>
+                                <option>Confermato</option>
+                                <option>Follow-up</option>
+                                <option>Non interessato</option>
+                            </select>
+                        </div>
+                        <div style={{ display: 'flex', alignItems: 'flex-end' }}>
+                            <button className="btn btn-primary" onClick={() => setIsModalOpen(true)}>+ Nuova</button>
+                        </div>
                     </div>
 
                     {isModalOpen && (
@@ -775,7 +820,7 @@
                                     <div className="input-group"><label>Provincia (es. MI)</label><input name="provincia" maxLength="2" required /></div>
                                     <div className="input-group"><label>Referente</label><input name="referente" /></div>
                                     <div className="input-group"><label>Telefono</label><input name="telefono" /></div>
-                                    <div className="input-group"><label>Tot Collaboratori</label><input name="collaboratori_totali" type="number" defaultValue="1" /></div>
+                                    <div className="input-group"><label>Tot Collaboratori</label><input name="collaboratori_totali" type="number" defaultValue="0" /></div>
                                     <div style={{ display: 'flex', gap: '8px', marginTop: '16px' }}>
                                         <button type="submit" className="btn btn-primary">Salva</button>
                                         <button type="button" className="btn btn-outline" onClick={() => setIsModalOpen(false)}>Annulla</button>
@@ -788,16 +833,29 @@
                     <table className="compact-table">
                         <thead>
                             <tr>
-                                <th>Farmacia</th>
-                                <th>Località</th>
-                                <th>Referente</th>
-                                <th>Stato</th>
-                                <th>Adesioni (P/E)</th>
-                                <th>Follow-up</th>
+                                <th onClick={() => requestSort('nome')} className="sortable-header">
+                                    Farmacia {sortConfig.key === 'nome' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
+                                </th>
+                                <th onClick={() => requestSort('citta')} className="sortable-header">
+                                    Località {sortConfig.key === 'citta' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
+                                </th>
+                                <th onClick={() => requestSort('referente')} className="sortable-header">
+                                    Referente {sortConfig.key === 'referente' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
+                                </th>
+                                <th onClick={() => requestSort('stato')} className="sortable-header">
+                                    Stato {sortConfig.key === 'stato' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
+                                </th>
+                                <th onClick={() => requestSort('adesioni')} className="sortable-header">
+                                    Adesioni (P/E) {sortConfig.key === 'adesioni' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
+                                </th>
+                                <th onClick={() => requestSort('follow_up')} className="sortable-header">
+                                    Follow-up {sortConfig.key === 'follow_up' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
+                                </th>
+                                <th style={{ width: '40px' }}></th>
                             </tr>
                         </thead>
                         <tbody>
-                            {filtered.map(f => (
+                            {filteredAndSorted.map(f => (
                                 <React.Fragment key={f.id}>
                                     <tr className="row-expandable" onClick={() => setExpandedId(expandedId === f.id ? null : f.id)}>
                                         <td><InlineEdit value={f.nome} onSave={(val) => updateFarmacia(f.id, 'nome', val)} /></td>
@@ -827,6 +885,15 @@
                                             </div>
                                         </td>
                                         <td><InlineEdit value={f.follow_up} type="date" onSave={(val) => updateFarmacia(f.id, 'follow_up', val)} /></td>
+                                        <td onClick={(e) => e.stopPropagation()}>
+                                            <button 
+                                                onClick={() => deleteFarmacia(f.id)} 
+                                                style={{ background: 'transparent', border: 'none', color: '#FF5252', cursor: 'pointer', padding: '4px' }}
+                                                title="Elimina"
+                                            >
+                                                <i data-lucide="trash-2" style={{ width: '14px', height: '14px' }}></i>
+                                            </button>
+                                        </td>
                                     </tr>
                                     {expandedId === f.id && (
                                         <tr>
@@ -875,6 +942,20 @@
                     caparra_versata: 0
                 }]);
                 setIsModalOpen(false);
+            };
+
+            const deleteSede = (id) => {
+                if (sedi.length <= 1) {
+                    window.alert("Deve esserci almeno una sede presente.");
+                    return;
+                }
+                if (window.confirm("Sei sicuro di voler eliminare questa sede?")) {
+                    const updated = sedi.filter(s => s.id !== id);
+                    onUpdate(updated);
+                    if (activeSedeId === id) {
+                        setActiveSedeId(updated[0].id);
+                    }
+                }
             };
 
             return (
@@ -927,12 +1008,24 @@
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
                         <div className="card">
                             <div className="card-title">Dettagli Location Selezionata</div>
-                            <h2 style={{ color: 'var(--bright-mint)', marginBottom: '4px' }}>
-                                <InlineEdit value={activeSede.nome} onSave={(val) => updateSedeField(activeSede.id, 'nome', val)} />
-                            </h2>
-                            <p style={{ fontSize: '11px', color: 'var(--text-dim)', marginBottom: '12px' }}>
-                                <InlineEdit value={activeSede.indirizzo} onSave={(val) => updateSedeField(activeSede.id, 'indirizzo', val)} />
-                            </p>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                                <div>
+                                    <h2 style={{ color: 'var(--bright-mint)', marginBottom: '4px' }}>
+                                        <InlineEdit value={activeSede.nome} onSave={(val) => updateSedeField(activeSede.id, 'nome', val)} />
+                                    </h2>
+                                    <p style={{ fontSize: '11px', color: 'var(--text-dim)', marginBottom: '12px' }}>
+                                        <InlineEdit value={activeSede.indirizzo} onSave={(val) => updateSedeField(activeSede.id, 'indirizzo', val)} />
+                                    </p>
+                                </div>
+                                <button 
+                                    className="btn btn-outline" 
+                                    style={{ color: '#FF5252', borderColor: 'rgba(255, 82, 82, 0.3)' }}
+                                    onClick={() => deleteSede(activeSede.id)}
+                                >
+                                    <i data-lucide="trash-2" style={{ width: '14px', marginRight: '6px' }}></i>
+                                    Elimina Locale
+                                </button>
+                            </div>
                             
                             <div className="grid-compact">
                                 <div className="card" style={{ padding: '8px', background: '#1A2621' }}>
@@ -1019,6 +1112,13 @@
                 setIsModalOpen(false);
             };
 
+            const deleteSponsor = (id) => {
+                if (window.confirm("Sei sicuro di voler eliminare questo sponsor?")) {
+                    const updated = sponsors.filter(s => s.id !== id);
+                    onUpdate(updated);
+                }
+            };
+
             return (
                 <div className="fade-in">
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
@@ -1061,6 +1161,7 @@
                                 <th>Azienda</th>
                                 <th>Importo</th>
                                 <th>Stato Pagamento</th>
+                                <th style={{ width: '40px' }}></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -1073,6 +1174,15 @@
                                         <span className={`pill status-${(s.pagato || '').toLowerCase().replace(' ', '-')}`}>
                                             <InlineEdit value={s.pagato} type="select" options={['Sì', 'No', 'In corso']} onSave={(val) => updateSponsor(s.id, 'pagato', val)} />
                                         </span>
+                                    </td>
+                                    <td>
+                                        <button 
+                                            onClick={() => deleteSponsor(s.id)} 
+                                            style={{ background: 'transparent', border: 'none', color: '#FF5252', cursor: 'pointer', padding: '4px' }}
+                                            title="Elimina"
+                                        >
+                                            <i data-lucide="trash-2" style={{ width: '14px', height: '14px' }}></i>
+                                        </button>
                                     </td>
                                 </tr>
                             ))}
