@@ -39,15 +39,17 @@
             background-color: var(--bg-dark);
             color: var(--text-main);
             font-family: var(--font-main);
-            font-size: 13px; /* High density */
+            font-size: 13px;
             line-height: 1.2;
-            overflow: hidden; /* Main window doesn't scroll if possible */
+            overflow: hidden;
+            -webkit-tap-highlight-color: transparent;
         }
 
         /* Compact Layout */
         #root {
             display: flex;
             height: 100vh;
+            flex-direction: row;
         }
 
         /* Sidebar */
@@ -398,10 +400,115 @@
         .milestones-card {
             background: #0E1412;
             border: 1px solid var(--border);
-            padding: 20px;
-            border-radius: 12px;
-            position: sticky;
-            top: 0;
+            padding: 16px;
+            border-radius: 8px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            #root {
+                flex-direction: column-reverse; /* Bottom nav */
+            }
+
+            .sidebar {
+                width: 100%;
+                height: 60px;
+                flex-direction: row;
+                justify-content: space-around;
+                align-items: center;
+                padding: 0;
+                position: relative;
+                z-index: 100;
+                border-right: none;
+                border-top: 1px solid var(--border);
+            }
+
+            .logo {
+                display: none; /* Hide logo in bottom nav */
+            }
+
+            .nav-item {
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                margin-bottom: 0;
+                padding: 4px;
+                font-size: 10px;
+                gap: 2px;
+                flex: 1;
+                border-radius: 0;
+            }
+
+            .nav-item svg {
+                margin-right: 0;
+                width: 20px;
+                height: 20px;
+            }
+
+            .sidebar div:last-child {
+                display: none; /* Hide "Cloud Active" info on mobile sidebar */
+            }
+
+            .content {
+                height: calc(100vh - 60px);
+                padding: 12px;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto;
+                height: auto;
+                gap: 16px;
+            }
+
+            .grid-compact {
+                grid-template-columns: 1fr;
+            }
+
+            .roadmap-container {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .compact-table-container {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                margin: 0 -12px;
+                padding: 0 12px;
+            }
+
+            .compact-table {
+                min-width: 600px; /* Force scroll for tables */
+            }
+
+            .modal {
+                width: 95vw;
+                padding: 12px;
+            }
+
+            .big-number {
+                font-size: 24px;
+            }
+
+            .card-title {
+                font-size: 10px;
+            }
+
+            /* Improve touch targets */
+            .btn, .nav-item, input, select, .pill {
+                min-height: 36px;
+            }
+            
+            .compact-table td {
+                padding: 10px 8px; /* Larger tap targets for table cells */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .compact-table th:nth-child(2), 
+            .compact-table td:nth-child(2) {
+                display: none; /* Hide 'Località' on very small screens if needed */
+            }
         }
 
         .milestone-row {
@@ -872,92 +979,94 @@
                         </div>
                     )}
 
-                    <table className="compact-table">
-                        <thead>
-                            <tr>
-                                <th onClick={() => requestSort('nome')} className="sortable-header">
-                                    Farmacia {sortConfig.key === 'nome' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
-                                </th>
-                                <th onClick={() => requestSort('citta')} className="sortable-header">
-                                    Località {sortConfig.key === 'citta' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
-                                </th>
-                                <th onClick={() => requestSort('referente')} className="sortable-header">
-                                    Referente {sortConfig.key === 'referente' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
-                                </th>
-                                <th onClick={() => requestSort('stato')} className="sortable-header">
-                                    Stato {sortConfig.key === 'stato' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
-                                </th>
-                                <th onClick={() => requestSort('adesioni')} className="sortable-header">
-                                    Adesioni (P/E) {sortConfig.key === 'adesioni' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
-                                </th>
-                                <th onClick={() => requestSort('follow_up')} className="sortable-header">
-                                    Follow-up {sortConfig.key === 'follow_up' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
-                                </th>
-                                <th style={{ width: '40px' }}></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {filteredAndSorted.map(f => (
-                                <React.Fragment key={f.id}>
-                                    <tr className="row-expandable" onClick={() => setExpandedId(expandedId === f.id ? null : f.id)}>
-                                        <td><InlineEdit value={f.nome} onSave={(val) => updateFarmacia(f.id, 'nome', val)} /></td>
-                                        <td>
-                                            <InlineEdit value={f.citta} onSave={(val) => updateFarmacia(f.id, 'citta', val)} /> 
-                                            <span style={{ color: 'var(--text-dim)', marginLeft: '4px' }}>
-                                                (<InlineEdit value={f.provincia} onSave={(val) => updateFarmacia(f.id, 'provincia', val)} />)
-                                            </span>
-                                        </td>
-                                        <td><InlineEdit value={f.referente} onSave={(val) => updateFarmacia(f.id, 'referente', val)} /></td>
-                                        <td>
-                                            <span className={`pill status-${f.stato.toLowerCase().replace(' ', '-')}`}>
-                                                <InlineEdit 
-                                                    value={f.stato} 
-                                                    type="select" 
-                                                    options={['Da contattare', 'Contattato', 'Interessato', 'Confermato', 'Non interessato', 'Follow-up']}
-                                                    onSave={(val) => updateFarmacia(f.id, 'stato', val)} 
-                                                />
-                                            </span>
-                                        </td>
-                                        <td>
-                                            <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                                                <div style={{ fontSize: '10px', whiteSpace: 'nowrap' }}>
-                                                    <InlineEdit type="number" value={f.farmacisti_vengono} onSave={(val) => updateFarmacia(f.id, 'farmacisti_vengono', parseInt(val))} /> / 
-                                                    <InlineEdit type="number" value={f.extra_nonfarmacisti} onSave={(val) => updateFarmacia(f.id, 'extra_nonfarmacisti', parseInt(val))} />
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td><InlineEdit value={f.follow_up} type="date" onSave={(val) => updateFarmacia(f.id, 'follow_up', val)} /></td>
-                                        <td onClick={(e) => e.stopPropagation()}>
-                                            <button 
-                                                className="btn-delete"
-                                                onClick={(e) => { e.stopPropagation(); deleteFarmacia(f.id); }} 
-                                                title="Elimina"
-                                            >
-                                                🗑️
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    {expandedId === f.id && (
-                                        <tr>
-                                            <td colSpan="6" className="expanded-content">
-                                                <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
-                                                    <div>
-                                                        <b>Note:</b> <InlineEdit value={f.note} onSave={(val) => updateFarmacia(f.id, 'note', val)} />
-                                                    </div>
-                                                    <div>
-                                                        <b>Telefono:</b> <InlineEdit value={f.telefono} onSave={(val) => updateFarmacia(f.id, 'telefono', val)} />
-                                                    </div>
-                                                    <div>
-                                                        <b>Tot Collaboratori:</b> <InlineEdit type="number" value={f.collaboratori_totali} onSave={(val) => updateFarmacia(f.id, 'collaboratori_totali', parseInt(val))} />
+                    <div className="compact-table-container">
+                        <table className="compact-table">
+                            <thead>
+                                <tr>
+                                    <th onClick={() => requestSort('nome')} className="sortable-header">
+                                        Farmacia {sortConfig.key === 'nome' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
+                                    </th>
+                                    <th onClick={() => requestSort('citta')} className="sortable-header">
+                                        Località {sortConfig.key === 'citta' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
+                                    </th>
+                                    <th onClick={() => requestSort('referente')} className="sortable-header">
+                                        Referente {sortConfig.key === 'referente' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
+                                    </th>
+                                    <th onClick={() => requestSort('stato')} className="sortable-header">
+                                        Stato {sortConfig.key === 'stato' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
+                                    </th>
+                                    <th onClick={() => requestSort('adesioni')} className="sortable-header">
+                                        Adesioni (P/E) {sortConfig.key === 'adesioni' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
+                                    </th>
+                                    <th onClick={() => requestSort('follow_up')} className="sortable-header">
+                                        Follow-up {sortConfig.key === 'follow_up' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
+                                    </th>
+                                    <th style={{ width: '40px' }}></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {filteredAndSorted.map(f => (
+                                    <React.Fragment key={f.id}>
+                                        <tr className="row-expandable" onClick={() => setExpandedId(expandedId === f.id ? null : f.id)}>
+                                            <td><InlineEdit value={f.nome} onSave={(val) => updateFarmacia(f.id, 'nome', val)} /></td>
+                                            <td>
+                                                <InlineEdit value={f.citta} onSave={(val) => updateFarmacia(f.id, 'citta', val)} /> 
+                                                <span style={{ color: 'var(--text-dim)', marginLeft: '4px' }}>
+                                                    (<InlineEdit value={f.provincia} onSave={(val) => updateFarmacia(f.id, 'provincia', val)} />)
+                                                </span>
+                                            </td>
+                                            <td><InlineEdit value={f.referente} onSave={(val) => updateFarmacia(f.id, 'referente', val)} /></td>
+                                            <td>
+                                                <span className={`pill status-${f.stato.toLowerCase().replace(/ /g, '-')}`}>
+                                                    <InlineEdit 
+                                                        value={f.stato} 
+                                                        type="select" 
+                                                        options={['Da contattare', 'Contattato', 'Interessato', 'Confermato', 'Non interessato', 'Follow-up']}
+                                                        onSave={(val) => updateFarmacia(f.id, 'stato', val)} 
+                                                    />
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                                                    <div style={{ fontSize: '10px', whiteSpace: 'nowrap' }}>
+                                                        <InlineEdit type="number" value={f.farmacisti_vengono} onSave={(val) => updateFarmacia(f.id, 'farmacisti_vengono', parseInt(val))} /> / 
+                                                        <InlineEdit type="number" value={f.extra_nonfarmacisti} onSave={(val) => updateFarmacia(f.id, 'extra_nonfarmacisti', parseInt(val))} />
                                                     </div>
                                                 </div>
                                             </td>
+                                            <td><InlineEdit value={f.follow_up} type="date" onSave={(val) => updateFarmacia(f.id, 'follow_up', val)} /></td>
+                                            <td onClick={(e) => e.stopPropagation()}>
+                                                <button 
+                                                    className="btn-delete"
+                                                    onClick={(e) => { e.stopPropagation(); deleteFarmacia(f.id); }} 
+                                                    title="Elimina"
+                                                >
+                                                    🗑️
+                                                </button>
+                                            </td>
                                         </tr>
-                                    )}
-                                </React.Fragment>
-                            ))}
-                        </tbody>
-                    </table>
+                                        {expandedId === f.id && (
+                                            <tr>
+                                                <td colSpan="7" className="expanded-content">
+                                                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', alignItems: 'center' }}>
+                                                        <div>
+                                                            <b>Note:</b> <InlineEdit value={f.note} onSave={(val) => updateFarmacia(f.id, 'note', val)} />
+                                                        </div>
+                                                        <div>
+                                                            <b>Telefono:</b> <InlineEdit value={f.telefono} onSave={(val) => updateFarmacia(f.id, 'telefono', val)} />
+                                                        </div>
+                                                        <div>
+                                                            <b>Tot Collaboratori:</b> <InlineEdit type="number" value={f.collaboratori_totali} onSave={(val) => updateFarmacia(f.id, 'collaboratori_totali', parseInt(val))} />
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        )}
+                                    </React.Fragment>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             );
         };
@@ -1201,40 +1310,42 @@
                             </div>
                         </div>
                     )}
-                    <table className="compact-table">
-                        <thead>
-                            <tr>
-                                <th>Sponsor (Referente)</th>
-                                <th>Azienda</th>
-                                <th>Importo</th>
-                                <th>Stato Pagamento</th>
-                                <th style={{ width: '40px' }}></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {sponsors.map(s => (
-                                <tr key={s.id}>
-                                    <td><InlineEdit value={s.referente} onSave={(val) => updateSponsor(s.id, 'referente', val)} /></td>
-                                    <td><InlineEdit value={s.nome} onSave={(val) => updateSponsor(s.id, 'nome', val)} /></td>
-                                    <td>€<InlineEdit type="number" value={s.importo} onSave={(val) => updateSponsor(s.id, 'importo', parseInt(val))} /></td>
-                                    <td>
-                                        <span className={`pill status-${(s.pagato || '').toLowerCase().replace(' ', '-')}`}>
-                                            <InlineEdit value={s.pagato} type="select" options={['Sì', 'No', 'In corso']} onSave={(val) => updateSponsor(s.id, 'pagato', val)} />
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <button 
-                                            className="btn-delete"
-                                            onClick={(e) => { e.stopPropagation(); deleteSponsor(s.id); }} 
-                                            title="Elimina"
-                                        >
-                                            🗑️
-                                        </button>
-                                    </td>
+                    <div className="compact-table-container">
+                        <table className="compact-table">
+                            <thead>
+                                <tr>
+                                    <th>Sponsor (Referente)</th>
+                                    <th>Azienda</th>
+                                    <th>Importo</th>
+                                    <th>Stato Pagamento</th>
+                                    <th style={{ width: '40px' }}></th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                {sponsors.map(s => (
+                                    <tr key={s.id}>
+                                        <td><InlineEdit value={s.referente} onSave={(val) => updateSponsor(s.id, 'referente', val)} /></td>
+                                        <td><InlineEdit value={s.nome} onSave={(val) => updateSponsor(s.id, 'nome', val)} /></td>
+                                        <td>€<InlineEdit type="number" value={s.importo} onSave={(val) => updateSponsor(s.id, 'importo', parseInt(val))} /></td>
+                                        <td>
+                                            <span className={`pill status-${s.pagato === 'Sì' ? 'confermato' : (s.pagato === 'In corso' ? 'in-corso' : 'non-interessato')}`}>
+                                                <InlineEdit value={s.pagato} type="select" options={['Sì', 'No', 'In corso']} onSave={(val) => updateSponsor(s.id, 'pagato', val)} />
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <button 
+                                                className="btn-delete"
+                                                onClick={(e) => { e.stopPropagation(); deleteSponsor(s.id); }} 
+                                                title="Elimina"
+                                            >
+                                                🗑️
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             );
         };
