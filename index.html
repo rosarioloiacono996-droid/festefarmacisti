@@ -922,9 +922,19 @@
                     {/* Bottom Row: Quick Summary or Reminders */}
                     <div className="card" style={{ gridColumn: "span 3", flexGrow: 1 }}>
                         <div className="card-title">Azione Corrente</div>
-                        <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+                        <div style={{ display: 'flex', gap: '16px', alignItems: 'center', flexWrap: 'wrap' }}>
                             <div className="big-number" style={{ fontSize: '20px' }}>FASE 1</div>
-                            <div style={{ color: 'var(--text-dim)' }}>Mancano <b>{data.filter(f => f.stato === 'Da contattare').length}</b> farmacie da chiamare per chiudere la prima lista.</div>
+                            <div style={{ color: 'var(--text-dim)', flex: 1, minWidth: '200px' }}>
+                                Mancano <b>{data.filter(f => f.stato === 'Da contattare').length}</b> farmacie da chiamare per chiudere la prima lista.
+                            </div>
+                            <button 
+                                className="btn btn-primary" 
+                                style={{ padding: '10px 20px', borderRadius: '8px' }}
+                                onClick={() => setActiveTab('partecipanti')}
+                            >
+                                <i data-lucide="users" style={{ width: '16px', marginRight: '8px', verticalAlign: 'middle' }}></i>
+                                Vedi Lista Partecipanti
+                            </button>
                         </div>
                     </div>
                 </div>
