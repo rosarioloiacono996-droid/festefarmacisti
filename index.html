@@ -1143,10 +1143,6 @@
                                     <th onClick={() => requestSort('nome')} className="sortable-header">
                                         Farmacia {sortConfig.key === 'nome' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
                                     </th>
-                                    <th onClick={() => requestSort('stato')} className="sortable-header" style={{ width: '120px' }}>
-                                        Stato {sortConfig.key === 'stato' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
-                                    </th>
-                                    <th style={{ width: '40px' }}></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -1165,8 +1161,13 @@
                                                 />
                                             </td>
                                             <td onClick={(e) => { e.stopPropagation(); setDetailModalId(f.id); }} style={{ cursor: 'pointer' }}>
-                                                <div style={{ color: 'var(--bright-mint)', fontWeight: 'bold', fontSize: '14px', marginBottom: '2px' }}>
-                                                    {f.nome}
+                                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '2px' }}>
+                                                    <div style={{ color: 'var(--bright-mint)', fontWeight: 'bold', fontSize: '14px' }}>
+                                                        {f.nome}
+                                                    </div>
+                                                    <span className={`pill status-${f.stato.toLowerCase().replace(/ /g, '-')}`} style={{ fontSize: '9px', padding: '1px 6px' }}>
+                                                        {f.stato}
+                                                    </span>
                                                 </div>
                                                 <div style={{ fontSize: '11px', color: 'var(--text-main)', marginBottom: '4px' }}>
                                                     {f.citta} ({f.provincia}) • <span style={{ color: 'var(--text-dim)' }}>{f.referente || 'Senza referente'}</span>
@@ -1186,26 +1187,6 @@
                                                         </span>
                                                     )}
                                                 </div>
-                                            </td>
-                                            <td>
-                                                <span className={`pill status-${f.stato.toLowerCase().replace(/ /g, '-')}`}>
-                                                    <InlineEdit
-                                                        value={f.stato}
-                                                        type="select"
-                                                        options={['Da contattare', 'Contattato', 'Interessato', 'Confermato', 'Non interessato', 'Follow-up']}
-                                                        onSave={(val) => updateFarmacia(f.id, 'stato', val)}
-                                                        isExpanded={expandedId === f.id}
-                                                    />
-                                                </span>
-                                            </td>
-                                            <td onClick={(e) => e.stopPropagation()}>
-                                                <button 
-                                                    className="btn-delete"
-                                                    onClick={(e) => { e.stopPropagation(); deleteFarmacia(f.id); }} 
-                                                    title="Elimina"
-                                                >
-                                                    🗑️
-                                                </button>
                                             </td>
                                         </tr>
                                         {expandedId === f.id && (
@@ -1343,7 +1324,10 @@
                                         />
                                     </div>
 
-                                    <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                        <button className="btn btn-outline" style={{ color: '#FF5252', borderColor: 'rgba(255,82,82,0.3)' }} onClick={() => { setDetailModalId(null); deleteFarmacia(f.id); }}>
+                                            🗑️ Elimina Farmacia
+                                        </button>
                                         <button className="btn btn-primary" onClick={() => setDetailModalId(null)}>Chiudi</button>
                                     </div>
                                 </div>
