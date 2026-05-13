@@ -119,9 +119,6 @@
                 grid-column: span 1;
             }
         }
-            height: calc(100vh - 40px); /* Fit to screen */
-            grid-template-rows: auto auto 1fr;
-        }
 
         .card {
             background: var(--card-bg);
@@ -923,6 +920,14 @@
                                 €{suggestedTicketPrice}
                             </span>
                         </div>
+                        <div style={{ marginTop: '10px' }}>
+                            <span
+                                onClick={() => setActiveTab('sponsors')}
+                                style={{ fontSize: '11px', color: 'var(--bright-mint)', fontWeight: 'bold', cursor: 'pointer' }}
+                            >
+                                Gestisci Sponsor →
+                            </span>
+                        </div>
                     </div>
 
                     {/* Bottom Row: Azione Corrente */}
@@ -1096,20 +1101,8 @@
                                     <th onClick={() => requestSort('nome')} className="sortable-header">
                                         Farmacia {sortConfig.key === 'nome' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
                                     </th>
-                                    <th onClick={() => requestSort('citta')} className="sortable-header">
-                                        Località {sortConfig.key === 'citta' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
-                                    </th>
-                                    <th onClick={() => requestSort('referente')} className="sortable-header">
-                                        Referente {sortConfig.key === 'referente' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
-                                    </th>
-                                    <th onClick={() => requestSort('stato')} className="sortable-header">
+                                    <th onClick={() => requestSort('stato')} className="sortable-header" style={{ width: '120px' }}>
                                         Stato {sortConfig.key === 'stato' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
-                                    </th>
-                                    <th onClick={() => requestSort('adesioni')} className="sortable-header">
-                                        Adesioni (P/E) {sortConfig.key === 'adesioni' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
-                                    </th>
-                                    <th onClick={() => requestSort('follow_up')} className="sortable-header">
-                                        Follow-up {sortConfig.key === 'follow_up' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
                                     </th>
                                     <th style={{ width: '40px' }}></th>
                                 </tr>
@@ -1129,20 +1122,29 @@
                                                     style={{ width: '18px', height: '18px', cursor: 'pointer' }}
                                                 />
                                             </td>
-                                            <td
-                                                style={{ color: 'var(--bright-mint)', fontWeight: 'bold', cursor: 'pointer' }}
-                                                onClick={(e) => { e.stopPropagation(); setDetailModalId(f.id); }}
-                                                title="Apri scheda dettagli"
-                                            >
-                                                {f.nome}
+                                            <td onClick={(e) => { e.stopPropagation(); setDetailModalId(f.id); }} style={{ cursor: 'pointer' }}>
+                                                <div style={{ color: 'var(--bright-mint)', fontWeight: 'bold', fontSize: '14px', marginBottom: '2px' }}>
+                                                    {f.nome}
+                                                </div>
+                                                <div style={{ fontSize: '11px', color: 'var(--text-main)', marginBottom: '4px' }}>
+                                                    {f.citta} ({f.provincia}) • <span style={{ color: 'var(--text-dim)' }}>{f.referente || 'Senza referente'}</span>
+                                                </div>
+                                                <div style={{ display: 'flex', gap: '12px', fontSize: '10px', color: 'var(--text-dim)' }}>
+                                                    <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                                                        <i data-lucide="users" style={{ width: '10px' }}></i>
+                                                        {(parseInt(f.farmacisti_vengono) || 0) + (parseInt(f.extra_nonfarmacisti) || 0)} Ospiti
+                                                    </span>
+                                                    <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                                                        <i data-lucide="calendar" style={{ width: '10px' }}></i>
+                                                        F-up: {f.follow_up || '---'}
+                                                    </span>
+                                                    {f.gestore && (
+                                                        <span style={{ color: 'var(--bright-mint)', opacity: 0.8 }}>
+                                                            • Conosciuta da: {f.gestore}
+                                                        </span>
+                                                    )}
+                                                </div>
                                             </td>
-                                            <td>
-                                                <InlineEdit value={f.citta} onSave={(val) => updateFarmacia(f.id, 'citta', val)} isExpanded={expandedId === f.id} />
-                                                <span style={{ color: 'var(--text-dim)', marginLeft: '4px' }}>
-                                                    (<InlineEdit value={f.provincia} onSave={(val) => updateFarmacia(f.id, 'provincia', val)} isExpanded={expandedId === f.id} />)
-                                                </span>
-                                            </td>
-                                            <td><InlineEdit value={f.referente} onSave={(val) => updateFarmacia(f.id, 'referente', val)} isExpanded={expandedId === f.id} /></td>
                                             <td>
                                                 <span className={`pill status-${f.stato.toLowerCase().replace(/ /g, '-')}`}>
                                                     <InlineEdit
@@ -1154,15 +1156,6 @@
                                                     />
                                                 </span>
                                             </td>
-                                            <td>
-                                                <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                                                    <div style={{ fontSize: '10px', whiteSpace: 'nowrap' }}>
-                                                        <InlineEdit type="number" value={f.farmacisti_vengono} onSave={(val) => updateFarmacia(f.id, 'farmacisti_vengono', parseInt(val))} isExpanded={expandedId === f.id} /> /
-                                                        <InlineEdit type="number" value={f.extra_nonfarmacisti} onSave={(val) => updateFarmacia(f.id, 'extra_nonfarmacisti', parseInt(val))} isExpanded={expandedId === f.id} />
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td><InlineEdit value={f.follow_up} type="date" onSave={(val) => updateFarmacia(f.id, 'follow_up', val)} isExpanded={expandedId === f.id} /></td>
                                             <td onClick={(e) => e.stopPropagation()}>
                                                 <button 
                                                     className="btn-delete"
