@@ -1209,90 +1209,124 @@
                         </div>
                     )}
 
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px' }}>
+                        {/* Sezione 1: Identità e Location */}
                         <div className="card">
-                            <div className="card-title">Dettagli Location Selezionata</div>
-                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                                <div>
-                                    <h2 style={{ color: 'var(--bright-mint)', marginBottom: '4px' }}>
-                                        <InlineEdit value={activeSede.nome} onSave={(val) => updateSedeField(activeSede.id, 'nome', val)} />
-                                    </h2>
-                                    <p style={{ fontSize: '11px', color: 'var(--text-dim)', marginBottom: '12px' }}>
-                                        <InlineEdit value={activeSede.indirizzo} onSave={(val) => updateSedeField(activeSede.id, 'indirizzo', val)} />
-                                    </p>
-                                </div>
-                                <button 
-                                    className="btn btn-outline btn-delete" 
-                                    style={{ borderColor: 'rgba(255, 82, 82, 0.3)' }}
-                                    onClick={(e) => { e.stopPropagation(); deleteSede(activeSede.id); }}
-                                >
-                                    🗑️ Elimina Locale
-                                </button>
+                            <div className="card-title">Location & Contatti</div>
+                            <div style={{ marginBottom: '20px' }}>
+                                <h2 style={{ color: 'var(--bright-mint)', marginBottom: '4px', fontSize: '24px' }}>
+                                    <InlineEdit value={activeSede.nome} onSave={(val) => updateSedeField(activeSede.id, 'nome', val)} />
+                                </h2>
+                                <p style={{ fontSize: '13px', color: 'var(--text-dim)' }}>
+                                    <i data-lucide="map-pin" style={{ width: '14px', height: '14px', marginRight: '6px', verticalAlign: 'middle' }}></i>
+                                    <InlineEdit value={activeSede.indirizzo} onSave={(val) => updateSedeField(activeSede.id, 'indirizzo', val)} />
+                                </p>
                             </div>
-                            
-                            <div className="grid-compact">
-                                <div className="card" style={{ padding: '8px', background: '#1A2621' }}>
-                                    <div style={{ fontSize: '10px' }}>Costo Persona</div>
-                                    <div style={{ fontSize: '16px', fontWeight: 'bold' }}>
-                                        €<InlineEdit type="number" value={activeSede.costo_persona} onSave={(val) => updateSedeField(activeSede.id, 'costo_persona', parseInt(val))} />
+
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                    <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: 'rgba(0, 230, 118, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                        <i data-lucide="car" style={{ width: '16px', height: '16px', color: 'var(--bright-mint)' }}></i>
+                                    </div>
+                                    <div>
+                                        <div style={{ fontSize: '10px', color: 'var(--text-dim)' }}>Parcheggio</div>
+                                        <div style={{ fontSize: '12px' }}><InlineEdit value={activeSede.parcheggio} onSave={(val) => updateSedeField(activeSede.id, 'parcheggio', val)} /></div>
                                     </div>
                                 </div>
-                                <div className="card" style={{ padding: '8px', background: '#1A2621' }}>
-                                    <div style={{ fontSize: '10px' }}>Costo Totale</div>
-                                    <div style={{ fontSize: '16px', fontWeight: 'bold' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                    <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: 'rgba(0, 230, 118, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                        <i data-lucide="bus" style={{ width: '16px', height: '16px', color: 'var(--bright-mint)' }}></i>
+                                    </div>
+                                    <div>
+                                        <div style={{ fontSize: '10px', color: 'var(--text-dim)' }}>Mezzi Pubblici</div>
+                                        <div style={{ fontSize: '12px' }}><InlineEdit value={activeSede.mezzi} onSave={(val) => updateSedeField(activeSede.id, 'mezzi', val)} /></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div style={{ marginTop: 'auto', paddingTop: '20px' }}>
+                                <button 
+                                    className="btn btn-outline" 
+                                    style={{ color: '#FF5252', borderColor: 'rgba(255, 82, 82, 0.2)', width: '100%' }}
+                                    onClick={(e) => { e.stopPropagation(); deleteSede(activeSede.id); }}
+                                >
+                                    🗑️ Elimina questa sede
+                                </button>
+                            </div>
+                        </div>
+
+                        {/* Sezione 2: Costi & Simulazione */}
+                        <div className="card" style={{ background: 'rgba(0, 77, 64, 0.1)', borderColor: 'var(--accent-green)' }}>
+                            <div className="card-title">Profilo Economico</div>
+                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '20px' }}>
+                                <div className="card" style={{ background: 'var(--bg-dark)', padding: '12px' }}>
+                                    <div style={{ fontSize: '10px', color: 'var(--text-dim)' }}>Fisso Locale</div>
+                                    <div style={{ fontSize: '20px', fontWeight: 'bold', color: 'var(--bright-mint)' }}>
                                         €<InlineEdit type="number" value={activeSede.costo_totale} onSave={(val) => updateSedeField(activeSede.id, 'costo_totale', parseInt(val))} />
                                     </div>
                                 </div>
-                            </div>
-
-                            <div style={{ marginTop: '16px' }}>
-                                <div style={{ fontSize: '11px', fontWeight: 'bold', marginBottom: '4px' }}>Dettagli Offerta</div>
-                                <div style={{ background: '#0D1310', padding: '8px', borderRadius: '4px', border: '1px solid var(--border)' }}>
-                                    <div style={{ marginBottom: '4px' }}>
-                                        <i data-lucide="glass-water" style={{ width: '12px', height: '12px', marginRight: '6px', color: 'var(--bright-mint)' }}></i>
-                                        <b>Drink:</b> <InlineEdit value={activeSede.offerta_drink} onSave={(val) => updateSedeField(activeSede.id, 'offerta_drink', val)} />
-                                    </div>
-                                    <div>
-                                        <i data-lucide="utensils" style={{ width: '12px', height: '12px', marginRight: '6px', color: 'var(--bright-mint)' }}></i>
-                                        <b>Cibo:</b> <InlineEdit value={activeSede.offerta_cibo} onSave={(val) => updateSedeField(activeSede.id, 'offerta_cibo', val)} />
+                                <div className="card" style={{ background: 'var(--bg-dark)', padding: '12px' }}>
+                                    <div style={{ fontSize: '10px', color: 'var(--text-dim)' }}>Quota / Persona</div>
+                                    <div style={{ fontSize: '20px', fontWeight: 'bold', color: 'var(--bright-mint)' }}>
+                                        €<InlineEdit type="number" value={activeSede.costo_persona} onSave={(val) => updateSedeField(activeSede.id, 'costo_persona', parseInt(val))} />
                                     </div>
                                 </div>
                             </div>
 
-                            <div style={{ marginTop: '16px' }}>
-                                <div style={{ fontSize: '11px', fontWeight: 'bold', marginBottom: '4px' }}>Accessibilità</div>
-                                <div style={{ display: 'flex', gap: '8px' }}>
-                                    <span className="pill status-confermato">
-                                        <InlineEdit value={activeSede.accessibilita} type="select" options={['Ottimo', 'Discreto', 'Scarso']} onSave={(val) => updateSedeField(activeSede.id, 'accessibilita', val)} />
-                                    </span>
-                                    <span style={{ fontSize: '10px', color: 'var(--text-dim)' }}>
-                                        Parcheggio: <InlineEdit value={activeSede.parcheggio} onSave={(val) => updateSedeField(activeSede.id, 'parcheggio', val)} />
-                                    </span>
+                            <div style={{ background: 'rgba(0,0,0,0.2)', padding: '16px', borderRadius: '8px' }}>
+                                <div className="card-title" style={{ fontSize: '9px' }}>Simulatore Rapido</div>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
+                                    <input 
+                                        type="number" 
+                                        value={simParticipants} 
+                                        onChange={e => setSimParticipants(e.target.value)}
+                                        style={{ width: '80px', textAlign: 'center' }}
+                                    />
+                                    <span style={{ fontSize: '12px' }}>Partecipanti</span>
                                 </div>
-                                <div style={{ fontSize: '10px', color: 'var(--text-dim)', marginTop: '4px' }}>
-                                    Mezzi: <InlineEdit value={activeSede.mezzi} onSave={(val) => updateSedeField(activeSede.id, 'mezzi', val)} />
+                                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px', fontSize: '12px' }}>
+                                    <span>Costo Variabile:</span>
+                                    <span>€{simParticipants * activeSede.costo_persona}</span>
+                                </div>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '14px', fontWeight: 'bold', borderTop: '1px solid var(--border)', paddingTop: '8px', marginTop: '8px' }}>
+                                    <span>Totale Stimato:</span>
+                                    <span style={{ color: 'var(--bright-mint)' }}>€{(simParticipants * activeSede.costo_persona) + activeSede.costo_totale}</span>
                                 </div>
                             </div>
                         </div>
 
+                        {/* Sezione 3: Servizi & Logistica */}
                         <div className="card">
-                            <div className="card-title">Simulatore Costi ({activeSede.nome})</div>
-                            <div className="input-group">
-                                <label style={{ fontSize: '10px', display: 'block', marginBottom: '4px' }}>Partecipanti Ipotetici</label>
-                                <input 
-                                    type="number" 
-                                    value={simParticipants} 
-                                    onChange={e => setSimParticipants(e.target.value)}
-                                />
-                            </div>
-                            <div style={{ marginTop: '20px' }}>
-                                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
-                                    <span>Costo Apericena:</span>
-                                    <span>€{simParticipants * activeSede.costo_persona}</span>
+                            <div className="card-title">Servizi Inclusi</div>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                                <div>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
+                                        <i data-lucide="glass-water" style={{ width: '16px', color: 'var(--bright-mint)' }}></i>
+                                        <b style={{ fontSize: '12px' }}>Drink & Beverage</b>
+                                    </div>
+                                    <div style={{ fontSize: '13px', paddingLeft: '24px', color: 'var(--text-main)' }}>
+                                        <InlineEdit value={activeSede.offerta_drink} onSave={(val) => updateSedeField(activeSede.id, 'offerta_drink', val)} />
+                                    </div>
                                 </div>
-                                <div style={{ display: 'flex', justifyContent: 'space-between', borderTop: '1px solid var(--border)', paddingTop: '8px' }}>
-                                    <span style={{ fontWeight: 'bold' }}>Totale Stimato:</span>
-                                    <span style={{ color: 'var(--bright-mint)', fontWeight: 'bold' }}>€{simParticipants * activeSede.costo_persona}</span>
+                                <div>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
+                                        <i data-lucide="utensils" style={{ width: '16px', color: 'var(--bright-mint)' }}></i>
+                                        <b style={{ fontSize: '12px' }}>Food & Catering</b>
+                                    </div>
+                                    <div style={{ fontSize: '13px', paddingLeft: '24px', color: 'var(--text-main)' }}>
+                                        <InlineEdit value={activeSede.offerta_cibo} onSave={(val) => updateSedeField(activeSede.id, 'offerta_cibo', val)} />
+                                    </div>
+                                </div>
+                                <div>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
+                                        <i data-lucide="check-circle" style={{ width: '16px', color: 'var(--bright-mint)' }}></i>
+                                        <b style={{ fontSize: '12px' }}>Livello Accessibilità</b>
+                                    </div>
+                                    <div style={{ paddingLeft: '24px' }}>
+                                        <span className="pill status-confermato">
+                                            <InlineEdit value={activeSede.accessibilita} type="select" options={['Ottimo', 'Discreto', 'Scarso']} onSave={(val) => updateSedeField(activeSede.id, 'accessibilita', val)} />
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
