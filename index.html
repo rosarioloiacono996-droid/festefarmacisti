@@ -1827,6 +1827,10 @@
                 setIsModalOpen(false);
             };
 
+            const updatePartecipante = (id, field, val) => {
+                onUpdate(partecipanti.map(p => p.id === id ? { ...p, [field]: val } : p));
+            };
+
             const deletePartecipante = (id) => {
                 setConfirm({
                     message: "Rimuovere questo partecipante?",
@@ -1914,30 +1918,23 @@
                         {filtered.length > 0 ? filtered.map(p => (
                             <div key={p.id} className="card" style={{ marginBottom: '10px', padding: '12px' }}>
                                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                                    <div>
-                                        <div style={{ fontWeight: 'bold', fontSize: '14px', color: 'var(--text-main)' }}>{p.nome} {p.cognome}</div>
+                                    <div style={{ flexGrow: 1 }}>
+                                        <div style={{ fontWeight: 'bold', fontSize: '14px', color: 'var(--text-main)' }}>
+                                            <InlineEdit value={p.nome} onSave={(val) => updatePartecipante(p.id, 'nome', val)} />
+                                            {' '}
+                                            <InlineEdit value={p.cognome} onSave={(val) => updatePartecipante(p.id, 'cognome', val)} />
+                                        </div>
                                         <div style={{ fontSize: '11px', color: 'var(--text-dim)', marginTop: '4px' }}>
-                                            <i data-lucide="building-2" style={{ width: '10px', marginRight: '4px', verticalAlign: 'middle' }}></i>
-                                            {p.farmacia}
+                                            <InlineEdit value={p.farmacia} onSave={(val) => updatePartecipante(p.id, 'farmacia', val)} />
                                         </div>
                                     </div>
                                     <button className="btn-delete" onClick={() => deletePartecipante(p.id)} style={{ padding: '4px' }}>🗑️</button>
                                 </div>
                                 <div style={{ marginTop: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                    <span className={`pill status-${p.ruolo === 'Farmacista' ? 'confermato' : 'contattato'}`} style={{ fontSize: '10px' }}>
-                                        {p.ruolo}
-                                    </span>
-                                    <div style={{ display: 'flex', gap: '4px' }}>
-                                        {parseInt(p.colleghi_farmacisti) > 0 && (
-                                            <span className="pill" style={{ background: 'rgba(0, 230, 118, 0.1)', color: 'var(--bright-mint)', border: '1px solid rgba(0, 230, 118, 0.2)' }}>
-                                                +{p.colleghi_farmacisti} F
-                                            </span>
-                                        )}
-                                        {parseInt(p.accompagnatori) > 0 && (
-                                            <span className="pill" style={{ background: 'rgba(0, 176, 255, 0.1)', color: '#00B0FF', border: '1px solid rgba(0, 176, 255, 0.2)' }}>
-                                                +{p.accompagnatori} A
-                                            </span>
-                                        )}
+                                    <InlineEdit value={p.ruolo} type="select" options={['Farmacista', 'Accompagnatore']} onSave={(val) => updatePartecipante(p.id, 'ruolo', val)} />
+                                    <div style={{ display: 'flex', gap: '8px', alignItems: 'center', fontSize: '11px' }}>
+                                        <span style={{ color: 'var(--text-dim)' }}>F: <InlineEdit type="number" value={p.colleghi_farmacisti || 0} onSave={(val) => updatePartecipante(p.id, 'colleghi_farmacisti', parseInt(val) || 0)} /></span>
+                                        <span style={{ color: 'var(--text-dim)' }}>A: <InlineEdit type="number" value={p.accompagnatori || 0} onSave={(val) => updatePartecipante(p.id, 'accompagnatori', parseInt(val) || 0)} /></span>
                                     </div>
                                 </div>
                             </div>
@@ -1962,26 +1959,26 @@
                                 <tbody>
                                     {filtered.length > 0 ? filtered.map(p => (
                                         <tr key={p.id}>
-                                            <td>{p.nome} {p.cognome}</td>
-                                            <td>{p.farmacia}</td>
                                             <td>
-                                                <span className={`pill status-${p.ruolo === 'Farmacista' ? 'confermato' : 'contattato'}`}>
-                                                    {p.ruolo}
-                                                </span>
+                                                <InlineEdit value={p.nome} onSave={(val) => updatePartecipante(p.id, 'nome', val)} />
+                                                {' '}
+                                                <InlineEdit value={p.cognome} onSave={(val) => updatePartecipante(p.id, 'cognome', val)} />
+                                            </td>
+                                            <td><InlineEdit value={p.farmacia} onSave={(val) => updatePartecipante(p.id, 'farmacia', val)} /></td>
+                                            <td>
+                                                <InlineEdit
+                                                    value={p.ruolo}
+                                                    type="select"
+                                                    options={['Farmacista', 'Accompagnatore']}
+                                                    onSave={(val) => updatePartecipante(p.id, 'ruolo', val)}
+                                                />
                                             </td>
                                             <td style={{ fontSize: '11px' }}>
-                                                <div style={{ display: 'flex', gap: '4px' }}>
-                                                    {parseInt(p.colleghi_farmacisti) > 0 && (
-                                                        <span className="pill" style={{ background: 'rgba(0, 230, 118, 0.1)', color: 'var(--bright-mint)', border: '1px solid rgba(0, 230, 118, 0.2)' }}>
-                                                            +{p.colleghi_farmacisti} F
-                                                        </span>
-                                                    )}
-                                                    {parseInt(p.accompagnatori) > 0 && (
-                                                        <span className="pill" style={{ background: 'rgba(0, 176, 255, 0.1)', color: '#00B0FF', border: '1px solid rgba(0, 176, 255, 0.2)' }}>
-                                                            +{p.accompagnatori} A
-                                                        </span>
-                                                    )}
-                                                    {!p.colleghi_farmacisti && !p.accompagnatori && <span style={{ color: 'var(--text-dim)' }}>---</span>}
+                                                <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
+                                                    <span style={{ color: 'var(--text-dim)', fontSize: '10px' }}>F:</span>
+                                                    <InlineEdit type="number" value={p.colleghi_farmacisti || 0} onSave={(val) => updatePartecipante(p.id, 'colleghi_farmacisti', parseInt(val) || 0)} />
+                                                    <span style={{ color: 'var(--text-dim)', fontSize: '10px' }}>A:</span>
+                                                    <InlineEdit type="number" value={p.accompagnatori || 0} onSave={(val) => updatePartecipante(p.id, 'accompagnatori', parseInt(val) || 0)} />
                                                 </div>
                                             </td>
                                             <td>
@@ -1989,7 +1986,7 @@
                                             </td>
                                         </tr>
                                     )) : (
-                                        <tr><td colSpan="4" style={{ textAlign: 'center', padding: '20px', color: 'var(--text-dim)' }}>Nessun partecipante registrato.</td></tr>
+                                        <tr><td colSpan="5" style={{ textAlign: 'center', padding: '20px', color: 'var(--text-dim)' }}>Nessun partecipante registrato.</td></tr>
                                     )}
                                 </tbody>
                             </table>
