@@ -888,76 +888,118 @@
 
             return (
                 <div className="dashboard-grid fade-in">
-                    {/* Top Row: Attendance */}
-                    <div className="card dashboard-card-span-2">
-                        <div className="card-title">Partecipanti Previsti (Fase 1)</div>
-                        <div style={{ display: 'flex', alignItems: 'flex-end', gap: '12px' }}>
-                            <div className="big-number">{totalParticipants}</div>
-                            <div style={{ marginBottom: '6px', color: 'var(--text-dim)' }}>su obiettivo {goal}</div>
+                    {/* SECTION 1: METRICHE CHIAVE */}
+                    <div style={{ gridColumn: 'span 3', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '12px' }}>
+                        {/* PARTECIPANTI */}
+                        <div className="card">
+                            <div className="card-title" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                                <i data-lucide="users" style={{ width: '14px' }}></i> Partecipanti Fase 1
+                            </div>
+                            <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', marginBottom: '8px' }}>
+                                <div className="big-number">{totalParticipants}</div>
+                                <div style={{ fontSize: '12px', color: 'var(--text-dim)' }}>su {goal}</div>
+                            </div>
+                            <div className="progress-container" style={{ marginBottom: '8px' }}>
+                                <div className="progress-bar" style={{ width: `${Math.min(progress, 100)}%` }}></div>
+                            </div>
+                            <div style={{ fontSize: '10px', color: 'var(--text-dim)', display: 'flex', justifyContent: 'space-between' }}>
+                                <span>{confirmedPharmacists} Farmacisti</span>
+                                <span>{extraParticipants} Accompagnatori</span>
+                            </div>
                         </div>
-                        <div className="progress-container">
-                            <div className="progress-bar" style={{ width: `${Math.min(progress, 100)}%` }}></div>
+
+                        {/* FINANZA */}
+                        <div className="card">
+                            <div className="card-title" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                                <i data-lucide="euro" style={{ width: '14px' }}></i> Obiettivo Pareggio
+                            </div>
+                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4px', fontSize: '11px', marginBottom: '10px' }}>
+                                <span style={{ color: 'var(--text-dim)' }}>Sponsor:</span>
+                                <span style={{ textAlign: 'right' }}>€{totalSponsorship}</span>
+                                <span style={{ color: 'var(--bright-mint)', fontWeight: 'bold' }}>Rimanente:</span>
+                                <span style={{ textAlign: 'right', color: 'var(--bright-mint)', fontWeight: 'bold' }}>€{costRemaining}</span>
+                            </div>
+                            <div style={{ borderTop: '1px solid var(--border)', paddingTop: '8px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                <span style={{ fontSize: '10px', color: 'var(--text-dim)' }}>Quota suggerita:</span>
+                                <span style={{ color: 'var(--bright-mint)', fontWeight: 'bold', fontSize: '16px' }}>€{suggestedTicketPrice}</span>
+                            </div>
                         </div>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', alignItems: 'center' }}>
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                                <div style={{ fontWeight: '500' }}>{confirmedPharmacists} Farmacisti</div>
-                                <div style={{ color: 'var(--text-dim)' }}>{extraParticipants} Accompagnatori</div>
+
+                        {/* FARMACIE */}
+                        <div className="card" onClick={() => setActiveTab('crm')} style={{ cursor: 'pointer' }}>
+                            <div className="card-title" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                                <i data-lucide="building-2" style={{ width: '14px' }}></i> Copertura CRM
+                            </div>
+                            <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', marginBottom: '8px' }}>
+                                <div className="big-number">{data.filter(f => f.conosciuto).length}</div>
+                                <div style={{ fontSize: '12px', color: 'var(--text-dim)' }}>su {data.length}</div>
+                            </div>
+                            <div className="progress-container" style={{ marginBottom: '8px' }}>
+                                <div className="progress-bar" style={{ width: `${(data.filter(f => f.conosciuto).length / data.length) * 100}%` }}></div>
+                            </div>
+                            <div style={{ fontSize: '10px', color: 'var(--text-dim)' }}>
+                                {data.filter(f => !f.conosciuto).length} farmacie ancora da mappare
                             </div>
                         </div>
                     </div>
 
-                    <div className="card">
-                        <div className="card-title" style={{ fontSize: '10px' }}>Soldi da raccogliere per renderlo gratuito</div>
-                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4px', fontSize: '11px' }}>
-                            <span>Costi Sede:</span><span style={{ textAlign: 'right' }}>€{sede.costo_totale}</span>
-                            <span>Sponsor:</span><span style={{ textAlign: 'right' }}>€{totalSponsorship}</span>
-                            <span style={{ color: 'var(--bright-mint)', fontWeight: 'bold' }}>Rimanente:</span>
-                            <span style={{ textAlign: 'right', color: 'var(--bright-mint)', fontWeight: 'bold' }}>€{costRemaining}</span>
+                    {/* SECTION 2: PIPELINE COMMERCIALE */}
+                    <div className="card" style={{ gridColumn: 'span 3' }}>
+                        <div className="card-title" style={{ color: 'var(--bright-mint)', display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
+                            <i data-lucide="trello" style={{ width: '16px' }}></i> Pipeline Contatti
                         </div>
-                        <div style={{ borderTop: '1px solid var(--border)', marginTop: '8px', paddingTop: '8px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                            <span style={{ fontSize: '10px' }}>Costo partecipanti:</span>
-                            <span style={{ color: 'var(--bright-mint)', fontWeight: 'bold', fontSize: '14px' }}>
-                                €{suggestedTicketPrice}
-                            </span>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '12px' }}>
+                            {[
+                                { label: 'Da contattare', status: 'Da contattare', color: '#8E9AAF' },
+                                { label: 'Interessati', status: 'Interessato', color: '#FFD740' },
+                                { label: 'Confermati', status: 'Confermato', color: '#00E676' },
+                                { label: 'Follow-up', status: 'Follow-up', color: '#00B0FF' }
+                            ].map(s => (
+                                <div 
+                                    key={s.status}
+                                    onClick={() => handleStatusClick(s.status)}
+                                    style={{ 
+                                        background: 'rgba(255,255,255,0.03)', 
+                                        padding: '12px', 
+                                        borderRadius: '8px', 
+                                        border: '1px solid var(--border)',
+                                        cursor: 'pointer',
+                                        transition: 'all 0.2s'
+                                    }}
+                                    onMouseOver={(e) => e.currentTarget.style.borderColor = s.color}
+                                    onMouseOut={(e) => e.currentTarget.style.borderColor = 'var(--border)'}
+                                >
+                                    <div style={{ fontSize: '10px', color: 'var(--text-dim)', marginBottom: '4px' }}>{s.label}</div>
+                                    <div style={{ fontSize: '20px', fontWeight: 'bold', color: s.color }}>
+                                        {data.filter(f => f.stato === s.status).length}
+                                    </div>
+                                </div>
+                            ))}
                         </div>
-                        <div style={{ marginTop: '10px' }}>
-                            <span
-                                onClick={() => setActiveTab('sponsors')}
-                                style={{ fontSize: '11px', color: 'var(--bright-mint)', fontWeight: 'bold', cursor: 'pointer' }}
+                    </div>
+
+                    {/* SECTION 3: AZIONE CORRENTE */}
+                    <div className="card" style={{ gridColumn: 'span 3', background: 'linear-gradient(145deg, #0E1412, #141C18)', borderLeft: '4px solid var(--bright-mint)' }}>
+                        <div className="card-title" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <i data-lucide="zap" style={{ width: '16px', color: 'var(--bright-mint)' }}></i> Focus Operativo
+                        </div>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
+                            <div>
+                                <div style={{ fontSize: '12px', color: 'var(--text-dim)', marginBottom: '4px' }}>Obiettivo Fase 1</div>
+                                <div style={{ fontSize: '14px', color: 'var(--text-main)', lineHeight: '1.4' }}>
+                                    Mancano <b>{missingToNext}</b> partecipanti per chiudere la prima lista da 50.
+                                </div>
+                            </div>
+                            <button 
+                                className="btn btn-primary" 
+                                onClick={() => setActiveTab('crm')}
+                                style={{ padding: '10px 20px' }}
                             >
-                                Gestisci Sponsor →
-                            </span>
+                                Continua Chiamate →
+                            </button>
                         </div>
                     </div>
-
-                    {/* Bottom Row: Azione Corrente */}
-                    <div className="card" style={{ gridColumn: "span 3" }}>
-                        <div className="card-title">Azione Corrente</div>
-                        <div style={{ display: 'flex', gap: '16px', alignItems: 'center', flexWrap: 'wrap' }}>
-                            <div className="big-number" style={{ fontSize: '20px' }}>FASE 1</div>
-                            <div style={{ color: 'var(--text-dim)', flex: 1, minWidth: '160px' }}>
-                                Mancano <b>{missingToNext}</b> partecipanti per raggiungere l'obiettivo della Fase 1 (50).
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Farmacie Coinvolte KPI */}
-                    <div className="card" style={{ gridColumn: "span 3", cursor: 'pointer' }} onClick={() => setActiveTab('crm')}>
-                        <div className="card-title">Farmacie Coinvolte</div>
-                        <div style={{ display: 'flex', alignItems: 'flex-end', gap: '12px', marginBottom: '8px' }}>
-                            <div className="big-number">{data.filter(f => f.conosciuto).length}</div>
-                            <div style={{ marginBottom: '6px', color: 'var(--text-dim)' }}>su {data.length} totali</div>
-                        </div>
-                        <div className="progress-container">
-                            <div className="progress-bar" style={{ width: `${data.length > 0 ? (data.filter(f => f.conosciuto).length / data.length) * 100 : 0}%` }}></div>
-                        </div>
-                        <div style={{ marginTop: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '11px' }}>
-                            <span style={{ color: 'var(--text-dim)' }}>{data.filter(f => !f.conosciuto).length} ancora da contattare</span>
-                            <span style={{ color: 'var(--bright-mint)', fontWeight: 'bold' }}>
-                                Vai al CRM →
-                            </span>
-                        </div>
-                    </div>
+                </div>
                 </div>
             );
         };
