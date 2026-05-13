@@ -513,6 +513,9 @@
                 padding: 0 12px;
             }
 
+            .mobile-view { display: block !important; }
+            .desktop-view { display: none !important; }
+
             .compact-table {
                 min-width: 600px; /* Force scroll for tables */
             }
@@ -1726,15 +1729,15 @@
             return (
                 <div className="fade-in">
                     {confirm && <ConfirmModal message={confirm.message} onConfirm={confirm.onConfirm} onCancel={() => setConfirm(null)} />}
-                    <div style={{ display: 'flex', gap: '8px', marginBottom: '16px', background: '#111915', padding: '12px', borderRadius: '8px', alignItems: 'center' }}>
-                        <div style={{ flexGrow: 1 }}>
+                    <div style={{ display: 'flex', gap: '8px', marginBottom: '16px', background: '#111915', padding: '12px', borderRadius: '8px', alignItems: 'center', flexWrap: 'wrap' }}>
+                        <div style={{ flexGrow: 1, minWidth: '150px' }}>
                             <input 
                                 placeholder="Cerca partecipante..." 
                                 value={filter} 
                                 onChange={e => setFilter(e.target.value)}
                             />
                         </div>
-                        <button className="btn btn-primary" onClick={() => setIsModalOpen(true)}>+ Aggiungi</button>
+                        <button className="btn btn-primary" style={{ whiteSpace: 'nowrap' }} onClick={() => setIsModalOpen(true)}>+ Aggiungi</button>
                     </div>
 
                     {isModalOpen && (
@@ -1771,35 +1774,63 @@
                         </div>
                     )}
 
-                    <div className="compact-table-container">
-                        <table className="compact-table">
-                            <thead>
-                                <tr>
-                                    <th>Nome e Cognome</th>
-                                    <th>Farmacia</th>
-                                    <th>Ruolo</th>
-                                    <th style={{ width: '40px' }}></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {filtered.length > 0 ? filtered.map(p => (
-                                    <tr key={p.id}>
-                                        <td>{p.nome} {p.cognome}</td>
-                                        <td>{p.farmacia}</td>
-                                        <td>
-                                            <span className={`pill status-${p.is_farmacista === 'Sì' ? 'confermato' : 'contattato'}`}>
-                                                {p.is_farmacista === 'Sì' ? 'Farmacista' : 'Extra'}
-                                            </span>
-                                        </td>
-                                        <td>
-                                            <button className="btn-delete" onClick={() => deletePartecipante(p.id)}>🗑️</button>
-                                        </td>
+                    {/* Mobile View: Card List */}
+                    <div className="mobile-view" style={{ display: 'none' }}>
+                        {filtered.length > 0 ? filtered.map(p => (
+                            <div key={p.id} className="card" style={{ marginBottom: '10px', padding: '12px' }}>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                                    <div>
+                                        <div style={{ fontWeight: 'bold', fontSize: '14px', color: 'var(--text-main)' }}>{p.nome} {p.cognome}</div>
+                                        <div style={{ fontSize: '11px', color: 'var(--text-dim)', marginTop: '4px' }}>
+                                            <i data-lucide="building-2" style={{ width: '10px', marginRight: '4px', verticalAlign: 'middle' }}></i>
+                                            {p.farmacia}
+                                        </div>
+                                    </div>
+                                    <button className="btn-delete" onClick={() => deletePartecipante(p.id)} style={{ padding: '4px' }}>🗑️</button>
+                                </div>
+                                <div style={{ marginTop: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                    <span className={`pill status-${p.is_farmacista === 'Sì' ? 'confermato' : 'contattato'}`} style={{ fontSize: '10px' }}>
+                                        {p.is_farmacista === 'Sì' ? 'Farmacista' : 'Extra'}
+                                    </span>
+                                </div>
+                            </div>
+                        )) : (
+                            <div style={{ textAlign: 'center', padding: '40px', color: 'var(--text-dim)' }}>Nessun partecipante trovato.</div>
+                        )}
+                    </div>
+
+                    {/* Desktop View: Table */}
+                    <div className="desktop-view">
+                        <div className="compact-table-container">
+                            <table className="compact-table">
+                                <thead>
+                                    <tr>
+                                        <th>Nome e Cognome</th>
+                                        <th>Farmacia</th>
+                                        <th>Ruolo</th>
+                                        <th style={{ width: '40px' }}></th>
                                     </tr>
-                                )) : (
-                                    <tr><td colSpan="4" style={{ textAlign: 'center', padding: '20px', color: 'var(--text-dim)' }}>Nessun partecipante registrato.</td></tr>
-                                )}
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    {filtered.length > 0 ? filtered.map(p => (
+                                        <tr key={p.id}>
+                                            <td>{p.nome} {p.cognome}</td>
+                                            <td>{p.farmacia}</td>
+                                            <td>
+                                                <span className={`pill status-${p.is_farmacista === 'Sì' ? 'confermato' : 'contattato'}`}>
+                                                    {p.is_farmacista === 'Sì' ? 'Farmacista' : 'Extra'}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <button className="btn-delete" onClick={() => deletePartecipante(p.id)}>🗑️</button>
+                                            </td>
+                                        </tr>
+                                    )) : (
+                                        <tr><td colSpan="4" style={{ textAlign: 'center', padding: '20px', color: 'var(--text-dim)' }}>Nessun partecipante registrato.</td></tr>
+                                    )}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             );
