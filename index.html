@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,14 +8,16 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Syne:wght@600;700;800&display=swap"
+        rel="stylesheet">
     <!-- Scripts -->
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    
+
     <style>
         :root {
             --bg-dark: #0A0F0D;
@@ -49,7 +52,8 @@
         #root {
             display: flex;
             height: 100vh;
-            height: 100dvh; /* iOS Safari: dynamic viewport excludes browser chrome */
+            height: 100dvh;
+            /* iOS Safari: dynamic viewport excludes browser chrome */
             flex-direction: row;
         }
 
@@ -84,7 +88,8 @@
             transition: all 0.2s;
         }
 
-        .nav-item:hover, .nav-item.active {
+        .nav-item:hover,
+        .nav-item.active {
             background: var(--accent-green);
             color: white;
         }
@@ -255,19 +260,49 @@
             display: inline-block;
         }
 
-        .status-confermato { background: #004D40; color: #00E676; }
-        .status-contattato { background: #1A2621; color: #8A9B93; }
-        .status-interessato { background: #1D3328; color: #B2FF59; }
-        .status-non-interessato { background: #331D1D; color: #FF5252; }
-        .status-follow-up { background: #332B1D; color: #FFD740; }
-        .status-in-corso { background: #1D2B33; color: #00B0FF; }
+        .status-confermato {
+            background: #004D40;
+            color: #00E676;
+        }
+
+        .status-da-contattare {
+            background: #1A2621;
+            color: #8A9B93;
+        }
+
+        .status-contattato {
+            background: #1A2621;
+            color: #8A9B93;
+        }
+
+        .status-interessato {
+            background: #1D3328;
+            color: #B2FF59;
+        }
+
+        .status-non-interessato {
+            background: #331D1D;
+            color: #FF5252;
+        }
+
+        .status-follow-up {
+            background: #332B1D;
+            color: #FFD740;
+        }
+
+        .status-in-corso {
+            background: #1D2B33;
+            color: #00B0FF;
+        }
 
         /* Forms/Inputs */
         .input-group {
             margin-bottom: 8px;
         }
 
-        input, select, textarea {
+        input,
+        select,
+        textarea {
             background: #1D2622;
             border: 1px solid var(--border);
             color: white;
@@ -281,9 +316,11 @@
         ::-webkit-scrollbar {
             width: 6px;
         }
+
         ::-webkit-scrollbar-track {
             background: var(--bg-dark);
         }
+
         ::-webkit-scrollbar-thumb {
             background: var(--border);
             border-radius: 3px;
@@ -292,8 +329,11 @@
         /* Modal */
         .modal-overlay {
             position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.8);
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -302,9 +342,11 @@
 
         @media (max-width: 768px) {
             .modal-overlay {
-                bottom: 70px; /* lascia spazio alla bottom nav */
+                bottom: 70px;
+                /* lascia spazio alla bottom nav */
                 align-items: flex-end;
             }
+
             .modal {
                 max-height: calc(100dvh - 70px - 24px);
                 overflow-y: auto;
@@ -314,6 +356,7 @@
                 margin: 0;
             }
         }
+
         .modal {
             background: var(--card-bg);
             border: 1px solid var(--bright-mint);
@@ -333,15 +376,33 @@
             transition: opacity 0.2s;
         }
 
-        .btn-primary { background: var(--bright-mint); color: black; }
-        .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text-dim); }
+        .btn-primary {
+            background: var(--bright-mint);
+            color: black;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-dim);
+        }
 
         /* Animation */
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(5px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(5px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-        .fade-in { animation: fadeIn 0.3s ease-out; }
+
+        .fade-in {
+            animation: fadeIn 0.3s ease-out;
+        }
 
         /* High Density Overrides */
         .grid-compact {
@@ -356,7 +417,8 @@
             grid-template-columns: 1fr 300px;
             gap: 32px;
             padding-top: 20px;
-            min-width: 0; /* evita overflow su flex/grid */
+            min-width: 0;
+            /* evita overflow su flex/grid */
         }
 
         .timeline {
@@ -420,13 +482,15 @@
             color: var(--text-dim);
             margin-bottom: 4px;
             display: flex;
-            align-items: flex-start; /* wrap su testo lungo */
+            align-items: flex-start;
+            /* wrap su testo lungo */
             gap: 6px;
             line-height: 1.4;
         }
 
         .checklist li::before {
-            content: none; /* rimosso: il bullet lo gestisce la checkbox custom */
+            content: none;
+            /* rimosso: il bullet lo gestisce la checkbox custom */
         }
 
         .roadmap-badge {
@@ -457,7 +521,8 @@
         /* Responsive Design */
         @media (max-width: 768px) {
             #root {
-                flex-direction: column-reverse; /* Bottom nav */
+                flex-direction: column-reverse;
+                /* Bottom nav */
             }
 
             .sidebar {
@@ -476,7 +541,8 @@
             }
 
             .logo {
-                display: none; /* Hide logo in bottom nav */
+                display: none;
+                /* Hide logo in bottom nav */
             }
 
             .nav-item {
@@ -499,7 +565,8 @@
             }
 
             .sidebar div:last-child {
-                display: none; /* Hide "Cloud Active" info on mobile sidebar */
+                display: none;
+                /* Hide "Cloud Active" info on mobile sidebar */
             }
 
             .content {
@@ -529,7 +596,8 @@
             .milestones-card {
                 width: 100%;
                 position: static;
-                order: -1; /* Show milestones at top on mobile? Or bottom? Let's go bottom for better flow. Actually order: 2 */
+                order: -1;
+                /* Show milestones at top on mobile? Or bottom? Let's go bottom for better flow. Actually order: 2 */
                 order: 2;
             }
 
@@ -540,11 +608,17 @@
                 padding: 0 12px;
             }
 
-            .mobile-view { display: block !important; }
-            .desktop-view { display: none !important; }
+            .mobile-view {
+                display: block !important;
+            }
+
+            .desktop-view {
+                display: none !important;
+            }
 
             .compact-table {
-                min-width: 600px; /* Force scroll for tables */
+                min-width: 600px;
+                /* Force scroll for tables */
             }
 
             .modal {
@@ -561,14 +635,18 @@
             }
 
             /* Improve touch targets (Apple/Google min 44px) */
-            .btn, .nav-item {
+            .btn,
+            .nav-item {
                 min-height: 44px;
             }
 
-            input, select, textarea {
+            input,
+            select,
+            textarea {
                 min-height: 44px;
                 padding: 10px 8px;
-                font-size: 16px; /* Prevents iOS auto-zoom on focus */
+                font-size: 16px;
+                /* Prevents iOS auto-zoom on focus */
             }
 
             .compact-table td {
@@ -582,6 +660,7 @@
         }
 
         @media (max-width: 768px) {
+
             /* Nascondi colonne Adesioni e Follow-up: appaiono solo nel pannello espanso */
             .compact-table th:nth-child(6),
             .compact-table td:nth-child(6),
@@ -619,12 +698,20 @@
             font-weight: 800;
         }
 
-        .v-50 { color: #FFA000; }
-        .v-100 { color: #00B0FF; }
-        .v-200 { color: #00E676; }
+        .v-50 {
+            color: #FFA000;
+        }
 
+        .v-100 {
+            color: #00B0FF;
+        }
+
+        .v-200 {
+            color: #00E676;
+        }
     </style>
 </head>
+
 <body>
     <div id="root"></div>
 
@@ -633,7 +720,7 @@
         // --- CONFIGURAZIONE GOOGLE SHEETS ---
         // Sostituisci con il tuo ID dello Sheet (lo trovi nell'URL)
         const SHEET_ID = '1jPNHcWGg0h4Rxa313OYWPK0Pv9y-Bove1GdN-U4tu8U';
-        
+
         /* 
            NOTA SULL'INTEGRAZIONE:
            Per un file HTML singolo, il modo più sicuro per scrivere su Google Sheets è usare un "Google Apps Script" 
@@ -645,9 +732,9 @@
            3. Clicca "Esegui" (Deploy) -> Nuova implementazione -> App Web -> Chiunque ha accesso.
            4. Copia l'URL dell'App Web e incollalo qui sotto.
         */
-        const APPS_SCRIPT_URL = ''; 
+        const APPS_SCRIPT_URL = '';
         const SUPABASE_URL = 'https://zywdrekxwbrrcxyqtaxo.supabase.co';
-        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp5d2RyZWt4d2JycmN4eXF0YXhvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg0ODU2NzAsImV4cCI6MjA5NDA2MTY3MH0.1W5IGyf08X1Cq0ae5bKgZQpqyzNXtqwnYbcbC_5k698'; 
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp5d2RyZWt4d2JycmN4eXF0YXhvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg0ODU2NzAsImV4cCI6MjA5NDA2MTY3MH0.1W5IGyf08X1Cq0ae5bKgZQpqyzNXtqwnYbcbC_5k698';
 
         // --- MOCK DATA (Fallback) ---
         const INITIAL_FARMACIE = [
@@ -719,7 +806,7 @@
                 offerta_cibo: "Apericena a buffet con isole tematiche"
             }
         ];
-        
+
         const INITIAL_SPONSOR = [
             { id: 1, nome: "Azienda Pharma A", referente: "Marco S.", importo: 1000, pagato: "Sì" },
             { id: 2, nome: "Distribuzione X", referente: "Elena R.", importo: 500, pagato: "No" },
@@ -728,11 +815,11 @@
         const INITIAL_PARTECIPANTI = [];
 
         const INITIAL_ROADMAP = [
-            { 
-                id: 0, 
-                fase: "FASE 0", 
-                titolo: "Setup (Ora)", 
-                stato: "In corso", 
+            {
+                id: 0,
+                fase: "FASE 0",
+                titolo: "Setup (Ora)",
+                stato: "In corso",
                 checklist: [
                     { text: "Gestionale operativo", completed: true },
                     { text: "Definire il locale e il costo", completed: true },
@@ -740,26 +827,26 @@
                     { text: "Definire chi fattura e ottenere l'IBAN", completed: false }
                 ],
                 traguardo: null,
-                note: "Gestionale pronto. Gruppo WA aperto." 
+                note: "Gestionale pronto. Gruppo WA aperto."
             },
-            { 
-                id: 1, 
-                fase: "FASE 1", 
-                titolo: "Da 0 a 50 — Attivazione", 
-                stato: "In corso", 
+            {
+                id: 1,
+                fase: "FASE 1",
+                titolo: "Da 0 a 50 — Attivazione",
+                stato: "In corso",
                 checklist: [
                     { text: "Chiamate ai farmacisti della lista", completed: false },
                     { text: "Passaparola nella rete personale", completed: false },
                     { text: "WhatsApp come raccoglitore informale di interesse", completed: false }
                 ],
                 traguardo: "50 interessati → si blinda il locale",
-                note: "Chiamate in corso sulle farmacie di Milano." 
+                note: "Chiamate in corso sulle farmacie di Milano."
             },
-            { 
-                id: 2, 
-                fase: "FASE 2", 
-                titolo: "Da 50 a 100 — Accelerazione", 
-                stato: "Futuro", 
+            {
+                id: 2,
+                fase: "FASE 2",
+                titolo: "Da 50 a 100 — Accelerazione",
+                stato: "Futuro",
                 checklist: [
                     { text: "Si blinda il locale con caparra", completed: false },
                     { text: "Si costruisce il Google Form con IBAN per le iscrizioni ufficiali", completed: false },
@@ -768,13 +855,13 @@
                     { text: "Le chiamate ai farmacisti continuano", completed: false }
                 ],
                 traguardo: "100 paganti → evento economicamente sostenibile",
-                note: "" 
+                note: ""
             },
-            { 
-                id: 3, 
-                fase: "FASE 3", 
-                titolo: "Da 100 a 200 — Spinta finale", 
-                stato: "Futuro", 
+            {
+                id: 3,
+                fase: "FASE 3",
+                titolo: "Da 100 a 200 — Spinta finale",
+                stato: "Futuro",
                 checklist: [
                     { text: "Passaparola dei farmacisti già iscritti", completed: false },
                     { text: "Gli sponsor portano i loro ospiti", completed: false },
@@ -782,7 +869,7 @@
                     { text: "Valutare se la sede regge 200 o serve upgrade della location", completed: false }
                 ],
                 traguardo: "200 → evento di qualità, margine positivo",
-                note: "" 
+                note: ""
             }
         ];
 
@@ -820,8 +907,8 @@
             if (isEditing) {
                 if (type === "select" && options) {
                     return (
-                        <select 
-                            value={currentValue} 
+                        <select
+                            value={currentValue}
                             onChange={(e) => { setCurrentValue(e.target.value); onSave(e.target.value); setIsEditing(false); }}
                             onBlur={() => setIsEditing(false)}
                             autoFocus
@@ -832,7 +919,7 @@
                     );
                 }
                 return (
-                    <input 
+                    <input
                         type={type}
                         value={currentValue}
                         onChange={(e) => setCurrentValue(e.target.value)}
@@ -861,12 +948,12 @@
         };
 
         const Dashboard = ({ data, sede, sponsors, setActiveTab, setStatusFilter, partecipanti = [] }) => {
-            const confirmedPharmacists = Array.isArray(partecipanti) ? partecipanti.reduce((acc, p) => 
+            const confirmedPharmacists = Array.isArray(partecipanti) ? partecipanti.reduce((acc, p) =>
                 acc + (p?.ruolo === 'Farmacista' ? 1 : 0) + (parseInt(p?.colleghi_farmacisti) || 0), 0) : 0;
-            
-            const extraParticipants = Array.isArray(partecipanti) ? partecipanti.reduce((acc, p) => 
+
+            const extraParticipants = Array.isArray(partecipanti) ? partecipanti.reduce((acc, p) =>
                 acc + (p?.ruolo === 'Accompagnatore' ? 1 : 0) + (parseInt(p?.accompagnatori) || 0), 0) : 0;
-            
+
             const totalParticipants = confirmedPharmacists + extraParticipants;
             const goal = 200;
             const progress = (totalParticipants / goal) * 100;
@@ -874,12 +961,12 @@
             const totalSponsorship = sponsors.reduce((acc, curr) => acc + (parseInt(curr.importo) || 0), 0);
             const costRemaining = Math.max(0, sede.costo_totale - totalSponsorship);
             const suggestedTicketPrice = totalParticipants > 0 ? Math.ceil(costRemaining / totalParticipants) : 0;
-            
+
             const financialBalance = (totalParticipants * sede.costo_persona + totalSponsorship) - sede.costo_totale;
 
-            const missingToNext = totalParticipants < 50 ? 50 - totalParticipants : 
-                                  totalParticipants < 100 ? 100 - totalParticipants : 
-                                  totalParticipants < 200 ? 200 - totalParticipants : 0;
+            const missingToNext = totalParticipants < 50 ? 50 - totalParticipants :
+                totalParticipants < 100 ? 100 - totalParticipants :
+                    totalParticipants < 200 ? 200 - totalParticipants : 0;
 
             const handleStatusClick = (status) => {
                 setStatusFilter(status);
@@ -935,7 +1022,7 @@
                                 <div style={{ fontSize: '12px', color: 'var(--text-dim)' }}>su {data.length}</div>
                             </div>
                             <div className="progress-container" style={{ marginBottom: '8px' }}>
-                                <div className="progress-bar" style={{ width: `${(data.filter(f => f.conosciuto).length / data.length) * 100}%` }}></div>
+                                <div className="progress-bar" style={{ width: `${data.length > 0 ? (data.filter(f => f.conosciuto).length / data.length) * 100 : 0}%` }}></div>
                             </div>
                             <div style={{ fontSize: '10px', color: 'var(--text-dim)' }}>
                                 {data.filter(f => !f.conosciuto).length} farmacie ancora da mappare
@@ -955,13 +1042,13 @@
                                 { label: 'Confermati', status: 'Confermato', color: '#00E676' },
                                 { label: 'Follow-up', status: 'Follow-up', color: '#00B0FF' }
                             ].map(s => (
-                                <div 
+                                <div
                                     key={s.status}
                                     onClick={() => handleStatusClick(s.status)}
-                                    style={{ 
-                                        background: 'rgba(255,255,255,0.03)', 
-                                        padding: '12px', 
-                                        borderRadius: '8px', 
+                                    style={{
+                                        background: 'rgba(255,255,255,0.03)',
+                                        padding: '12px',
+                                        borderRadius: '8px',
                                         border: '1px solid var(--border)',
                                         cursor: 'pointer',
                                         transition: 'all 0.2s'
@@ -990,8 +1077,8 @@
                                     Mancano <b>{missingToNext}</b> partecipanti per chiudere la prima lista da 50.
                                 </div>
                             </div>
-                            <button 
-                                className="btn btn-primary" 
+                            <button
+                                className="btn btn-primary"
                                 onClick={() => setActiveTab('crm')}
                                 style={{ padding: '10px 20px' }}
                             >
@@ -1000,6 +1087,7 @@
                         </div>
                     </div>
                 </div>
+                </div >
             );
         };
 
@@ -1062,7 +1150,7 @@
                 })
                 .sort((a, b) => {
                     let valA, valB;
-                    
+
                     if (sortConfig.key === 'adesioni') {
                         valA = (parseInt(a.farmacisti_vengono) || 0) + (parseInt(a.extra_nonfarmacisti) || 0);
                         valB = (parseInt(b.farmacisti_vengono) || 0) + (parseInt(b.extra_nonfarmacisti) || 0);
@@ -1082,17 +1170,17 @@
                     <div style={{ display: 'flex', gap: '8px', marginBottom: '16px', background: '#111915', padding: '12px', borderRadius: '8px' }}>
                         <div style={{ flexGrow: 1 }}>
                             <label style={{ fontSize: '10px', display: 'block', marginBottom: '4px', color: 'var(--text-dim)' }}>Cerca farmacia o città</label>
-                            <input 
-                                placeholder="Cerca..." 
-                                value={filter} 
+                            <input
+                                placeholder="Cerca..."
+                                value={filter}
                                 onChange={e => setFilter(e.target.value)}
                                 style={{ width: '100%' }}
                             />
                         </div>
                         <div style={{ width: '150px' }}>
                             <label style={{ fontSize: '10px', display: 'block', marginBottom: '4px', color: 'var(--text-dim)' }}>Stato</label>
-                            <select 
-                                value={statusFilter} 
+                            <select
+                                value={statusFilter}
                                 onChange={e => setStatusFilter(e.target.value)}
                                 style={{ width: '100%' }}
                             >
@@ -1149,10 +1237,10 @@
                                     <React.Fragment key={f.id}>
                                         <tr className="row-expandable" onClick={() => setExpandedId(expandedId === f.id ? null : f.id)} style={{ opacity: f.conosciuto ? 1 : 0.6 }}>
                                             <td onClick={(e) => e.stopPropagation()}>
-                                                <input 
-                                                    type="checkbox" 
-                                                    checked={!!f.conosciuto} 
-                                                    onChange={(e) => { 
+                                                <input
+                                                    type="checkbox"
+                                                    checked={!!f.conosciuto}
+                                                    onChange={(e) => {
                                                         updateFarmacia(f.id, 'conosciuto', e.target.checked);
                                                         if (e.target.checked) setDetailModalId(f.id);
                                                     }}
@@ -1351,8 +1439,8 @@
 
             const addSede = (newSede) => {
                 const id = Date.now();
-                onUpdate([...sedi, { 
-                    ...newSede, 
+                onUpdate([...sedi, {
+                    ...newSede,
                     id,
                     costo_totale: parseInt(newSede.costo_totale) || 0,
                     costo_persona: parseInt(newSede.costo_persona) || 0,
@@ -1381,8 +1469,8 @@
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
                         <div style={{ display: 'flex', gap: '8px' }}>
                             {sedi.map(s => (
-                                <button 
-                                    key={s.id} 
+                                <button
+                                    key={s.id}
                                     className={`btn ${activeSedeId === s.id ? 'btn-primary' : 'btn-outline'}`}
                                     onClick={() => setActiveSedeId(s.id)}
                                 >
@@ -1457,10 +1545,10 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div style={{ marginTop: 'auto', paddingTop: '20px' }}>
-                                <button 
-                                    className="btn btn-outline" 
+                                <button
+                                    className="btn btn-outline"
                                     style={{ color: '#FF5252', borderColor: 'rgba(255, 82, 82, 0.2)', width: '100%' }}
                                     onClick={(e) => { e.stopPropagation(); deleteSede(activeSede.id); }}
                                 >
@@ -1490,9 +1578,9 @@
                             <div style={{ background: 'rgba(0,0,0,0.2)', padding: '16px', borderRadius: '8px' }}>
                                 <div className="card-title" style={{ fontSize: '9px' }}>Simulatore Rapido</div>
                                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-                                    <input 
-                                        type="number" 
-                                        value={simParticipants} 
+                                    <input
+                                        type="number"
+                                        value={simParticipants}
                                         onChange={e => setSimParticipants(e.target.value)}
                                         style={{ width: '80px', textAlign: 'center' }}
                                     />
@@ -1633,9 +1721,9 @@
                                             </span>
                                         </td>
                                         <td>
-                                            <button 
+                                            <button
                                                 className="btn-delete"
-                                                onClick={(e) => { e.stopPropagation(); deleteSponsor(s.id); }} 
+                                                onClick={(e) => { e.stopPropagation(); deleteSponsor(s.id); }}
                                                 title="Elimina"
                                             >
                                                 🗑️
@@ -1667,25 +1755,25 @@
                                 <h3 className="roadmap-phase-title">
                                     <InlineEdit value={p.titolo} onSave={(val) => updatePhase(p.id, 'titolo', val)} />
                                 </h3>
-                                
+
                                 <ul className="checklist">
                                     {p.checklist.map((item, i) => (
-                                        <li 
-                                            key={i} 
+                                        <li
+                                            key={i}
                                             className={item && item.completed ? 'completed' : ''}
                                             style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}
                                         >
-                                            <div 
+                                            <div
                                                 onClick={() => {
-                                                    const newChecklist = p.checklist.map((c, idx) => 
+                                                    const newChecklist = p.checklist.map((c, idx) =>
                                                         idx === i ? { ...c, completed: !c.completed } : c
                                                     );
                                                     updatePhase(p.id, 'checklist', newChecklist);
                                                 }}
-                                                style={{ 
-                                                    width: '18px', 
-                                                    height: '18px', 
-                                                    border: '1px solid var(--border)', 
+                                                style={{
+                                                    width: '18px',
+                                                    height: '18px',
+                                                    border: '1px solid var(--border)',
                                                     borderRadius: '4px',
                                                     background: item && item.completed ? 'var(--bright-mint)' : 'transparent',
                                                     display: 'flex',
@@ -1698,14 +1786,14 @@
                                                 {item && item.completed && <i data-lucide="check" style={{ width: '12px', height: '12px', color: '#000' }}></i>}
                                             </div>
                                             <div style={{ flexGrow: 1, fontSize: '13px' }}>
-                                                <InlineEdit 
-                                                    value={item ? item.text : ''} 
+                                                <InlineEdit
+                                                    value={item ? item.text : ''}
                                                     onSave={(val) => {
-                                                        const newChecklist = p.checklist.map((c, idx) => 
+                                                        const newChecklist = p.checklist.map((c, idx) =>
                                                             idx === i ? { ...c, text: val } : c
                                                         );
                                                         updatePhase(p.id, 'checklist', newChecklist);
-                                                    }} 
+                                                    }}
                                                 />
                                             </div>
                                         </li>
@@ -1739,7 +1827,7 @@
 
                     <div className="milestones-card">
                         <div className="card-title" style={{ marginBottom: '24px' }}>Traguardi</div>
-                        
+
                         <div className="milestone-row">
                             <div className="milestone-label">Si blinda il locale</div>
                             <div className="milestone-value v-50">50</div>
@@ -1780,7 +1868,7 @@
                 });
             };
 
-            const filtered = partecipanti.filter(p => 
+            const filtered = partecipanti.filter(p =>
                 (p.nome + ' ' + p.cognome + ' ' + p.farmacia).toLowerCase().includes(filter.toLowerCase())
             );
 
@@ -1789,9 +1877,9 @@
                     {confirm && <ConfirmModal message={confirm.message} onConfirm={confirm.onConfirm} onCancel={() => setConfirm(null)} />}
                     <div style={{ display: 'flex', gap: '8px', marginBottom: '16px', background: '#111915', padding: '12px', borderRadius: '8px', alignItems: 'center', flexWrap: 'wrap' }}>
                         <div style={{ flexGrow: 1, minWidth: '150px' }}>
-                            <input 
-                                placeholder="Cerca partecipante..." 
-                                value={filter} 
+                            <input
+                                placeholder="Cerca partecipante..."
+                                value={filter}
                                 onChange={e => setFilter(e.target.value)}
                             />
                         </div>
@@ -1809,14 +1897,14 @@
                                 }}>
                                     <div className="input-group"><label>Nome</label><input name="nome" required /></div>
                                     <div className="input-group"><label>Cognome</label><input name="cognome" required /></div>
-                                    
+
                                     <div className="input-group">
                                         <label>Farmacia</label>
-                                        <input 
-                                            name="farmacia" 
-                                            list="farmacie-list" 
-                                            placeholder="Cerca farmacia o scrivi nuova..." 
-                                            required 
+                                        <input
+                                            name="farmacia"
+                                            list="farmacie-list"
+                                            placeholder="Cerca farmacia o scrivi nuova..."
+                                            required
                                             autoComplete="off"
                                         />
                                         <datalist id="farmacie-list">
@@ -1995,7 +2083,7 @@
                         .select('*')
                         .limit(1)
                         .single();
-                    
+
                     if (error) throw error;
 
                     if (data && data.content) {
@@ -2021,7 +2109,7 @@
                     window.alert("Client Supabase non pronto.");
                     return;
                 }
-                
+
                 let stateToSave;
                 if (type === 'force_reset') {
                     stateToSave = {
@@ -2046,7 +2134,7 @@
                     const { error } = await supabaseClient
                         .from('app_state')
                         .upsert({ id: 1, content: stateToSave, updated_at: new Date() });
-                    
+
                     if (error) throw error;
                     if (type === 'force_reset' || type === 'all') {
                         window.alert("✅ Sincronizzazione completata! I dati sono ora su Supabase.");
@@ -2080,22 +2168,22 @@
 
             const renderContent = () => {
                 if (isLoading) return <div style={{ display: 'flex', height: '100%', alignItems: 'center', justifyContent: 'center' }}>Caricamento dati...</div>;
-                
-                switch(activeTab) {
+
+                switch (activeTab) {
                     case 'dashboard': return (
-                        <Dashboard 
-                            data={farmacie} 
-                            sede={activeSede} 
-                            sponsors={sponsors} 
-                            setActiveTab={setActiveTab} 
+                        <Dashboard
+                            data={farmacie}
+                            sede={activeSede}
+                            sponsors={sponsors}
+                            setActiveTab={setActiveTab}
                             setStatusFilter={setCrmStatusFilter}
                             partecipanti={partecipanti}
                         />
                     );
                     case 'crm': return (
-                        <CRM 
-                            farmacie={farmacie} 
-                            onUpdate={updateFarmacie} 
+                        <CRM
+                            farmacie={farmacie}
+                            onUpdate={updateFarmacie}
                             statusFilter={crmStatusFilter}
                             setStatusFilter={setCrmStatusFilter}
                         />
@@ -2105,19 +2193,19 @@
                     case 'partecipanti': return <Partecipanti partecipanti={partecipanti} farmacie={farmacie} onUpdate={updatePartecipanti} />;
                     case 'roadmap': return <Roadmap phases={roadmap} onUpdate={updateRoadmap} />;
                     case 'menu': return (
-                        <Menu 
-                            setActiveTab={setActiveTab} 
+                        <Menu
+                            setActiveTab={setActiveTab}
                             supabaseClient={supabaseClient}
                         />
                     );
                     case 'settings': return (
-                        <Settings 
-                            url={supabaseKey} 
-                            setUrl={setSupabaseKey} 
-                            loadData={loadDataFromSupabase} 
+                        <Settings
+                            url={supabaseKey}
+                            setUrl={setSupabaseKey}
+                            loadData={loadDataFromSupabase}
                             supabaseClient={supabaseClient}
-                            exportFarmacie={() => exportToCSV(farmacie, 'farmacie.csv')} 
-                            exportToSupabase={(force) => saveDataToSupabase(force ? 'force_reset' : 'all', null)} 
+                            exportFarmacie={() => exportToCSV(farmacie, 'farmacie.csv')}
+                            exportToSupabase={(force) => saveDataToSupabase(force ? 'force_reset' : 'all', null)}
                         />
                     );
                     default: return <Dashboard data={farmacie} sede={activeSede} sponsors={sponsors} partecipanti={partecipanti} />;
@@ -2137,19 +2225,19 @@
                         <div className={`nav-item ${activeTab === 'menu' ? 'active' : ''}`} onClick={() => setActiveTab('menu')}>
                             <i data-lucide="more-horizontal"></i> Altro
                         </div>
-                        
-                        <div style={{ 
-                            marginTop: 'auto', 
-                            padding: '8px', 
-                            fontSize: '10px', 
-                            color: supabaseClient ? 'var(--bright-mint)' : '#FF5252', 
+
+                        <div style={{
+                            marginTop: 'auto',
+                            padding: '8px',
+                            fontSize: '10px',
+                            color: supabaseClient ? 'var(--bright-mint)' : '#FF5252',
                             textAlign: 'center',
                             borderTop: '1px solid var(--border)'
                         }}>
                             <i data-lucide={supabaseClient ? "cloud-check" : "cloud-off"} style={{ width: '12px', marginBottom: '4px' }}></i>
-                            <br/>
+                            <br />
                             {supabaseClient ? 'CLOUD ACTIVE' : 'LOCAL MODE'}
-                            <br/>
+                            <br />
                             V. 1.2.0
                         </div>
                     </nav>
@@ -2174,13 +2262,13 @@
                     <div className="card-title" style={{ marginBottom: '24px', textAlign: 'center' }}>Menu Avanzato</div>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                         {menuItems.map(item => (
-                            <div 
-                                key={item.id} 
-                                className="card" 
-                                style={{ 
-                                    display: 'flex', 
-                                    alignItems: 'center', 
-                                    gap: '16px', 
+                            <div
+                                key={item.id}
+                                className="card"
+                                style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '16px',
                                     cursor: 'pointer',
                                     padding: '20px',
                                     transition: 'transform 0.2s, background 0.2s',
@@ -2190,14 +2278,14 @@
                                 onMouseEnter={(e) => e.currentTarget.style.background = '#1A2621'}
                                 onMouseLeave={(e) => e.currentTarget.style.background = 'var(--card-bg)'}
                             >
-                                <div style={{ 
-                                    width: '40px', 
-                                    height: '40px', 
-                                    borderRadius: '12px', 
-                                    background: 'rgba(0, 230, 118, 0.1)', 
-                                    display: 'flex', 
-                                    alignItems: 'center', 
-                                    justifyContent: 'center' 
+                                <div style={{
+                                    width: '40px',
+                                    height: '40px',
+                                    borderRadius: '12px',
+                                    background: 'rgba(0, 230, 118, 0.1)',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center'
                                 }}>
                                     <i data-lucide={item.icon} style={{ color: 'var(--bright-mint)', width: '20px' }}></i>
                                 </div>
@@ -2211,8 +2299,8 @@
                     </div>
 
                     <div className="card" style={{ marginTop: '32px', textAlign: 'center', background: 'transparent', border: '1px dashed var(--border)' }}>
-                        <div style={{ 
-                            fontSize: '11px', 
+                        <div style={{
+                            fontSize: '11px',
                             color: supabaseClient ? 'var(--bright-mint)' : '#FF5252',
                             display: 'flex',
                             alignItems: 'center',
@@ -2238,10 +2326,10 @@
                     {confirm && <ConfirmModal message={confirm.message} onConfirm={confirm.onConfirm} onCancel={() => setConfirm(null)} />}
                     <div className="card">
                         <div className="card-title">Configurazione Supabase</div>
-                        
-                        <div style={{ 
-                            padding: '8px 12px', 
-                            borderRadius: '4px', 
+
+                        <div style={{
+                            padding: '8px 12px',
+                            borderRadius: '4px',
                             background: isConnected ? 'rgba(0, 230, 118, 0.1)' : 'rgba(255, 82, 82, 0.1)',
                             color: isConnected ? 'var(--bright-mint)' : '#FF5252',
                             fontSize: '11px',
@@ -2251,10 +2339,10 @@
                             alignItems: 'center',
                             gap: '8px'
                         }}>
-                            <div style={{ 
-                                width: '8px', 
-                                height: '8px', 
-                                borderRadius: '50%', 
+                            <div style={{
+                                width: '8px',
+                                height: '8px',
+                                borderRadius: '50%',
                                 background: isConnected ? 'var(--bright-mint)' : '#FF5252',
                                 boxShadow: isConnected ? '0 0 8px var(--bright-mint)' : 'none'
                             }}></div>
@@ -2263,20 +2351,20 @@
 
                         <div className="input-group">
                             <label>Supabase Anon Key</label>
-                            <input 
+                            <input
                                 type="password"
-                                value={tempUrl} 
-                                onChange={e => setTempUrl(e.target.value)} 
+                                value={tempUrl}
+                                onChange={e => setTempUrl(e.target.value)}
                                 placeholder="Inserisci la Anon Key..."
                             />
                         </div>
-                        
+
                         <div style={{ display: 'flex', gap: '8px', marginTop: '16px' }}>
                             <button className="btn btn-primary" onClick={() => {
                                 setUrl(tempUrl);
                                 window.alert("Key aggiornata. L'app tenterà ora la connessione.");
                             }}>Salva Key</button>
-                            
+
                             <button className="btn btn-outline" onClick={() => {
                                 if (!isConnected) {
                                     window.alert("Impossibile caricare: Supabase non collegato.");
@@ -2291,7 +2379,7 @@
                             <p style={{ fontSize: '11px', color: 'var(--text-dim)', marginBottom: '12px' }}>
                                 Usa questi comandi per allineare i dati tra questo computer e il cloud.
                             </p>
-                            
+
                             <button
                                 className="btn btn-outline"
                                 style={{ width: '100%', borderColor: 'var(--bright-mint)', color: 'var(--bright-mint)', marginBottom: '10px' }}
@@ -2337,4 +2425,5 @@
         root.render(<App />);
     </script>
 </body>
+
 </html>
