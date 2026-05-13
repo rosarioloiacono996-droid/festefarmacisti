@@ -861,9 +861,9 @@
                             <div className="progress-bar" style={{ width: `${Math.min(progress, 100)}%` }}></div>
                         </div>
                         <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', alignItems: 'center' }}>
-                            <div>
-                                <span>{confirmedPharmacists} Farmacisti</span>
-                                <span style={{ marginLeft: '12px' }}>{extraParticipants} Accompagnatori</span>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                                <div style={{ fontWeight: '500' }}>{confirmedPharmacists} Farmacisti</div>
+                                <div style={{ color: 'var(--text-dim)' }}>{extraParticipants} Accompagnatori</div>
                             </div>
                         </div>
                     </div>
