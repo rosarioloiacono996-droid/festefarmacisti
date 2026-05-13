@@ -452,6 +452,7 @@
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
+                text-align: center;
                 margin-bottom: 0;
                 padding: 6px 2px;
                 font-size: 12px;
@@ -538,6 +539,25 @@
 
             .compact-table td {
                 padding: 10px 8px;
+            }
+        }
+
+        /* Mobile-only expanded fields — hidden on desktop */
+        .expanded-mobile-only {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            /* Nascondi colonne Adesioni e Follow-up: appaiono solo nel pannello espanso */
+            .compact-table th:nth-child(6),
+            .compact-table td:nth-child(6),
+            .compact-table th:nth-child(7),
+            .compact-table td:nth-child(7) {
+                display: none;
+            }
+
+            .expanded-mobile-only {
+                display: block;
             }
         }
 
@@ -1114,6 +1134,12 @@
                                                         pointerEvents: f.conosciuto ? 'auto' : 'none'
                                                     }}>
                                                         <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '8px' }}>
+                                                            <div className="expanded-mobile-only"><b>Adesioni (P/E):</b>{' '}
+                                                                <InlineEdit type="number" value={f.farmacisti_vengono} onSave={(val) => updateFarmacia(f.id, 'farmacisti_vengono', parseInt(val))} />
+                                                                {' / '}
+                                                                <InlineEdit type="number" value={f.extra_nonfarmacisti} onSave={(val) => updateFarmacia(f.id, 'extra_nonfarmacisti', parseInt(val))} />
+                                                            </div>
+                                                            <div className="expanded-mobile-only"><b>Follow-up:</b> <InlineEdit value={f.follow_up} type="date" onSave={(val) => updateFarmacia(f.id, 'follow_up', val)} /></div>
                                                             <div><b>Note:</b> <InlineEdit value={f.note} onSave={(val) => updateFarmacia(f.id, 'note', val)} /></div>
                                                             <div><b>Telefono:</b> <InlineEdit value={f.telefono} onSave={(val) => updateFarmacia(f.id, 'telefono', val)} /></div>
                                                             <div><b>Tot Collaboratori:</b> <InlineEdit type="number" value={f.collaboratori_totali} onSave={(val) => updateFarmacia(f.id, 'collaboratori_totali', parseInt(val))} /></div>
@@ -1649,6 +1675,7 @@
                 </div>
             );
         };
+        const App = () => {
             const [activeTab, setActiveTab] = useState('dashboard');
             const [farmacie, setFarmacie] = useState(INITIAL_FARMACIE);
             const [sedi, setSedi] = useState(INITIAL_SEDI);
