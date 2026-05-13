@@ -176,6 +176,24 @@
             background: rgba(0, 230, 118, 0.05);
         }
 
+        .pipeline-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .pipeline-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .pipeline-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
         .btn-delete {
             background: transparent !important;
             border: none !important;
@@ -803,7 +821,6 @@
                         <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px' }}>
                             <span>{confirmedPharmacists} Farmacisti</span>
                             <span>{extraParticipants} Extra</span>
-                            <span style={{ color: 'var(--bright-mint)' }}>-{missingToNext} al prossimo step</span>
                         </div>
                     </div>
 
@@ -849,10 +866,12 @@
                             })}
                         </div>
 
-                        <div className="grid-compact" style={{ gridTemplateColumns: 'repeat(5, 1fr)' }}>
+                        <div className="pipeline-grid">
                             {['Da contattare', 'Contattato', 'Interessato', 'Confermato', 'Follow-up'].map(s => (
                                 <div key={s} style={{ borderRight: '1px solid var(--border)', padding: '4px' }}>
-                                    <div style={{ fontSize: '10px', color: 'var(--text-dim)' }}>{s.toUpperCase()}</div>
+                                    <div style={{ fontSize: '9px', color: 'var(--text-dim)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                                        {s === 'Follow-up' ? 'F-UP' : s.toUpperCase()}
+                                    </div>
                                     <div style={{ fontSize: '18px', fontWeight: 'bold' }}>
                                         {data.filter(f => f.stato === s).length}
                                     </div>
