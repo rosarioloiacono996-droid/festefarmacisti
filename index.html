@@ -1389,7 +1389,6 @@
 
         const Sede = ({ sedi, onUpdate, activeSedeId, setActiveSedeId }) => {
             const [isModalOpen, setIsModalOpen] = useState(false);
-            const [simParticipants, setSimParticipants] = useState(100);
             const [confirm, setConfirm] = useState(null);
 
             const activeSede = sedi.find(s => s.id === activeSedeId) || sedi[0];
@@ -1519,42 +1518,40 @@
                             </div>
                         </div>
 
-                        {/* Sezione 2: Costi & Simulazione */}
+                        {/* Sezione 2: Costi */}
                         <div className="card" style={{ background: 'rgba(0, 77, 64, 0.1)', borderColor: 'var(--accent-green)' }}>
-                            <div className="card-title">Profilo Economico</div>
-                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '20px' }}>
+                            <div className="card-title">Costi</div>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                                 <div className="card" style={{ background: 'var(--bg-dark)', padding: '12px' }}>
-                                    <div style={{ fontSize: '10px', color: 'var(--text-dim)' }}>Fisso Locale</div>
-                                    <div style={{ fontSize: '20px', fontWeight: 'bold', color: 'var(--bright-mint)' }}>
-                                        €<InlineEdit type="number" value={activeSede.costo_totale} onSave={(val) => updateSedeField(activeSede.id, 'costo_totale', parseInt(val))} />
-                                    </div>
-                                </div>
-                                <div className="card" style={{ background: 'var(--bg-dark)', padding: '12px' }}>
-                                    <div style={{ fontSize: '10px', color: 'var(--text-dim)' }}>Quota / Persona</div>
-                                    <div style={{ fontSize: '20px', fontWeight: 'bold', color: 'var(--bright-mint)' }}>
+                                    <div style={{ fontSize: '10px', color: 'var(--text-dim)', marginBottom: '4px' }}>Quota / Persona</div>
+                                    <div style={{ fontSize: '24px', fontWeight: 'bold', color: 'var(--bright-mint)' }}>
                                         €<InlineEdit type="number" value={activeSede.costo_persona} onSave={(val) => updateSedeField(activeSede.id, 'costo_persona', parseInt(val))} />
                                     </div>
                                 </div>
-                            </div>
 
-                            <div style={{ background: 'rgba(0,0,0,0.2)', padding: '16px', borderRadius: '8px' }}>
-                                <div className="card-title" style={{ fontSize: '9px' }}>Simulatore Rapido</div>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-                                    <input
-                                        type="number"
-                                        value={simParticipants}
-                                        onChange={e => setSimParticipants(e.target.value)}
-                                        style={{ width: '80px', textAlign: 'center' }}
-                                    />
-                                    <span style={{ fontSize: '12px' }}>Partecipanti</span>
-                                </div>
-                                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px', fontSize: '12px' }}>
-                                    <span>Costo Variabile:</span>
-                                    <span>€{simParticipants * activeSede.costo_persona}</span>
-                                </div>
-                                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '14px', fontWeight: 'bold', borderTop: '1px solid var(--border)', paddingTop: '8px', marginTop: '8px' }}>
-                                    <span>Totale Stimato:</span>
-                                    <span style={{ color: 'var(--bright-mint)' }}>€{(simParticipants * activeSede.costo_persona) + activeSede.costo_totale}</span>
+                                <div className="card" style={{ background: 'var(--bg-dark)', padding: '12px' }}>
+                                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: activeSede.caparra_richiesta > 0 ? '10px' : '0' }}>
+                                        <div style={{ fontSize: '10px', color: 'var(--text-dim)' }}>Caparra richiesta?</div>
+                                        <label style={{ display: 'flex', alignItems: 'center', gap: '6px', cursor: 'pointer' }}>
+                                            <input
+                                                type="checkbox"
+                                                checked={activeSede.caparra_richiesta > 0}
+                                                onChange={(e) => updateSedeField(activeSede.id, 'caparra_richiesta', e.target.checked ? 500 : 0)}
+                                                style={{ width: '16px', height: '16px', cursor: 'pointer' }}
+                                            />
+                                            <span style={{ fontSize: '12px', color: activeSede.caparra_richiesta > 0 ? 'var(--bright-mint)' : 'var(--text-dim)' }}>
+                                                {activeSede.caparra_richiesta > 0 ? 'Sì' : 'No'}
+                                            </span>
+                                        </label>
+                                    </div>
+                                    {activeSede.caparra_richiesta > 0 && (
+                                        <div style={{ borderTop: '1px solid var(--border)', paddingTop: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                            <span style={{ fontSize: '11px', color: 'var(--text-dim)' }}>Anticipo richiesto</span>
+                                            <span style={{ fontSize: '18px', fontWeight: 'bold', color: 'var(--bright-mint)' }}>
+                                                €<InlineEdit type="number" value={activeSede.caparra_richiesta} onSave={(val) => updateSedeField(activeSede.id, 'caparra_richiesta', parseInt(val) || 0)} />
+                                            </span>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         </div>
@@ -2214,7 +2211,7 @@
             const menuItems = [
                 { id: 'crm', label: 'CRM Farmacie', icon: 'building-2', desc: 'Gestisci e monitora le farmacie' },
                 { id: 'partecipanti', label: 'Partecipanti', icon: 'users', desc: 'Lista iscritti all\'evento' },
-                { id: 'sede', label: 'Gestione Sede', icon: 'map-pin', desc: 'Dettagli e costi location' },
+                { id: 'sede', label: 'Locale', icon: 'map-pin', desc: 'Dettagli e costi location' },
                 { id: 'sponsors', label: 'Sponsor & Partner', icon: 'dollar-sign', desc: 'Budget e contributi' },
                 { id: 'settings', label: 'Impostazioni Cloud', icon: 'settings', desc: 'Configurazione Supabase e Backup' },
             ];
