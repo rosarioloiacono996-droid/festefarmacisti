@@ -1,0 +1,59 @@
+.section-header-centered {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.section-eyebrow {
+  display: block;
+  font-family: 'Outfit', sans-serif;
+  text-transform: uppercase;
+  color: var(--primary);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  font-size: 0.85rem;
+  margin-bottom: 12px;
+}
+
+.triage-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 32px;
+  margin-bottom: 56px;
+}
+
+.triage-card {
+  display: flex;
+  flex-direction: column;
+  background: white;
+  border: 1px solid rgba(0,0,0,0.05);
+}
+
+.triage-icon-wrapper {
+  background-color: var(--secondary);
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+  color: var(--primary);
+}
+
+.triage-card-title {
+  font-size: 1.25rem;
+  color: var(--primary-dark);
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+
+.triage-card-desc {
+  color: var(--text-light);
+  line-height: 1.6;
+}
+
+.section-cta-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+}

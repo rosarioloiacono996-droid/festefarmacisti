@@ -1,0 +1,120 @@
+.footer {
+  background-color: #022c22; /* Matching dark emerald header */
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding-top: 64px;
+  color: white;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 48px;
+  margin-bottom: 48px;
+}
+
+.footer-logo-brand {
+  margin-bottom: 24px;
+}
+
+.footer-logo-img {
+  height: 60px;
+  width: auto;
+  object-fit: contain;
+}
+
+.footer-desc {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.footer-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  margin-bottom: 24px;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.footer-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.footer-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-link:hover {
+  color: var(--primary-light);
+}
+
+.hours-list li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255, 255, 255, 0.7);
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+  padding-bottom: 8px;
+}
+
+.hours-list li span {
+  font-weight: 600;
+  color: white;
+  width: 80px;
+}
+
+.footer-bottom {
+  background-color: #011d17; /* Even darker for bottom bar */
+  padding: 24px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.footer-bottom-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.legal-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.875rem;
+}
+
+.footer-link-small {
+  color: var(--primary-light);
+  font-size: 0.875rem;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.footer-link-small:hover {
+  text-decoration: underline;
+}
+
+.footer-legal-inline {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.4);
+  margin-top: 12px;
+}
+
+@media (max-width: 768px) {
+  .footer-bottom-content {
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+  }
+}

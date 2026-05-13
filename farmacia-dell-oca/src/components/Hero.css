@@ -1,0 +1,138 @@
+.hero {
+  position: relative;
+  min-height: 85vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.hero-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: left center;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(1, 30, 20, 0.92) 0%,
+    rgba(2, 50, 35, 0.78) 50%,
+    rgba(2, 50, 35, 0.15) 100%
+  );
+}
+
+.hero-container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+
+.hero-content {
+  max-width: 650px;
+  color: var(--text-inverse);
+}
+
+.hero-badge {
+  display: inline-block;
+  background-color: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(4px);
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.hero-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 24px;
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.hero-subtitle {
+  font-size: 1.125rem;
+  line-height: 1.7;
+  margin-bottom: 40px;
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.hero-actions-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.btn-lg {
+  padding: 16px 32px;
+  font-size: 1.125rem;
+}
+
+.store-status-text {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(4px);
+  padding: 6px 16px;
+  border-radius: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.store-status-text.closed {
+  color: #fbbf24; /* Giallo avviso per i minuti mancanti */
+}
+
+.store-status-text.open {
+  color: #34d399; /* Verde chiaro se aperti */
+}
+
+.hero-dot {
+  background-color: #34d399;
+  box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.2);
+}
+
+@media (max-width: 768px) {
+  .hero {
+    min-height: 75vh;
+  }
+  
+  .hero-overlay {
+    background: linear-gradient(
+      180deg,
+      rgba(1, 30, 20, 0.4) 0%,
+      rgba(1, 30, 20, 0.93) 100%
+    );
+  }
+
+  .hero-content {
+    margin-top: 100px;
+  }
+
+  .hero-title {
+    font-size: 2.5rem;
+  }
+}
