@@ -108,6 +108,17 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 12px;
+        }
+
+        .dashboard-card-span-2 {
+            grid-column: span 2;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-card-span-2 {
+                grid-column: span 1;
+            }
+        }
             height: calc(100vh - 40px); /* Fit to screen */
             grid-template-rows: auto auto 1fr;
         }
@@ -881,7 +892,7 @@
             return (
                 <div className="dashboard-grid fade-in">
                     {/* Top Row: Attendance */}
-                    <div className="card" style={{ gridColumn: "span 2" }}>
+                    <div className="card dashboard-card-span-2">
                         <div className="card-title">Partecipanti Previsti (Fase 1)</div>
                         <div style={{ display: 'flex', alignItems: 'flex-end', gap: '12px' }}>
                             <div className="big-number">{totalParticipants}</div>
@@ -1859,9 +1870,17 @@
                                     <span className={`pill status-${p.ruolo === 'Farmacista' ? 'confermato' : 'contattato'}`} style={{ fontSize: '10px' }}>
                                         {p.ruolo}
                                     </span>
-                                    <div style={{ fontSize: '10px', color: 'var(--text-dim)' }}>
-                                        {parseInt(p.colleghi_farmacisti) > 0 && <span>+{p.colleghi_farmacisti} Coll. </span>}
-                                        {parseInt(p.accompagnatori) > 0 && <span>+{p.accompagnatori} Acc.</span>}
+                                    <div style={{ display: 'flex', gap: '4px' }}>
+                                        {parseInt(p.colleghi_farmacisti) > 0 && (
+                                            <span className="pill" style={{ background: 'rgba(0, 230, 118, 0.1)', color: 'var(--bright-mint)', border: '1px solid rgba(0, 230, 118, 0.2)' }}>
+                                                +{p.colleghi_farmacisti} F
+                                            </span>
+                                        )}
+                                        {parseInt(p.accompagnatori) > 0 && (
+                                            <span className="pill" style={{ background: 'rgba(0, 176, 255, 0.1)', color: '#00B0FF', border: '1px solid rgba(0, 176, 255, 0.2)' }}>
+                                                +{p.accompagnatori} A
+                                            </span>
+                                        )}
                                     </div>
                                 </div>
                             </div>
@@ -1894,7 +1913,19 @@
                                                 </span>
                                             </td>
                                             <td style={{ fontSize: '11px' }}>
-                                                {p.colleghi_farmacisti || 0} F / {p.accompagnatori || 0} A
+                                                <div style={{ display: 'flex', gap: '4px' }}>
+                                                    {parseInt(p.colleghi_farmacisti) > 0 && (
+                                                        <span className="pill" style={{ background: 'rgba(0, 230, 118, 0.1)', color: 'var(--bright-mint)', border: '1px solid rgba(0, 230, 118, 0.2)' }}>
+                                                            +{p.colleghi_farmacisti} F
+                                                        </span>
+                                                    )}
+                                                    {parseInt(p.accompagnatori) > 0 && (
+                                                        <span className="pill" style={{ background: 'rgba(0, 176, 255, 0.1)', color: '#00B0FF', border: '1px solid rgba(0, 176, 255, 0.2)' }}>
+                                                            +{p.accompagnatori} A
+                                                        </span>
+                                                    )}
+                                                    {!p.colleghi_farmacisti && !p.accompagnatori && <span style={{ color: 'var(--text-dim)' }}>---</span>}
+                                                </div>
                                             </td>
                                             <td>
                                                 <button className="btn-delete" onClick={() => deletePartecipante(p.id)}>🗑️</button>
