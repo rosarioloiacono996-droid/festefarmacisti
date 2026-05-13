@@ -291,6 +291,21 @@
             justify-content: center;
             z-index: 1000;
         }
+
+        @media (max-width: 768px) {
+            .modal-overlay {
+                bottom: 70px; /* lascia spazio alla bottom nav */
+                align-items: flex-end;
+            }
+            .modal {
+                max-height: calc(100dvh - 70px - 24px);
+                overflow-y: auto;
+                border-radius: 12px 12px 0 0;
+                width: 100% !important;
+                max-width: 100% !important;
+                margin: 0;
+            }
+        }
         .modal {
             background: var(--card-bg);
             border: 1px solid var(--bright-mint);
@@ -442,7 +457,7 @@
                 justify-content: space-around;
                 align-items: stretch;
                 position: relative;
-                z-index: 1000;
+                z-index: 2001;
                 background: var(--sidebar-bg);
                 border-right: none;
                 border-top: 1px solid var(--border);
@@ -984,7 +999,7 @@
             };
 
             const addFarmacia = (newFarmacia) => {
-                onUpdate([...farmacie, { ...newFarmacia, id: Date.now(), conosciuto: true, stato: 'Da contattare', farmacisti_vengono: 0, extra_nonfarmacisti: 0, follow_up: new Date().toISOString().split('T')[0] }]);
+                onUpdate([...farmacie, { ...newFarmacia, id: Date.now(), conosciuto: true, stato: 'Da contattare', farmacisti_vengono: 0, extra_nonfarmacisti: 0, follow_up: new Date().toISOString().split('T')[0], gestore: '', indirizzo: '' }]);
                 setIsModalOpen(false);
             };
 
@@ -1193,92 +1208,108 @@
                         if (!f) return null;
                         return (
                             <div className="modal-overlay" onClick={() => setDetailModalId(null)}>
-                                <div className="modal" style={{ width: '600px', maxWidth: '95vw' }} onClick={e => e.stopPropagation()}>
-                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px', borderBottom: '1px solid var(--border)', paddingBottom: '16px' }}>
-                                        <h2 style={{ color: 'var(--bright-mint)', margin: 0 }}>Scheda Farmacia</h2>
-                                        <button className="btn btn-outline" onClick={() => setDetailModalId(null)}>Chiudi</button>
-                                    </div>
+                                <div className="modal" style={{ width: '620px', maxWidth: '95vw', maxHeight: '90vh', overflowY: 'auto' }} onClick={e => e.stopPropagation()}>
 
-                                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '24px' }}>
-                                        <div>
-                                            <label style={{ fontSize: '10px', color: 'var(--text-dim)', display: 'block', marginBottom: '4px' }}>NOME FARMACIA</label>
-                                            <div style={{ fontSize: '18px', fontWeight: 'bold' }}>
-                                                <InlineEdit value={f.nome} onSave={(val) => updateFarmacia(f.id, 'nome', val)} />
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <label style={{ fontSize: '10px', color: 'var(--text-dim)', display: 'block', marginBottom: '4px' }}>STATO ATTUALE</label>
+                                    {/* Header con chiudi */}
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                                             <span className={`pill status-${f.stato.toLowerCase().replace(/ /g, '-')}`}>
-                                                <InlineEdit 
-                                                    value={f.stato} 
-                                                    type="select" 
+                                                <InlineEdit
+                                                    value={f.stato}
+                                                    type="select"
                                                     options={['Da contattare', 'Contattato', 'Interessato', 'Confermato', 'Non interessato', 'Follow-up']}
-                                                    onSave={(val) => updateFarmacia(f.id, 'stato', val)} 
+                                                    onSave={(val) => updateFarmacia(f.id, 'stato', val)}
                                                 />
                                             </span>
+                                            <span style={{ fontSize: '10px', color: 'var(--text-dim)' }}>
+                                                Follow-up: <InlineEdit value={f.follow_up} type="date" onSave={(val) => updateFarmacia(f.id, 'follow_up', val)} />
+                                            </span>
                                         </div>
-                                        <div>
-                                            <label style={{ fontSize: '10px', color: 'var(--text-dim)', display: 'block', marginBottom: '4px' }}>LOCALITÀ</label>
-                                            <div style={{ fontSize: '14px' }}>
-                                                <InlineEdit value={f.citta} onSave={(val) => updateFarmacia(f.id, 'citta', val)} /> ({f.provincia})
+                                        <button className="btn btn-outline" onClick={() => setDetailModalId(null)}>✕</button>
+                                    </div>
+
+                                    {/* BLOCCO 1 — Anagrafica */}
+                                    <div style={{ background: '#0D1310', border: '1px solid var(--border)', borderRadius: '8px', padding: '16px', marginBottom: '12px' }}>
+                                        <label style={{ fontSize: '10px', color: 'var(--text-dim)', letterSpacing: '0.5px', display: 'block', marginBottom: '10px' }}>FARMACIA</label>
+                                        <div style={{ fontSize: '18px', fontWeight: 'bold', color: 'var(--bright-mint)', marginBottom: '6px' }}>
+                                            <InlineEdit value={f.nome} onSave={(val) => updateFarmacia(f.id, 'nome', val)} />
+                                        </div>
+                                        <div style={{ fontSize: '13px', color: 'var(--text-dim)', marginBottom: '4px' }}>
+                                            <InlineEdit value={f.citta} onSave={(val) => updateFarmacia(f.id, 'citta', val)} />
+                                            {' '}
+                                            (<InlineEdit value={f.provincia} onSave={(val) => updateFarmacia(f.id, 'provincia', val)} />)
+                                        </div>
+                                        <div style={{ fontSize: '12px', color: 'var(--text-dim)' }}>
+                                            <InlineEdit value={f.indirizzo || f.note} onSave={(val) => updateFarmacia(f.id, 'indirizzo', val)} />
+                                        </div>
+                                    </div>
+
+                                    {/* BLOCCO 2 — Comunicazione */}
+                                    <div style={{ background: '#0D1310', border: '1px solid var(--border)', borderRadius: '8px', padding: '16px', marginBottom: '12px' }}>
+                                        <label style={{ fontSize: '10px', color: 'var(--text-dim)', letterSpacing: '0.5px', display: 'block', marginBottom: '12px' }}>COMUNICAZIONE</label>
+                                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                                            <div>
+                                                <div style={{ fontSize: '10px', color: 'var(--text-dim)', marginBottom: '4px' }}>Chi segue</div>
+                                                <div style={{ fontSize: '14px', fontWeight: '500' }}>
+                                                    <InlineEdit value={f.gestore || ''} onSave={(val) => updateFarmacia(f.id, 'gestore', val)} />
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div>
-                                            <label style={{ fontSize: '10px', color: 'var(--text-dim)', display: 'block', marginBottom: '4px' }}>REFERENTE</label>
-                                            <div style={{ fontSize: '14px' }}>
-                                                <InlineEdit value={f.referente} onSave={(val) => updateFarmacia(f.id, 'referente', val)} />
+                                            <div>
+                                                <div style={{ fontSize: '10px', color: 'var(--text-dim)', marginBottom: '4px' }}>Referente farmacia</div>
+                                                <div style={{ fontSize: '14px', fontWeight: '500' }}>
+                                                    <InlineEdit value={f.referente} onSave={(val) => updateFarmacia(f.id, 'referente', val)} />
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div>
-                                            <label style={{ fontSize: '10px', color: 'var(--text-dim)', display: 'block', marginBottom: '4px' }}>TELEFONO</label>
-                                            <div style={{ fontSize: '14px' }}>
-                                                <InlineEdit value={f.telefono} onSave={(val) => updateFarmacia(f.id, 'telefono', val)} />
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <label style={{ fontSize: '10px', color: 'var(--text-dim)', display: 'block', marginBottom: '4px' }}>FOLLOW-UP</label>
-                                            <div style={{ fontSize: '14px' }}>
-                                                <InlineEdit value={f.follow_up} type="date" onSave={(val) => updateFarmacia(f.id, 'follow_up', val)} />
+                                            <div style={{ gridColumn: '2' }}>
+                                                <div style={{ fontSize: '10px', color: 'var(--text-dim)', marginBottom: '4px' }}>Telefono referente</div>
+                                                <div style={{ fontSize: '14px', fontWeight: '500', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                                    <InlineEdit value={f.telefono} onSave={(val) => updateFarmacia(f.id, 'telefono', val)} />
+                                                    {f.telefono && (
+                                                        <a href={`tel:${f.telefono}`} style={{ color: 'var(--bright-mint)', fontSize: '16px', lineHeight: 1 }} title="Chiama">📞</a>
+                                                    )}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div style={{ marginTop: '24px', background: '#0D1310', padding: '16px', borderRadius: '8px', border: '1px solid var(--border)' }}>
-                                        <label style={{ fontSize: '10px', color: 'var(--text-dim)', display: 'block', marginBottom: '8px' }}>ADESIONI E PARTECIPANTI</label>
-                                        <div style={{ display: 'flex', gap: '24px' }}>
+                                    {/* BLOCCO 3 — Adesioni */}
+                                    <div style={{ background: '#0D1310', border: '1px solid var(--border)', borderRadius: '8px', padding: '16px', marginBottom: '12px' }}>
+                                        <label style={{ fontSize: '10px', color: 'var(--text-dim)', letterSpacing: '0.5px', display: 'block', marginBottom: '12px' }}>ADESIONI</label>
+                                        <div style={{ display: 'flex', gap: '32px' }}>
                                             <div>
-                                                <div style={{ fontSize: '20px', fontWeight: 'bold' }}>
+                                                <div style={{ fontSize: '24px', fontWeight: 'bold' }}>
                                                     <InlineEdit type="number" value={f.farmacisti_vengono} onSave={(val) => updateFarmacia(f.id, 'farmacisti_vengono', parseInt(val))} />
                                                 </div>
-                                                <div style={{ fontSize: '10px', color: 'var(--text-dim)' }}>Farmacisti</div>
+                                                <div style={{ fontSize: '11px', color: 'var(--text-dim)' }}>Farmacisti</div>
                                             </div>
                                             <div>
-                                                <div style={{ fontSize: '20px', fontWeight: 'bold' }}>
+                                                <div style={{ fontSize: '24px', fontWeight: 'bold' }}>
                                                     <InlineEdit type="number" value={f.extra_nonfarmacisti} onSave={(val) => updateFarmacia(f.id, 'extra_nonfarmacisti', parseInt(val))} />
                                                 </div>
-                                                <div style={{ fontSize: '10px', color: 'var(--text-dim)' }}>Extra</div>
+                                                <div style={{ fontSize: '11px', color: 'var(--text-dim)' }}>Accompagnatori</div>
                                             </div>
                                             <div style={{ marginLeft: 'auto', textAlign: 'right' }}>
-                                                <div style={{ fontSize: '20px', fontWeight: 'bold', color: 'var(--bright-mint)' }}>
+                                                <div style={{ fontSize: '24px', fontWeight: 'bold', color: 'var(--bright-mint)' }}>
                                                     {(parseInt(f.farmacisti_vengono) || 0) + (parseInt(f.extra_nonfarmacisti) || 0)}
                                                 </div>
-                                                <div style={{ fontSize: '10px', color: 'var(--text-dim)' }}>Totale Ospiti</div>
+                                                <div style={{ fontSize: '11px', color: 'var(--text-dim)' }}>Totale</div>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div style={{ marginTop: '24px' }}>
-                                        <label style={{ fontSize: '10px', color: 'var(--text-dim)', display: 'block', marginBottom: '8px' }}>NOTE E OSSERVAZIONI</label>
-                                        <textarea 
-                                            value={f.note} 
+                                    {/* BLOCCO 4 — Note */}
+                                    <div style={{ marginBottom: '20px' }}>
+                                        <label style={{ fontSize: '10px', color: 'var(--text-dim)', letterSpacing: '0.5px', display: 'block', marginBottom: '8px' }}>NOTE</label>
+                                        <textarea
+                                            value={f.note}
                                             onChange={(e) => updateFarmacia(f.id, 'note', e.target.value)}
-                                            style={{ width: '100%', height: '100px', resize: 'none', background: '#0D1310', border: '1px solid var(--border)', padding: '12px' }}
-                                            placeholder="Inserisci note qui..."
+                                            style={{ width: '100%', height: '80px', resize: 'none', background: '#0D1310', border: '1px solid var(--border)', padding: '10px', borderRadius: '6px', color: 'var(--text-main)', fontSize: '13px' }}
+                                            placeholder="Note libere..."
                                         />
                                     </div>
 
-                                    <div style={{ marginTop: '24px', display: 'flex', justifyContent: 'flex-end' }}>
-                                        <button className="btn btn-primary" onClick={() => setDetailModalId(null)}>Salva ed Esci</button>
+                                    <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                                        <button className="btn btn-primary" onClick={() => setDetailModalId(null)}>Chiudi</button>
                                     </div>
                                 </div>
                             </div>
@@ -1761,22 +1792,26 @@
                                     <div className="input-group"><label>Nome</label><input name="nome" required /></div>
                                     <div className="input-group"><label>Cognome</label><input name="cognome" required /></div>
                                     
-                                    <div className="input-group" style={{ marginBottom: '4px' }}>
-                                        <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
-                                            <input type="checkbox" checked={isNewFarmacia} onChange={e => setIsNewFarmacia(e.target.checked)} style={{ width: 'auto' }} />
-                                            <span>Farmacia non in lista</span>
-                                        </label>
-                                    </div>
-
                                     <div className="input-group">
                                         <label>Farmacia</label>
-                                        {isNewFarmacia ? (
-                                            <input name="farmacia" placeholder="Inserisci nome farmacia..." required />
-                                        ) : (
-                                            <select name="farmacia" required>
-                                                <option value="">Seleziona...</option>
-                                                {farmacie.map(f => <option key={f.id} value={f.nome}>{f.nome}</option>)}
-                                            </select>
+                                        <select 
+                                            name={isNewFarmacia ? "" : "farmacia"} 
+                                            onChange={(e) => setIsNewFarmacia(e.target.value === "NEW")}
+                                            required={!isNewFarmacia}
+                                            style={{ marginBottom: isNewFarmacia ? '12px' : '0' }}
+                                        >
+                                            <option value="">Seleziona...</option>
+                                            <option value="NEW" style={{ fontWeight: 'bold', color: 'var(--bright-mint)' }}>+ Farmacia non in lista...</option>
+                                            {farmacie.map(f => <option key={f.id} value={f.nome}>{f.nome}</option>)}
+                                        </select>
+                                        
+                                        {isNewFarmacia && (
+                                            <input 
+                                                name="farmacia" 
+                                                placeholder="Inserisci nome nuova farmacia..." 
+                                                required 
+                                                autoFocus
+                                            />
                                         )}
                                     </div>
 
