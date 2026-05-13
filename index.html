@@ -182,6 +182,10 @@
             gap: 8px;
         }
 
+        .status-card-hover:hover {
+            background: rgba(0, 230, 118, 0.05);
+        }
+
         @media (max-width: 768px) {
             .pipeline-grid {
                 grid-template-columns: repeat(3, 1fr);
@@ -821,7 +825,7 @@
             );
         };
 
-        const Dashboard = ({ data, sede, sponsors, setActiveTab }) => {
+        const Dashboard = ({ data, sede, sponsors, setActiveTab, setStatusFilter }) => {
             const confirmedPharmacists = data.reduce((acc, curr) => acc + (parseInt(curr.farmacisti_vengono) || 0), 0);
             const extraParticipants = data.reduce((acc, curr) => acc + (parseInt(curr.extra_nonfarmacisti) || 0), 0);
             const totalParticipants = confirmedPharmacists + extraParticipants;
@@ -835,6 +839,11 @@
             const missingToNext = totalParticipants < 50 ? 50 - totalParticipants : 
                                   totalParticipants < 100 ? 100 - totalParticipants : 
                                   totalParticipants < 200 ? 200 - totalParticipants : 0;
+
+            const handleStatusClick = (status) => {
+                setStatusFilter(status);
+                setActiveTab('crm');
+            };
 
             return (
                 <div className="dashboard-grid fade-in">
@@ -907,7 +916,12 @@
 
                         <div className="pipeline-grid">
                             {['Da contattare', 'Contattato', 'Interessato', 'Confermato', 'Follow-up'].map(s => (
-                                <div key={s} style={{ borderRight: '1px solid var(--border)', padding: '4px' }}>
+                                <div 
+                                    key={s} 
+                                    style={{ borderRight: '1px solid var(--border)', padding: '4px', cursor: 'pointer' }}
+                                    onClick={() => handleStatusClick(s)}
+                                    className="status-card-hover"
+                                >
                                     <div style={{ fontSize: '9px', color: 'var(--text-dim)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                                         {s === 'Follow-up' ? 'F-UP' : s.toUpperCase()}
                                     </div>
@@ -941,10 +955,9 @@
             );
         };
 
-        const CRM = ({ farmacie, onUpdate }) => {
+        const CRM = ({ farmacie, onUpdate, statusFilter, setStatusFilter }) => {
             const [expandedId, setExpandedId] = useState(null);
             const [filter, setFilter] = useState('');
-            const [statusFilter, setStatusFilter] = useState('Tutti');
             const [sortConfig, setSortConfig] = useState({ key: 'nome', direction: 'asc' });
             const [isModalOpen, setIsModalOpen] = useState(false);
             const [confirm, setConfirm] = useState(null);
@@ -1687,6 +1700,7 @@
         };
         const App = () => {
             const [activeTab, setActiveTab] = useState('dashboard');
+            const [crmStatusFilter, setCrmStatusFilter] = useState('Tutti');
             const [farmacie, setFarmacie] = useState(INITIAL_FARMACIE);
             const [sedi, setSedi] = useState(INITIAL_SEDI);
             const [activeSedeId, setActiveSedeId] = useState(1);
@@ -1825,8 +1839,23 @@
                 if (isLoading) return <div style={{ display: 'flex', height: '100%', alignItems: 'center', justifyContent: 'center' }}>Caricamento dati...</div>;
                 
                 switch(activeTab) {
-                    case 'dashboard': return <Dashboard data={farmacie} sede={activeSede} sponsors={sponsors} setActiveTab={setActiveTab} />;
-                    case 'crm': return <CRM farmacie={farmacie} onUpdate={updateFarmacie} />;
+                    case 'dashboard': return (
+                        <Dashboard 
+                            data={farmacie} 
+                            sede={activeSede} 
+                            sponsors={sponsors} 
+                            setActiveTab={setActiveTab} 
+                            setStatusFilter={setCrmStatusFilter}
+                        />
+                    );
+                    case 'crm': return (
+                        <CRM 
+                            farmacie={farmacie} 
+                            onUpdate={updateFarmacie} 
+                            statusFilter={crmStatusFilter}
+                            setStatusFilter={setCrmStatusFilter}
+                        />
+                    );
                     case 'sede': return <Sede sedi={sedi} onUpdate={updateSedi} activeSedeId={activeSedeId} setActiveSedeId={setActiveSedeId} />;
                     case 'sponsors': return <Sponsors sponsors={sponsors} onUpdate={updateSponsors} />;
                     case 'partecipanti': return <Partecipanti partecipanti={partecipanti} farmacie={farmacie} onUpdate={updatePartecipanti} />;
