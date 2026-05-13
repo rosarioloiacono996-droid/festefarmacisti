@@ -925,68 +925,32 @@
                         </div>
                     </div>
 
-                    {/* Mid Row: Status breakdown */}
+                    {/* Bottom Row: Azione Corrente */}
                     <div className="card" style={{ gridColumn: "span 3" }}>
-                        <div className="card-title">Pipeline Contatti</div>
-                        
-                        {/* Pipeline Bar Chart */}
-                        <div style={{ 
-                            height: '10px', 
-                            display: 'flex', 
-                            borderRadius: '5px', 
-                            overflow: 'hidden', 
-                            background: 'var(--border)', 
-                            marginBottom: '16px' 
-                        }}>
-                            {['Da contattare', 'Contattato', 'Interessato', 'Confermato', 'Follow-up'].map((s, idx) => {
-                                const count = data.filter(f => f.stato === s).length;
-                                const width = data.length > 0 ? (count / data.length) * 100 : 0;
-                                const colors = ['#555', '#4A90E2', '#FFD700', 'var(--bright-mint)', '#FF8C00'];
-                                return (
-                                    <div 
-                                        key={s} 
-                                        style={{ width: `${width}%`, background: colors[idx], height: '100%', transition: 'width 0.5s ease' }}
-                                        title={`${s}: ${count}`}
-                                    ></div>
-                                );
-                            })}
-                        </div>
-
-                        <div className="pipeline-grid">
-                            {['Da contattare', 'Contattato', 'Interessato', 'Confermato', 'Follow-up'].map(s => (
-                                <div 
-                                    key={s} 
-                                    style={{ borderRight: '1px solid var(--border)', padding: '4px', cursor: 'pointer' }}
-                                    onClick={() => handleStatusClick(s)}
-                                    className="status-card-hover"
-                                >
-                                    <div style={{ fontSize: '9px', color: 'var(--text-dim)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                                        {s === 'Follow-up' ? 'F-UP' : s.toUpperCase()}
-                                    </div>
-                                    <div style={{ fontSize: '18px', fontWeight: 'bold' }}>
-                                        {data.filter(f => f.stato === s).length}
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-
-                    {/* Bottom Row: Quick Summary or Reminders */}
-                    <div className="card" style={{ gridColumn: "span 3", flexGrow: 1 }}>
                         <div className="card-title">Azione Corrente</div>
                         <div style={{ display: 'flex', gap: '16px', alignItems: 'center', flexWrap: 'wrap' }}>
                             <div className="big-number" style={{ fontSize: '20px' }}>FASE 1</div>
-                            <div style={{ color: 'var(--text-dim)', flex: 1, minWidth: '200px' }}>
+                            <div style={{ color: 'var(--text-dim)', flex: 1, minWidth: '160px' }}>
                                 Mancano <b>{missingToNext}</b> partecipanti per raggiungere l'obiettivo della Fase 1 (50).
                             </div>
-                            <button 
-                                className="btn btn-primary" 
-                                style={{ padding: '10px 20px', borderRadius: '8px' }}
-                                onClick={() => setActiveTab('partecipanti')}
-                            >
-                                <i data-lucide="users" style={{ width: '16px', marginRight: '8px', verticalAlign: 'middle' }}></i>
-                                Vedi Lista Partecipanti
-                            </button>
+                        </div>
+                    </div>
+
+                    {/* Farmacie Coinvolte KPI */}
+                    <div className="card" style={{ gridColumn: "span 3", cursor: 'pointer' }} onClick={() => setActiveTab('crm')}>
+                        <div className="card-title">Farmacie Coinvolte</div>
+                        <div style={{ display: 'flex', alignItems: 'flex-end', gap: '12px', marginBottom: '8px' }}>
+                            <div className="big-number">{data.filter(f => f.conosciuto).length}</div>
+                            <div style={{ marginBottom: '6px', color: 'var(--text-dim)' }}>su {data.length} totali</div>
+                        </div>
+                        <div className="progress-container">
+                            <div className="progress-bar" style={{ width: `${data.length > 0 ? (data.filter(f => f.conosciuto).length / data.length) * 100 : 0}%` }}></div>
+                        </div>
+                        <div style={{ marginTop: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '11px' }}>
+                            <span style={{ color: 'var(--text-dim)' }}>{data.filter(f => !f.conosciuto).length} ancora da contattare</span>
+                            <span style={{ color: 'var(--bright-mint)', fontWeight: 'bold' }}>
+                                Vai al CRM →
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -1002,7 +966,22 @@
             const [confirm, setConfirm] = useState(null);
 
             const updateFarmacia = (id, field, newValue) => {
-                const updated = farmacie.map(f => f.id === id ? { ...f, [field]: newValue } : f);
+                const updated = farmacie.map(f => {
+                    if (f.id === id) {
+                        let updatedItem = { ...f, [field]: newValue };
+                        // Se aggiorniamo l'indirizzo, puliamo le note se contengono lo stesso indirizzo
+                        if (field === 'indirizzo' && newValue && updatedItem.note) {
+                            const cleanAddr = newValue.toLowerCase().trim();
+                            updatedItem.note = updatedItem.note
+                                .split('\n')
+                                .filter(line => !line.toLowerCase().includes(cleanAddr) && !line.toLowerCase().includes('indirizzo:'))
+                                .join('\n')
+                                .trim();
+                        }
+                        return updatedItem;
+                    }
+                    return f;
+                });
                 onUpdate(updated);
             };
 
@@ -1143,7 +1122,10 @@
                                                 <input 
                                                     type="checkbox" 
                                                     checked={!!f.conosciuto} 
-                                                    onChange={(e) => updateFarmacia(f.id, 'conosciuto', e.target.checked)}
+                                                    onChange={(e) => { 
+                                                        updateFarmacia(f.id, 'conosciuto', e.target.checked);
+                                                        if (e.target.checked) setDetailModalId(f.id);
+                                                    }}
                                                     style={{ width: '18px', height: '18px', cursor: 'pointer' }}
                                                 />
                                             </td>
@@ -1267,7 +1249,7 @@
                                         <label style={{ fontSize: '10px', color: 'var(--text-dim)', letterSpacing: '0.5px', display: 'block', marginBottom: '12px' }}>COMUNICAZIONE</label>
                                         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
                                             <div>
-                                                <div style={{ fontSize: '10px', color: 'var(--text-dim)', marginBottom: '4px' }}>Chi segue</div>
+                                                <div style={{ fontSize: '10px', color: 'var(--text-dim)', marginBottom: '4px' }}>Chi di noi la conosce?</div>
                                                 <div style={{ fontSize: '14px', fontWeight: '500' }}>
                                                     <InlineEdit value={f.gestore || ''} onSave={(val) => updateFarmacia(f.id, 'gestore', val)} />
                                                 </div>
@@ -2131,12 +2113,6 @@
                         <div className={`nav-item ${activeTab === 'dashboard' ? 'active' : ''}`} onClick={() => setActiveTab('dashboard')}>
                             <i data-lucide="layout-dashboard"></i> Dashboard
                         </div>
-                        <div className={`nav-item ${activeTab === 'crm' ? 'active' : ''}`} onClick={() => setActiveTab('crm')}>
-                            <i data-lucide="building-2"></i> CRM Farmacie
-                        </div>
-                        <div className={`nav-item ${activeTab === 'partecipanti' ? 'active' : ''}`} onClick={() => setActiveTab('partecipanti')}>
-                            <i data-lucide="users"></i> Partecipanti
-                        </div>
                         <div className={`nav-item ${activeTab === 'roadmap' ? 'active' : ''}`} onClick={() => setActiveTab('roadmap')}>
                             <i data-lucide="milestone"></i> Roadmap
                         </div>
@@ -2168,6 +2144,8 @@
 
         const Menu = ({ setActiveTab, supabaseClient }) => {
             const menuItems = [
+                { id: 'crm', label: 'CRM Farmacie', icon: 'building-2', desc: 'Gestisci e monitora le farmacie' },
+                { id: 'partecipanti', label: 'Partecipanti', icon: 'users', desc: 'Lista iscritti all\'evento' },
                 { id: 'sede', label: 'Gestione Sede', icon: 'map-pin', desc: 'Dettagli e costi location' },
                 { id: 'sponsors', label: 'Sponsor & Partner', icon: 'dollar-sign', desc: 'Budget e contributi' },
                 { id: 'settings', label: 'Impostazioni Cloud', icon: 'settings', desc: 'Configurazione Supabase e Backup' },
