@@ -491,6 +491,14 @@
             .roadmap-container {
                 grid-template-columns: 1fr;
                 gap: 24px;
+                padding-top: 10px;
+            }
+
+            .milestones-card {
+                width: 100%;
+                position: static;
+                order: -1; /* Show milestones at top on mobile? Or bottom? Let's go bottom for better flow. Actually order: 2 */
+                order: 2;
             }
 
             .compact-table-container {
@@ -1501,12 +1509,12 @@
                                     {p.stato}
                                 </div>
 
-                                <div style={{ marginTop: '12px', width: '400px' }}>
+                                <div style={{ marginTop: '12px', maxWidth: '100%', width: '450px' }}>
                                     <textarea 
                                         placeholder="Note libere..." 
                                         value={p.note}
                                         onChange={(e) => updatePhase(p.id, 'note', e.target.value)}
-                                        style={{ height: '80px', resize: 'none', background: '#0D1310', border: '1px solid #1D2622' }}
+                                        style={{ width: '100%', height: '80px', resize: 'none', background: '#0D1310', border: '1px solid #1D2622' }}
                                     />
                                 </div>
                             </div>
