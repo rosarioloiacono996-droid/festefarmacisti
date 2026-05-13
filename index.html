@@ -348,11 +348,14 @@
             grid-template-columns: 1fr 300px;
             gap: 32px;
             padding-top: 20px;
+            min-width: 0; /* evita overflow su flex/grid */
         }
 
         .timeline {
             position: relative;
-            padding-left: 30px;
+            padding-left: 24px;
+            min-width: 0;
+            overflow: hidden;
         }
 
         .timeline-line {
@@ -366,15 +369,16 @@
 
         .timeline-item {
             position: relative;
-            margin-bottom: 40px;
+            margin-bottom: 28px;
+            min-width: 0;
         }
 
         .timeline-dot {
             position: absolute;
-            left: -30px;
+            left: -24px;
             top: 6px;
-            width: 12px;
-            height: 12px;
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
             background: var(--bright-mint);
             border: 2px solid var(--bg-dark);
@@ -388,33 +392,33 @@
         .roadmap-phase-num {
             font-size: 10px;
             color: var(--text-dim);
-            margin-bottom: 4px;
+            margin-bottom: 2px;
         }
 
         .roadmap-phase-title {
             font-family: var(--font-title);
-            font-size: 16px;
-            margin-bottom: 12px;
+            font-size: 14px;
+            margin-bottom: 8px;
         }
 
         .checklist {
             list-style: none;
             padding: 0;
-            margin-bottom: 16px;
+            margin-bottom: 10px;
         }
 
         .checklist li {
             font-size: 12px;
             color: var(--text-dim);
-            margin-bottom: 6px;
+            margin-bottom: 4px;
             display: flex;
-            align-items: center;
+            align-items: flex-start; /* wrap su testo lungo */
+            gap: 6px;
+            line-height: 1.4;
         }
 
         .checklist li::before {
-            content: "•";
-            color: var(--bright-mint);
-            margin-right: 8px;
+            content: none; /* rimosso: il bullet lo gestisce la checkbox custom */
         }
 
         .roadmap-badge {
@@ -860,8 +864,10 @@
             const progress = (totalParticipants / goal) * 100;
 
             const totalSponsorship = sponsors.reduce((acc, curr) => acc + (parseInt(curr.importo) || 0), 0);
-            const estimatedRevenue = totalParticipants * sede.costo_persona;
-            const financialBalance = (estimatedRevenue + totalSponsorship) - sede.costo_totale;
+            const costRemaining = Math.max(0, sede.costo_totale - totalSponsorship);
+            const suggestedTicketPrice = totalParticipants > 0 ? Math.ceil(costRemaining / totalParticipants) : 0;
+            
+            const financialBalance = (totalParticipants * sede.costo_persona + totalSponsorship) - sede.costo_totale;
 
             const missingToNext = totalParticipants < 50 ? 50 - totalParticipants : 
                                   totalParticipants < 100 ? 100 - totalParticipants : 
@@ -893,16 +899,17 @@
                     </div>
 
                     <div className="card">
-                        <div className="card-title">Conto Economico</div>
+                        <div className="card-title" style={{ fontSize: '10px' }}>Soldi da raccogliere per renderlo gratuito</div>
                         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4px', fontSize: '11px' }}>
                             <span>Costi Sede:</span><span style={{ textAlign: 'right' }}>€{sede.costo_totale}</span>
-                            <span>Biglietti Est:</span><span style={{ textAlign: 'right' }}>€{estimatedRevenue}</span>
                             <span>Sponsor:</span><span style={{ textAlign: 'right' }}>€{totalSponsorship}</span>
+                            <span style={{ color: 'var(--bright-mint)', fontWeight: 'bold' }}>Rimanente:</span>
+                            <span style={{ textAlign: 'right', color: 'var(--bright-mint)', fontWeight: 'bold' }}>€{costRemaining}</span>
                         </div>
-                        <div style={{ borderTop: '1px solid var(--border)', marginTop: '8px', paddingTop: '8px', display: 'flex', justifyContent: 'space-between' }}>
-                            <span style={{ fontWeight: 'bold' }}>Bilancio:</span>
-                            <span style={{ color: financialBalance >= 0 ? 'var(--bright-mint)' : '#FF5252', fontWeight: 'bold' }}>
-                                €{financialBalance}
+                        <div style={{ borderTop: '1px solid var(--border)', marginTop: '8px', paddingTop: '8px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <span style={{ fontSize: '10px' }}>Costo partecipanti:</span>
+                            <span style={{ color: 'var(--bright-mint)', fontWeight: 'bold', fontSize: '14px' }}>
+                                €{suggestedTicketPrice}
                             </span>
                         </div>
                     </div>
@@ -1706,12 +1713,13 @@
                                     {p.stato}
                                 </div>
 
-                                <div style={{ marginTop: '12px', maxWidth: '100%', width: '450px' }}>
-                                    <textarea 
-                                        placeholder="Note libere..." 
+                                <div style={{ marginTop: '12px', width: '100%' }}>
+                                    <textarea
+                                        placeholder="Note libere..."
                                         value={p.note}
                                         onChange={(e) => updatePhase(p.id, 'note', e.target.value)}
-                                        style={{ width: '100%', height: '80px', resize: 'none', background: '#0D1310', border: '1px solid #1D2622' }}
+                                        style={{ width: '100%', minHeight: '60px', height: 'auto', resize: 'vertical', background: '#0D1310', border: '1px solid #1D2622', borderRadius: '4px', padding: '8px', fontSize: '12px', lineHeight: '1.5', color: 'var(--text-main)', boxSizing: 'border-box' }}
+                                        rows={Math.max(2, (p.note || '').split('\n').length)}
                                     />
                                 </div>
                             </div>
