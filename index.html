@@ -1821,6 +1821,12 @@
                     case 'sponsors': return <Sponsors sponsors={sponsors} onUpdate={updateSponsors} />;
                     case 'partecipanti': return <Partecipanti partecipanti={partecipanti} farmacie={farmacie} onUpdate={updatePartecipanti} />;
                     case 'roadmap': return <Roadmap phases={roadmap} onUpdate={updateRoadmap} />;
+                    case 'menu': return (
+                        <Menu 
+                            setActiveTab={setActiveTab} 
+                            supabaseClient={supabaseClient}
+                        />
+                    );
                     case 'settings': return (
                         <Settings 
                             url={supabaseKey} 
@@ -1848,17 +1854,11 @@
                         <div className={`nav-item ${activeTab === 'partecipanti' ? 'active' : ''}`} onClick={() => setActiveTab('partecipanti')}>
                             <i data-lucide="users"></i> Partecipanti
                         </div>
-                        <div className={`nav-item ${activeTab === 'sede' ? 'active' : ''}`} onClick={() => setActiveTab('sede')}>
-                            <i data-lucide="map-pin"></i> Sede
-                        </div>
-                        <div className={`nav-item ${activeTab === 'sponsors' ? 'active' : ''}`} onClick={() => setActiveTab('sponsors')}>
-                            <i data-lucide="dollar-sign"></i> Sponsor
-                        </div>
                         <div className={`nav-item ${activeTab === 'roadmap' ? 'active' : ''}`} onClick={() => setActiveTab('roadmap')}>
                             <i data-lucide="milestone"></i> Roadmap
                         </div>
-                        <div className={`nav-item ${activeTab === 'settings' ? 'active' : ''}`} onClick={() => setActiveTab('settings')}>
-                            <i data-lucide="settings"></i> Impostazioni
+                        <div className={`nav-item ${activeTab === 'menu' ? 'active' : ''}`} onClick={() => setActiveTab('menu')}>
+                            <i data-lucide="more-horizontal"></i> Altro
                         </div>
                         
                         <div style={{ 
@@ -1880,6 +1880,72 @@
                         {renderContent()}
                     </main>
                 </React.Fragment>
+            );
+        };
+
+        const Menu = ({ setActiveTab, supabaseClient }) => {
+            const menuItems = [
+                { id: 'sede', label: 'Gestione Sede', icon: 'map-pin', desc: 'Dettagli e costi location' },
+                { id: 'sponsors', label: 'Sponsor & Partner', icon: 'dollar-sign', desc: 'Budget e contributi' },
+                { id: 'settings', label: 'Impostazioni Cloud', icon: 'settings', desc: 'Configurazione Supabase e Backup' },
+            ];
+
+            return (
+                <div className="fade-in" style={{ maxWidth: '500px', margin: '0 auto' }}>
+                    <div className="card-title" style={{ marginBottom: '24px', textAlign: 'center' }}>Menu Avanzato</div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                        {menuItems.map(item => (
+                            <div 
+                                key={item.id} 
+                                className="card" 
+                                style={{ 
+                                    display: 'flex', 
+                                    alignItems: 'center', 
+                                    gap: '16px', 
+                                    cursor: 'pointer',
+                                    padding: '20px',
+                                    transition: 'transform 0.2s, background 0.2s',
+                                    border: '1px solid var(--border)'
+                                }}
+                                onClick={() => setActiveTab(item.id)}
+                                onMouseEnter={(e) => e.currentTarget.style.background = '#1A2621'}
+                                onMouseLeave={(e) => e.currentTarget.style.background = 'var(--card-bg)'}
+                            >
+                                <div style={{ 
+                                    width: '40px', 
+                                    height: '40px', 
+                                    borderRadius: '12px', 
+                                    background: 'rgba(0, 230, 118, 0.1)', 
+                                    display: 'flex', 
+                                    alignItems: 'center', 
+                                    justifyContent: 'center' 
+                                }}>
+                                    <i data-lucide={item.icon} style={{ color: 'var(--bright-mint)', width: '20px' }}></i>
+                                </div>
+                                <div style={{ flexGrow: 1 }}>
+                                    <div style={{ fontWeight: 'bold', fontSize: '16px' }}>{item.label}</div>
+                                    <div style={{ fontSize: '12px', color: 'var(--text-dim)' }}>{item.desc}</div>
+                                </div>
+                                <i data-lucide="chevron-right" style={{ width: '16px', color: 'var(--text-dim)' }}></i>
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className="card" style={{ marginTop: '32px', textAlign: 'center', background: 'transparent', border: '1px dashed var(--border)' }}>
+                        <div style={{ 
+                            fontSize: '11px', 
+                            color: supabaseClient ? 'var(--bright-mint)' : '#FF5252',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            gap: '8px'
+                        }}>
+                            <i data-lucide={supabaseClient ? "cloud-check" : "cloud-off"} style={{ width: '14px' }}></i>
+                            {supabaseClient ? 'DATABASE SINCRONIZZATO' : 'MODALITÀ LOCALE'}
+                        </div>
+                        <div style={{ fontSize: '10px', color: 'var(--text-dim)', marginTop: '8px' }}>Versione 1.2.5 • PharmaConnect Manager</div>
+                    </div>
+                </div>
             );
         };
 
