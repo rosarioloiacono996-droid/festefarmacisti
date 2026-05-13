@@ -1613,32 +1613,41 @@
                                         <li 
                                             key={i} 
                                             className={item && item.completed ? 'completed' : ''}
-                                            onClick={() => {
-                                                try {
+                                            style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}
+                                        >
+                                            <div 
+                                                onClick={() => {
                                                     const newChecklist = p.checklist.map((c, idx) => 
                                                         idx === i ? { ...c, completed: !c.completed } : c
                                                     );
                                                     updatePhase(p.id, 'checklist', newChecklist);
-                                                } catch (err) {
-                                                    console.error("Errore aggiornamento checklist:", err);
-                                                }
-                                            }}
-                                            style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
-                                        >
-                                            <div style={{ 
-                                                width: '12px', 
-                                                height: '12px', 
-                                                border: '1px solid var(--border)', 
-                                                borderRadius: '2px',
-                                                background: item && item.completed ? 'var(--bright-mint)' : 'transparent',
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                                justifyContent: 'center',
-                                                flexShrink: 0
-                                            }}>
-                                                {item && item.completed && <i data-lucide="check" style={{ width: '10px', height: '10px', color: '#000', pointerEvents: 'none' }}></i>}
+                                                }}
+                                                style={{ 
+                                                    width: '18px', 
+                                                    height: '18px', 
+                                                    border: '1px solid var(--border)', 
+                                                    borderRadius: '4px',
+                                                    background: item && item.completed ? 'var(--bright-mint)' : 'transparent',
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    justifyContent: 'center',
+                                                    flexShrink: 0,
+                                                    cursor: 'pointer'
+                                                }}
+                                            >
+                                                {item && item.completed && <i data-lucide="check" style={{ width: '12px', height: '12px', color: '#000' }}></i>}
                                             </div>
-                                            <span>{item ? item.text : ''}</span>
+                                            <div style={{ flexGrow: 1, fontSize: '13px' }}>
+                                                <InlineEdit 
+                                                    value={item ? item.text : ''} 
+                                                    onSave={(val) => {
+                                                        const newChecklist = p.checklist.map((c, idx) => 
+                                                            idx === i ? { ...c, text: val } : c
+                                                        );
+                                                        updatePhase(p.id, 'checklist', newChecklist);
+                                                    }} 
+                                                />
+                                            </div>
                                         </li>
                                     ))}
                                 </ul>
