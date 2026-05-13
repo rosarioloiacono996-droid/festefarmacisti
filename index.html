@@ -1753,7 +1753,6 @@
             const [isModalOpen, setIsModalOpen] = useState(false);
             const [filter, setFilter] = useState('');
             const [confirm, setConfirm] = useState(null);
-            const [isNewFarmacia, setIsNewFarmacia] = useState(false);
 
             const addPartecipante = (p) => {
                 onUpdate([...partecipanti, { ...p, id: Date.now() }]);
@@ -1802,25 +1801,16 @@
                                     
                                     <div className="input-group">
                                         <label>Farmacia</label>
-                                        <select 
-                                            name={isNewFarmacia ? "" : "farmacia"} 
-                                            onChange={(e) => setIsNewFarmacia(e.target.value === "NEW")}
-                                            required={!isNewFarmacia}
-                                            style={{ marginBottom: isNewFarmacia ? '12px' : '0' }}
-                                        >
-                                            <option value="">Seleziona...</option>
-                                            <option value="NEW" style={{ fontWeight: 'bold', color: 'var(--bright-mint)' }}>+ Farmacia non in lista...</option>
-                                            {farmacie.map(f => <option key={f.id} value={f.nome}>{f.nome}</option>)}
-                                        </select>
-                                        
-                                        {isNewFarmacia && (
-                                            <input 
-                                                name="farmacia" 
-                                                placeholder="Inserisci nome nuova farmacia..." 
-                                                required 
-                                                autoFocus
-                                            />
-                                        )}
+                                        <input 
+                                            name="farmacia" 
+                                            list="farmacie-list" 
+                                            placeholder="Cerca farmacia o scrivi nuova..." 
+                                            required 
+                                            autoComplete="off"
+                                        />
+                                        <datalist id="farmacie-list">
+                                            {farmacie.map(f => <option key={f.id} value={f.nome} />)}
+                                        </datalist>
                                     </div>
 
                                     <div className="input-group">
@@ -1844,7 +1834,7 @@
 
                                     <div style={{ display: 'flex', gap: '8px', marginTop: '16px' }}>
                                         <button type="submit" className="btn btn-primary">Salva</button>
-                                        <button type="button" className="btn btn-outline" onClick={() => { setIsModalOpen(false); setIsNewFarmacia(false); }}>Annulla</button>
+                                        <button type="button" className="btn btn-outline" onClick={() => setIsModalOpen(false)}>Annulla</button>
                                     </div>
                                 </form>
                             </div>
