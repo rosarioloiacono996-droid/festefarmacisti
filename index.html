@@ -1056,6 +1056,7 @@
         const CRM = ({ farmacie, onUpdate, statusFilter, setStatusFilter }) => {
             const [expandedId, setExpandedId] = useState(null);
             const [filter, setFilter] = useState('');
+            const [flagFilter, setFlagFilter] = useState('tutti');
             const [detailModalId, setDetailModalId] = useState(null);
             const [sortConfig, setSortConfig] = useState({ key: 'nome', direction: 'asc' });
             const [isModalOpen, setIsModalOpen] = useState(false);
@@ -1108,7 +1109,8 @@
                 .filter(f => {
                     const matchesText = (f.nome + f.citta + (f.provincia || '')).toLowerCase().includes(filter.toLowerCase());
                     const matchesStatus = statusFilter === 'Tutti' || f.stato === statusFilter;
-                    return matchesText && matchesStatus;
+                    const matchesFlag = flagFilter === 'tutti' || (flagFilter === 'con' ? !!f.conosciuto : !f.conosciuto);
+                    return matchesText && matchesStatus && matchesFlag;
                 })
                 .sort((a, b) => {
                     let valA, valB;
@@ -1153,6 +1155,14 @@
                                 <option>Confermato</option>
                                 <option>Follow-up</option>
                                 <option>Non interessato</option>
+                            </select>
+                        </div>
+                        <div style={{ width: '120px' }}>
+                            <label style={{ fontSize: '10px', display: 'block', marginBottom: '4px', color: 'var(--text-dim)' }}>Conosci?</label>
+                            <select value={flagFilter} onChange={e => setFlagFilter(e.target.value)} style={{ width: '100%' }}>
+                                <option value="tutti">Tutte</option>
+                                <option value="con">✓ Conosciute</option>
+                                <option value="senza">— Da mappare</option>
                             </select>
                         </div>
                         <div style={{ display: 'flex', alignItems: 'flex-end' }}>
