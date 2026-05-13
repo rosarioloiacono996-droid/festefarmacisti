@@ -663,6 +663,8 @@
             { id: 2, nome: "Distribuzione X", referente: "Elena R.", importo: 500, pagato: "No" },
         ];
 
+        const INITIAL_PARTECIPANTI = [];
+
         const INITIAL_ROADMAP = [
             { 
                 id: 0, 
@@ -791,7 +793,7 @@
             );
         };
 
-        const Dashboard = ({ data, sede, sponsors }) => {
+        const Dashboard = ({ data, sede, sponsors, setActiveTab }) => {
             const confirmedPharmacists = data.reduce((acc, curr) => acc + (parseInt(curr.farmacisti_vengono) || 0), 0);
             const extraParticipants = data.reduce((acc, curr) => acc + (parseInt(curr.extra_nonfarmacisti) || 0), 0);
             const totalParticipants = confirmedPharmacists + extraParticipants;
@@ -818,9 +820,18 @@
                         <div className="progress-container">
                             <div className="progress-bar" style={{ width: `${Math.min(progress, 100)}%` }}></div>
                         </div>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px' }}>
-                            <span>{confirmedPharmacists} Farmacisti</span>
-                            <span>{extraParticipants} Extra</span>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', alignItems: 'center' }}>
+                            <div>
+                                <span>{confirmedPharmacists} Farmacisti</span>
+                                <span style={{ marginLeft: '12px' }}>{extraParticipants} Extra</span>
+                            </div>
+                            <button 
+                                className="btn btn-outline" 
+                                style={{ padding: '2px 8px', fontSize: '10px', height: 'auto', minHeight: 'auto' }}
+                                onClick={() => setActiveTab('partecipanti')} 
+                            >
+                                Vedi Lista
+                            </button>
                         </div>
                     </div>
 
@@ -1491,13 +1502,118 @@
         };
 
         // --- MAIN APP ---
-        const App = () => {
+        const Partecipanti = ({ partecipanti, farmacie, onUpdate }) => {
+            const [isModalOpen, setIsModalOpen] = useState(false);
+            const [filter, setFilter] = useState('');
+            const [confirm, setConfirm] = useState(null);
+
+            const addPartecipante = (p) => {
+                onUpdate([...partecipanti, { ...p, id: Date.now() }]);
+                setIsModalOpen(false);
+            };
+
+            const deletePartecipante = (id) => {
+                setConfirm({
+                    message: "Rimuovere questo partecipante?",
+                    onConfirm: () => {
+                        onUpdate(partecipanti.filter(p => p.id !== id));
+                        setConfirm(null);
+                    }
+                });
+            };
+
+            const filtered = partecipanti.filter(p => 
+                (p.nome + ' ' + p.cognome + ' ' + p.farmacia).toLowerCase().includes(filter.toLowerCase())
+            );
+
+            return (
+                <div className="fade-in">
+                    {confirm && <ConfirmModal message={confirm.message} onConfirm={confirm.onConfirm} onCancel={() => setConfirm(null)} />}
+                    <div style={{ display: 'flex', gap: '8px', marginBottom: '16px', background: '#111915', padding: '12px', borderRadius: '8px', alignItems: 'center' }}>
+                        <div style={{ flexGrow: 1 }}>
+                            <input 
+                                placeholder="Cerca partecipante..." 
+                                value={filter} 
+                                onChange={e => setFilter(e.target.value)}
+                            />
+                        </div>
+                        <button className="btn btn-primary" onClick={() => setIsModalOpen(true)}>+ Aggiungi</button>
+                    </div>
+
+                    {isModalOpen && (
+                        <div className="modal-overlay">
+                            <div className="modal">
+                                <div className="card-title">Nuovo Partecipante</div>
+                                <form onSubmit={(e) => {
+                                    e.preventDefault();
+                                    const fd = new FormData(e.target);
+                                    addPartecipante(Object.fromEntries(fd));
+                                }}>
+                                    <div className="input-group"><label>Nome</label><input name="nome" required /></div>
+                                    <div className="input-group"><label>Cognome</label><input name="cognome" required /></div>
+                                    <div className="input-group">
+                                        <label>Farmacia</label>
+                                        <select name="farmacia" required>
+                                            <option value="">Seleziona...</option>
+                                            {farmacie.map(f => <option key={f.id} value={f.nome}>{f.nome}</option>)}
+                                        </select>
+                                    </div>
+                                    <div className="input-group">
+                                        <label>Ruolo</label>
+                                        <select name="is_farmacista" required>
+                                            <option value="Sì">Farmacista</option>
+                                            <option value="No">Extra / Altro</option>
+                                        </select>
+                                    </div>
+                                    <div style={{ display: 'flex', gap: '8px', marginTop: '16px' }}>
+                                        <button type="submit" className="btn btn-primary">Salva</button>
+                                        <button type="button" className="btn btn-outline" onClick={() => setIsModalOpen(false)}>Annulla</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    )}
+
+                    <div className="compact-table-container">
+                        <table className="compact-table">
+                            <thead>
+                                <tr>
+                                    <th>Nome e Cognome</th>
+                                    <th>Farmacia</th>
+                                    <th>Ruolo</th>
+                                    <th style={{ width: '40px' }}></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {filtered.length > 0 ? filtered.map(p => (
+                                    <tr key={p.id}>
+                                        <td>{p.nome} {p.cognome}</td>
+                                        <td>{p.farmacia}</td>
+                                        <td>
+                                            <span className={`pill status-${p.is_farmacista === 'Sì' ? 'confermato' : 'contattato'}`}>
+                                                {p.is_farmacista === 'Sì' ? 'Farmacista' : 'Extra'}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <button className="btn-delete" onClick={() => deletePartecipante(p.id)}>🗑️</button>
+                                        </td>
+                                    </tr>
+                                )) : (
+                                    <tr><td colSpan="4" style={{ textAlign: 'center', padding: '20px', color: 'var(--text-dim)' }}>Nessun partecipante registrato.</td></tr>
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            );
+        };
             const [activeTab, setActiveTab] = useState('dashboard');
             const [farmacie, setFarmacie] = useState(INITIAL_FARMACIE);
             const [sedi, setSedi] = useState(INITIAL_SEDI);
             const [activeSedeId, setActiveSedeId] = useState(1);
             const [sponsors, setSponsors] = useState(INITIAL_SPONSOR);
             const [roadmap, setRoadmap] = useState(INITIAL_ROADMAP);
+            const [partecipanti, setPartecipanti] = useState(INITIAL_PARTECIPANTI);
             const [isLoading, setIsLoading] = useState(false);
             const [supabaseKey, setSupabaseKey] = useState(SUPABASE_KEY);
 
@@ -1552,6 +1668,7 @@
                         if (content.sedi) setSedi(content.sedi);
                         if (content.sponsors) setSponsors(content.sponsors);
                         if (content.roadmap) setRoadmap(content.roadmap);
+                        if (content.partecipanti) setPartecipanti(content.partecipanti);
                         window.alert("Dati caricati con successo da Supabase!");
                     } else {
                         window.alert("Database collegato ma vuoto. Usa 'Inizializza Database' per caricare i primi dati.");
@@ -1578,13 +1695,14 @@
                         roadmap: INITIAL_ROADMAP
                     };
                 } else if (type === 'all') {
-                    stateToSave = { farmacie, sedi, sponsors, roadmap };
+                    stateToSave = { farmacie, sedi, sponsors, roadmap, partecipanti };
                 } else {
                     stateToSave = {
                         farmacie: type === 'farmacie' ? newData : farmacie,
                         sedi: type === 'sedi' ? newData : sedi,
                         sponsors: type === 'sponsors' ? newData : sponsors,
-                        roadmap: type === 'roadmap' ? newData : roadmap
+                        roadmap: type === 'roadmap' ? newData : roadmap,
+                        partecipanti: type === 'partecipanti' ? newData : partecipanti
                     };
                 }
 
@@ -1622,15 +1740,17 @@
             const updateSedi = (data) => { setSedi(data); saveDataToSupabase('sedi', data); };
             const updateSponsors = (data) => { setSponsors(data); saveDataToSupabase('sponsors', data); };
             const updateRoadmap = (data) => { setRoadmap(data); saveDataToSupabase('roadmap', data); };
+            const updatePartecipanti = (data) => { setPartecipanti(data); saveDataToSupabase('partecipanti', data); };
 
             const renderContent = () => {
                 if (isLoading) return <div style={{ display: 'flex', height: '100%', alignItems: 'center', justifyContent: 'center' }}>Caricamento dati...</div>;
                 
                 switch(activeTab) {
-                    case 'dashboard': return <Dashboard data={farmacie} sede={activeSede} sponsors={sponsors} />;
+                    case 'dashboard': return <Dashboard data={farmacie} sede={activeSede} sponsors={sponsors} setActiveTab={setActiveTab} />;
                     case 'crm': return <CRM farmacie={farmacie} onUpdate={updateFarmacie} />;
                     case 'sede': return <Sede sedi={sedi} onUpdate={updateSedi} activeSedeId={activeSedeId} setActiveSedeId={setActiveSedeId} />;
                     case 'sponsors': return <Sponsors sponsors={sponsors} onUpdate={updateSponsors} />;
+                    case 'partecipanti': return <Partecipanti partecipanti={partecipanti} farmacie={farmacie} onUpdate={updatePartecipanti} />;
                     case 'roadmap': return <Roadmap phases={roadmap} onUpdate={updateRoadmap} />;
                     case 'settings': return (
                         <Settings 
@@ -1654,7 +1774,10 @@
                             <i data-lucide="layout-dashboard"></i> Dashboard
                         </div>
                         <div className={`nav-item ${activeTab === 'crm' ? 'active' : ''}`} onClick={() => setActiveTab('crm')}>
-                            <i data-lucide="users"></i> CRM Farmacie
+                            <i data-lucide="building-2"></i> CRM Farmacie
+                        </div>
+                        <div className={`nav-item ${activeTab === 'partecipanti' ? 'active' : ''}`} onClick={() => setActiveTab('partecipanti')}>
+                            <i data-lucide="users"></i> Partecipanti
                         </div>
                         <div className={`nav-item ${activeTab === 'sede' ? 'active' : ''}`} onClick={() => setActiveTab('sede')}>
                             <i data-lucide="map-pin"></i> Sede
